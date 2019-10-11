@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</loc>
+    <lastmod>2019-11-10T01:50:53.148Z</lastmod>
+    <data>
+        <display>
+        <title>记一次解决Oracle数据库中表主键不够用的问题</title>
+        <pubTime>2019-11-09T15:03:32.000Z</pubTime>
+        
+        <tag>Oracle</tag>
+         
+        <tag>PL/SQL</tag>
+         
+        <tag>Function</tag>
+         
+         
+           
+             
+              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.object.ws/2000/10/18/oracle-func-proc/</loc>
     <lastmod>2019-11-09T14:51:10.549Z</lastmod>
     <data>
@@ -43,30 +67,6 @@
            
              
               <breadCrumb title="NoSQL" url="http://www.object.ws/categories/NoSQL/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</loc>
-    <lastmod>2019-11-08T16:18:20.346Z</lastmod>
-    <data>
-        <display>
-        <title>记一次解决Oracle数据库中表主键不够用的问题</title>
-        <pubTime>2019-11-09T15:03:32.000Z</pubTime>
-        
-        <tag>Oracle</tag>
-         
-        <tag>PL/SQL</tag>
-         
-        <tag>Function</tag>
-         
-         
-           
-             
-              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
           
         </display>
     </data>
