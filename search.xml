@@ -14,6 +14,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Oracle PL/SQL 关于存储过程和存函数的使用]]></title>
+    <url>%2F2019%2F09%2F04%2Foracle-func-proc%2F</url>
+    <content type="text"><![CDATA[在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。 存储过程语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 存储函数语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 使用场景过程与函数的使用场景我们发现过程与函数的区别其实是不大的，一般我们都可以用函数来实现的时候， 也可以使用过程来实现…. 但是，总有些情况，使用函数比使用过程要好，使用过程比使用函数要好，那什么时候使用过程，什么时候使用函数呢？？？ 不难发现的是，函数是必定要有一个返回值的，当我们在调用的时候，接受返回值就直接获取就行了。 也就是说 当返回值只有一个参数的时候，那么就使用存储函数！ 当返回值没有参数或者多于一个参数的时候，那么就使用过程！]]></content>
+      <categories>
+        <category>Oracle</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+        <tag>Cursor</tag>
+        <tag>PL/SQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Oracle PL/SQL 关于游标的使用]]></title>
     <url>%2F2019%2F09%2F02%2Foracle-cursor%2F</url>
     <content type="text"><![CDATA[环境说明VirtualBox6.0、Vagrant2.2.3、CentOS7.6 、Dodkcer 18.09.7 、Oracle11G、 Docker Image：docker pull registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g PS：数据库运行VirtualBox虚拟机中的CentOS系统上的Docker容器中，使用Scott用户 游标简介游标是Oracle执行SQL与的内存区域。在数据库编程中，游标是内部数据结构，能够处理SQL查询结果。 游标是相对于上下文区域的句柄或者指针。借助于游标PL/SQL程序可以控制上下文区域,以及当语句执行时所发生的事情。 游标有两种类型，分别为隐式游标和显式游标: 隐式游标:每当SQL语句执行时，Oracle会自动声明一个隐式游标。用户不会感觉到这一点，并且不能控制或者处理隐式游标的信息。 显式游标:对于返回多行数据的任何查询，都可以为之定义显式游标，定义好的游标可以处理返回的每行数据。 游标属性在处理游标时，可能需要确定游标的状态。 以下是可以使用的游标属性列表。 属性 返回值 释义 %ISOPEN Boolean 游标处于打开状态返回TRUE %FOUND Boolean 执行成功，则返回TRUE;、没有执行被返回，则返回FALSE %NOTFOUND Boolean 执行了成功的FETCH，则返回FALSE、没有执行被返回，则返回TRUE %ROWCOUNT Number 返回从游标中所检索的记录数 PS: 如果声明了游标，但不打开，则返回INVALID_CURSOR，或者游标已关闭。 隐式游标隐式游标会自动的与每个DML语句(UPDATE、DELETE、INSERT)建立关联，所有的UPDATE、DELETE语句都有标识被当前操作所影响数据行集合的游标。隐式游标被用户处理INSERT、UPDATE、DELETE和SELETE INTO语句，在处理隐式游标的过程中，Oracle会自动执行OPEN、FETCH和CLOSE的操作。 INSERT 使用游标: 123456789101112set serveroutput on;begin INSERT INTO SCOTT.EMP (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO) VALUES (7986, &apos;Nathan&apos;, &apos;SYSDBA&apos;, 7698, TO_DATE(&apos;2019-09-04 00:00:00&apos;, &apos;YYYY-MM-DD HH24:MI:SS&apos;), 18621.00, null, 20); DBMS_OUTPUT.PUT_LINE(&apos;INSERT:EMP=&gt;受影响的行数是&apos;||SQL%ROWCOUNT||&apos;行&apos;);end;--执行结果:[2019-09-04 11:38:57] completed in 24 ms[2019-09-04 11:38:57] INSERT:EMP=&gt;受影响的行数是1行 SELECT INTO使用游标： 1234567891011121314151617set serveroutput on;declare ename varchar2(20); sal number;begin select emp.ename, emp.sal into ename , sal from emp where emp.empno = 7986; DBMS_OUTPUT.PUT_LINE(&apos;SELECT:EMP=&gt;&apos;||ename||&apos;的薪水是&apos;||sal);exception when NO_DATA_FOUND then DBMS_OUTPUT.PUT_LINE(&apos;SELECT:EMP=&gt;没有找到数据！&apos;);end;-- 执行结果:[2019-09-04 11:39:54] completed in 6 ms[2019-09-04 11:39:54] SELECT:EMP=&gt;Nathan的薪水是18621 UPDATE使用游标： 123456789set serveroutput on;begin update emp set emp.sal = 8000 where emp.empno = 7986; DBMS_OUTPUT.PUT_LINE(&apos;UPDATE:EMP=&gt;受影响的行数是&apos;||SQL%ROWCOUNT||&apos;行&apos;);end;-- 执行结果:[2019-09-04 11:40:28] completed in 168 ms[2019-09-04 11:40:28] UPDATE:EMP=&gt;受影响的行数是1行 DELETE使用游标： 123456789set serveroutput on;begin delete from emp where emp.empno = 7986; DBMS_OUTPUT.PUT_LINE(&apos;DELETE:EMP=&gt;受影响的行数是&apos;||SQL%ROWCOUNT||&apos;行&apos;);end;--执行结果:[2019-09-04 11:41:48] completed in 10 ms[2019-09-04 11:41:48] DELETE:EMP=&gt;受影响的行数是1行 显式游标相较于隐式游标，显式游标的好处是可以对程序进行更多的编程控制，隐式游标的效率没有显式游标的效率高，更难以捕获异常。显式游标的使用分为以下四步: 声明游标：在内存中建立游标的初始化环境 打开游标：打开已经声明好的游标，分配内存 检索游标：通过已经声明和打开的游标来检索数据 关闭游标：关闭，释放内存。 使用游标查询emp表中的员工名称以及薪水: 12345678910111213141516171819202122232425262728293031323334353637383940-- 开启输出set serveroutput on;-- 游标的declare -- 声明游标 cursor cur is select emp.ENAME,emp.SAL from emp; ename emp.ename%type; sal emp.sal%type;begin -- 打开游标 open cur; loop -- 检索数据 fetch cur into ename,sal; -- 当游标中没有数据的时候退出 exit when cur%notfound; DBMS_OUTPUT.PUT_LINE(ename|| &apos;的薪水是&apos;|| sal); end loop; -- 关闭游标 close cur;end;-- 执行结果:[2019-09-04 09:01:55] completed in 5 ms[2019-09-04 09:01:55] SMITH的薪水是800[2019-09-04 09:01:55] ALLEN的薪水是1600[2019-09-04 09:01:55] WARD的薪水是1250[2019-09-04 09:01:55] JONES的薪水是2975[2019-09-04 09:01:55] MARTIN的薪水是1250[2019-09-04 09:01:55] BLAKE的薪水是2850[2019-09-04 09:01:55] CLARK的薪水是2450[2019-09-04 09:01:55] SCOTT的薪水是3000[2019-09-04 09:01:55] KING的薪水是5000[2019-09-04 09:01:55] TURNER的薪水是1500[2019-09-04 09:01:55] ADAMS的薪水是1100[2019-09-04 09:01:55] JAMES的薪水是950[2019-09-04 09:01:55] FORD的薪水是3000[2019-09-04 09:01:55] MILLER的薪水是1300 Done.]]></content>
@@ -112,8 +125,8 @@
       </categories>
       <tags>
         <tag>CentOS</tag>
-        <tag>Docker</tag>
         <tag>WordPress</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -590,21 +603,30 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Oracle PL/SQL 关于存储过程和存函数的使用]]></title>
-    <url>%2F2000%2F09%2F04%2Foracle-func-proc%2F</url>
-    <content type="text"><![CDATA[存储过程存储函数]]></content>
+    <title><![CDATA[NSCA Part1-生物力学&生物能学]]></title>
+    <url>%2F2000%2F07%2F23%2Fnsca-part1-biology%2F</url>
+    <content type="text"><![CDATA[Nsca 生物力学 &amp; 生物能学]]></content>
       <categories>
-        <category>Oracle</category>
+        <category>Tools</category>
       </categories>
       <tags>
-        <tag>Oracle</tag>
-        <tag>Cursor</tag>
-        <tag>PL/SQL</tag>
+        <tag>Webpack</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[NSCA BASIC KONWLEDGE]]></title>
-    <url>%2F2000%2F04%2F11%2Fnsca-basic-knowledge%2F</url>
+    <title><![CDATA[NSCA Part1-抗阻训练 & 有氧训练的适应]]></title>
+    <url>%2F2000%2F07%2F23%2Fnsca-part1-train%2F</url>
+    <content type="text"><![CDATA[抗阻训练 &amp; 有氧训练的适应有氧训练的适应在有氧训练中，身体通过改变生理系统的过程来产生适应，以下表格是未经训练的人通过有氧训练产生的反应： 指标 反应 最大摄氧量 升高 安静心率 下降 运动心率(次最大) 下降 最大心率 不变或少量下降 动静脉氧差 升高 脉搏输出量 升高 心输出量 升高 收缩血压 不变或少量上升 肌肉的氧化能力 升高 重复的有氧运动的全部适应就是使身体更加有效，使得在每种水平的活动中，所有与器官所做的努力减少。]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>NSCA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[NSCA Part1-肌肉、神经、骨骼、心血管&呼吸系统的结构和功能]]></title>
+    <url>%2F2000%2F04%2F11%2Fnsca-part1-bodystruct%2F</url>
     <content type="text"><![CDATA[肌肉系统骨骼肌简介肌肉的宏观结构和组织肌肉的微观结构和排列细肌丝和粗肌丝的排列肌丝滑动理论: 肌肉如何进行收缩肌肉收过的启动肌肉活动的终止肌纤维的类型各种人群中肌纤维的分布##神经组织 神经纤维神经冲动、去极化和动作单位神经肌肉接点本体感受器骨骼系统骨骼系统是由200多块骨通过关节来连接组成的，为肌肉和器官提供支持和基础。中轴骨包含颅骨，椎骨，脊柱，胸骨和肋骨。四肢骨包括肩带、胳膊、腿和臀。骨的形状与它们的功能和承受的负荷有关。 骨组织的类型骨组织是活跃的、有生命的组织，由两种类型组成： 密质骨：密质骨的特点是矿物质和细胞排列在哈佛氏系统中，哈佛氏系统占骨量的80%，并且位置朝向最外面一层。 松质骨：松质骨是多孔的，有很多枝杈叫做骨小梁行程格子状的排列。这种多空的骨组织可以容纳骨髓和脂肪，还为骨的力量提供了微观结构。不同骨中骨密质和骨松质的百分含量不同。 骨组织的主要功能骨组织的功能可以分结构功能和生理功能： 结构功能：从结构上看，骨骼系统是身体运动和保护内脏器官的基础。 生理功能：从生理上看，骨组织行程红细胞和白细胞，具有造血的作用。 另外，骨是存储钙和磷的地方，这些看，矿物质是神经传导，肌肉活动，心脏收缩，血液凝固和行程能量的基础。由于松质骨和密质骨不同的组成成分，所以密质骨最适合用于结构支撑，而松质骨则最适合用于骨的生理功能。 骨的生长和重建骨的健康 骨矿密度大量减小导致骨功能减弱，具有骨折的危险性。 骨折最容易发生的部位是臀部、脊柱和腕部。 骨矿密度与长期的体育活动密切相关。 运动可以通过增加力量有助于预防骨折。 结缔组织人体含有无数个组织。结缔组织对私人教练具有很大的意义，不管健身教练是否带训练班，不管在那里进行力量和伸展练习，都需要了解结缔组织相关的内容。 肌腱肌肉与骨通过更有力的组织(肌腱)相连，肌腱将肌肉产生的张力传递给骨，从而引起运动。 肌腱的主要组成部分是胶原蛋白，以波浪式的方式成束排列，它是一种没有弹性的组织。是人体内所含的最多的蛋白质，是所有生命组织的一个结构成分。 肌腱的另一个组成成分是底物，底物是非纤维物质，由几种不同的分子组成，可以结合起来形成更加稳固而坚硬的结构。 韧带韧带将骨和骨相连，为关节提供支撑。因此与肌腱不同的是，韧带附着在骨的末端。韧带的组成与肌腱相似，胶原束平行排列。 韧带具有一定的伸展性，一旦拉力消失就能回到原始的长度，这个特点为关节的支撑和顺应力提供了一种平衡。 弹性蛋白是一种非常复杂的生化物质，使韧带具有一定的伸展性，具有恢复原始长度的能力。 筋膜从解剖学来看，筋膜是一个广义的名词，用来形容所有不具有特殊名称的结缔组织。筋膜的形状和厚度根据功能需要有很大的变化范围。 共有三种类型的筋膜： 浅筋膜：或称(外层筋膜)，位于皮肤下，这种双层组织所含的脂肪数据量不定，皮肤的可移动性是由浅筋膜提供，下面是深筋膜。 深筋膜：深筋膜比浅筋膜更紧凑更坚硬，深筋膜与肌肉和骨骼相连，它可以将内脏器官和肌肉进行分离。 浆膜：浆膜是最深层次的筋膜，它是一种浆液状的，含有液体的膜，直接覆盖在内脏器官的表面。[心包膜宝绕心脏，也是一种浆膜] 肌肉中的所有结缔组织(包括肌纤维膜、肌内膜、肌束膜、肌外膜)都是筋膜的类型，根据存在部位具有特殊的名称。 筋膜具有的三种类型的功能： 首先：它形成了肌肉内的框架，连接肌肉并且保护它的稳定性。 第二：使肌肉产生的力能够安全有效的得到传递。 最后：他在各种器官和组织之间提供了必要的绝缘性，发挥它们独特的功能，同事不受相连结构的干扰。]]></content>
       <categories>
         <category>NSCA</category>

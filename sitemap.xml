@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2019/09/04/oracle-func-proc/</loc>
+    
+    <lastmod>2019-11-07T15:51:41.140Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
+    
+    <lastmod>2019-11-03T02:10:24.251Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2000/04/11/nsca-part1-bodystruct/</loc>
+    
+    <lastmod>2019-10-27T16:21:28.790Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2000/07/23/nsca-part1-biology/</loc>
+    
+    <lastmod>2019-10-27T16:21:23.812Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2019/06/11/docker-maven-pro/</loc>
     
     <lastmod>2019-10-22T13:20:33.854Z</lastmod>
@@ -12,13 +40,6 @@
     <loc>http://www.object.ws/2000/09/04/oralce-select/</loc>
     
     <lastmod>2019-10-20T15:39:06.297Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2000/09/04/oracle-func-proc/</loc>
-    
-    <lastmod>2019-10-20T15:22:08.660Z</lastmod>
     
   </url>
   
@@ -89,13 +110,6 @@
     <loc>http://www.object.ws/2018/11/08/linux-vim-encode/</loc>
     
     <lastmod>2019-08-16T11:34:46.939Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2000/04/11/nsca-basic-knowledge/</loc>
-    
-    <lastmod>2019-08-11T01:01:28.373Z</lastmod>
     
   </url>
   
