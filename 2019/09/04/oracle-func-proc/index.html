@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="柒索">
 <meta property="og:description" content="在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。 存储过程语法123create [or replace] procedure 过程名[(参数列表)]  as        PLSQL程序体；【begin…end;/】 存储函数语法123create [">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-07T15:51:41.140Z">
+<meta property="og:updated_time" content="2019-10-19T10:14:36.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle PL&#x2F;SQL 关于存储过程和存函数的使用">
 <meta name="twitter:description" content="在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。 存储过程语法123create [or replace] procedure 过程名[(参数列表)]  as        PLSQL程序体；【begin…end;/】 存储函数语法123create [">
@@ -408,8 +408,8 @@
         <p>在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。</p>
 <h2 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create [or replace] procedure 过程名[(参数列表)]  </span><br><span class="line">as</span><br><span class="line">        PLSQL程序体；【begin…end;/】</span><br></pre></td></tr></table></figure>
 <h2 id="存储函数"><a href="#存储函数" class="headerlink" title="存储函数"></a>存储函数</h2><h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create [or replace] procedure 过程名[(参数列表)]  </span><br><span class="line">as</span><br><span class="line">        PLSQL程序体；【begin…end;/】</span><br></pre></td></tr></table></figure>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h2 id="过程与函数的使用场景"><a href="#过程与函数的使用场景" class="headerlink" title="过程与函数的使用场景"></a>过程与函数的使用场景</h2><p>我们发现过程与函数的区别其实是不大的，一般我们都可以用函数来实现的时候， 也可以使用过程来实现….</p>
-<p>但是，总有些情况，使用函数比使用过程要好，使用过程比使用函数要好，那什么时候使用过程，什么时候使用函数呢？？？</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>我们发现过程与函数的区别其实是不大的，一般我们都可以用函数来实现的时候， 也可以使用过程来实现….</p>
+<p>但是，总有些情况，使用函数比使用过程要好，使用过程比使用函数要好，那什么时候使用过程，什么时候使用函数呢</p>
 <p>不难发现的是，函数是必定要有一个返回值的，当我们在调用的时候，接受返回值就直接获取就行了。</p>
 <p>也就是说</p>
 <ul>
@@ -767,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程"><span class="nav-number">1.</span> <span class="nav-text">存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储函数"><span class="nav-number">2.</span> <span class="nav-text">存储函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">3.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程与函数的使用场景"><span class="nav-number">4.</span> <span class="nav-text">过程与函数的使用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储过程"><span class="nav-number">1.</span> <span class="nav-text">存储过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储函数"><span class="nav-number">2.</span> <span class="nav-text">存储函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">3.</span> <span class="nav-text">使用场景</span></a></li></ol></div>
             
 
           </div>
