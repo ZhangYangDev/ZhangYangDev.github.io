@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>柒索</title>
+  
+  <subtitle>一个头脑聪明，五肢发达的男人。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.object.ws/"/>
+  <updated>2019-09-20T13:49:55.031Z</updated>
+  <id>http://www.object.ws/</id>
+  
+  <author>
+    <name>柒索</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在CentOS下搭建GoLang开发环境</title>
+    <link href="http://www.object.ws/2019/09/19/golang-env/"/>
+    <id>http://www.object.ws/2019/09/19/golang-env/</id>
+    <published>2019-09-19T07:15:01.000Z</published>
+    <updated>2019-09-20T13:49:55.031Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;下载安装包&quot;&gt;&lt;a href=&quot;#下载安装包&quot; class=&quot;headerlink&quot; title=&quot;下载安装包&quot;&gt;&lt;/a&gt;下载安装包&lt;/h3&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;
+      
+    
+    </summary>
+    
+      <category term="GoLang" scheme="http://www.object.ws/categories/GoLang/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="GoLang" scheme="http://www.object.ws/tags/GoLang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Oracle PL/SQL 关于游标的使用</title>
+    <link href="http://www.object.ws/2019/09/02/oracle-cursor/"/>
+    <id>http://www.object.ws/2019/09/02/oracle-cursor/</id>
+    <published>2019-09-02T12:03:32.000Z</published>
+    <updated>2019-09-04T07:42:42.038Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;环境说明&quot;&gt;&lt;a href=&quot;#环境说明&quot; class=&quot;headerlink&quot; title=&quot;环境说明&quot;&gt;&lt;/a&gt;环境说明&lt;/h2&gt;&lt;p&gt;VirtualBox6.0、Vagrant2.2.3、CentOS7.6 、Dodkcer 18.09.7 、Oracle1
+      
+    
+    </summary>
+    
+      <category term="Oracle" scheme="http://www.object.ws/categories/Oracle/"/>
+    
+    
+      <category term="Oracle" scheme="http://www.object.ws/tags/Oracle/"/>
+    
+      <category term="Cursor" scheme="http://www.object.ws/tags/Cursor/"/>
+    
+      <category term="PL/SQL" scheme="http://www.object.ws/tags/PL-SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在项目中使用Docker Maven Plugin插件远程构建镜像</title>
+    <link href="http://www.object.ws/2019/06/11/docker-maven-pro/"/>
+    <id>http://www.object.ws/2019/06/11/docker-maven-pro/</id>
+    <published>2019-06-11T02:24:12.000Z</published>
+    <updated>2019-10-22T13:20:33.854Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;日常开发过程中，可以在项目的&lt;code&gt;pom.xml&lt;/code&gt;文件中配置Docker容器，这样方便我们直接将项目打包成&lt;code&gt;Docker&lt;/code&gt;镜像，发布到容器中.&lt;/p&gt;
+&lt;h3 id=&quot;在Java项目中配置&quot;&gt;&lt;a href=&quot;#在Java项目中配置&quot;
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Maven" scheme="http://www.object.ws/tags/Maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Vagrant + VirtualBox 快速构建 CentOS 下的 Docker 环境</title>
+    <link href="http://www.object.ws/2019/04/22/vagrant/"/>
+    <id>http://www.object.ws/2019/04/22/vagrant/</id>
+    <published>2019-04-22T12:31:13.000Z</published>
+    <updated>2019-08-22T12:19:36.515Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;​    &lt;/p&gt;
+&lt;h2 id=&quot;Vagrant-基础概念&quot;&gt;&lt;a href=&quot;#Vagrant-基础概念&quot; class=&quot;headerlink&quot; title=&quot;Vagrant - 基础概念:&quot;&gt;&lt;/a&gt;Vagrant - 基础概念:&lt;/h2&gt;&lt;h3 id=&quot;Vagran
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Vagrant" scheme="http://www.object.ws/tags/Vagrant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS 7.6出现SSH登录失败的解决方法</title>
+    <link href="http://www.object.ws/2019/04/13/centos-login-fail/"/>
+    <id>http://www.object.ws/2019/04/13/centos-login-fail/</id>
+    <published>2019-04-13T11:49:04.000Z</published>
+    <updated>2019-08-22T12:18:32.974Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;CentOS-7-6出现SSH登录失败的解决方案&quot;&gt;&lt;a href=&quot;#CentOS-7-6出现SSH登录失败的解决方案&quot; class=&quot;headerlink&quot; title=&quot;CentOS 7.6出现SSH登录失败的解决方案&quot;&gt;&lt;/a&gt;CentOS 7.6出现SS
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Nginx" scheme="http://www.object.ws/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Spring CROS解决项目中的跨域问题</title>
+    <link href="http://www.object.ws/2019/03/18/java-spring-cros/"/>
+    <id>http://www.object.ws/2019/03/18/java-spring-cros/</id>
+    <published>2019-03-18T06:59:13.000Z</published>
+    <updated>2019-08-19T08:36:35.401Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CROS(Cross-Origin Resource Sharing) 用于解决浏览器中跨域请求的问题。简单的Get请求可以使用JSONP来解决，而对于其它复杂的请求则需要后端应用的支持CROS。Spring在4.2版本之后提供了&lt;strong&gt;&lt;em&gt;@CrossOrig
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.object.ws/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.object.ws/tags/Spring/"/>
+    
+      <category term="Cros" scheme="http://www.object.ws/tags/Cros/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Vue中使用防抖、截流函数 防止重复点击或者重复上拉加载</title>
+    <link href="http://www.object.ws/2019/02/25/vue-debounce-throttle-func/"/>
+    <id>http://www.object.ws/2019/02/25/vue-debounce-throttle-func/</id>
+    <published>2019-02-25T01:21:33.000Z</published>
+    <updated>2019-03-28T02:28:41.199Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;函数防抖&quot;&gt;&lt;a href=&quot;#函数防抖&quot; class=&quot;headerlink&quot; title=&quot;函数防抖&quot;&gt;&lt;/a&gt;函数防抖&lt;/h3&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter
+      
+    
+    </summary>
+    
+      <category term="Web" scheme="http://www.object.ws/categories/Web/"/>
+    
+    
+      <category term="Vue" scheme="http://www.object.ws/tags/Vue/"/>
+    
+      <category term="JavaScript" scheme="http://www.object.ws/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python pip配置国内清华大学Tuna镜像</title>
+    <link href="http://www.object.ws/2019/01/24/python-pip-conf/"/>
+    <id>http://www.object.ws/2019/01/24/python-pip-conf/</id>
+    <published>2019-01-24T09:15:46.000Z</published>
+    <updated>2018-10-18T11:27:59.397Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Python-pip配置国内清华大学镜像&quot;&gt;&lt;a href=&quot;#Python-pip配置国内清华大学镜像&quot; class=&quot;headerlink&quot; title=&quot;Python pip配置国内清华大学镜像&quot;&gt;&lt;/a&gt;Python pip配置国内清华大学镜像&lt;/h2&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://www.object.ws/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://www.object.ws/tags/Python/"/>
+    
+      <category term="pip" scheme="http://www.object.ws/tags/pip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 安装 WordPress</title>
+    <link href="http://www.object.ws/2018/12/02/centos-wordpress/"/>
+    <id>http://www.object.ws/2018/12/02/centos-wordpress/</id>
+    <published>2018-12-02T11:53:28.000Z</published>
+    <updated>2018-12-11T06:14:09.291Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;软件&lt;/th&gt;
+&lt;th st
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="WordPress" scheme="http://www.object.ws/tags/WordPress/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决Linux系统中Vim编辑器中文乱码的问题</title>
+    <link href="http://www.object.ws/2018/11/08/linux-vim-encode/"/>
+    <id>http://www.object.ws/2018/11/08/linux-vim-encode/</id>
+    <published>2018-11-08T06:10:24.000Z</published>
+    <updated>2019-08-16T11:34:46.939Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;解决Vim中文乱码的问题&quot;&gt;&lt;a href=&quot;#解决Vim中文乱码的问题&quot; class=&quot;headerlink&quot; title=&quot;解决Vim中文乱码的问题&quot;&gt;&lt;/a&gt;解决Vim中文乱码的问题&lt;/h3&gt;&lt;h4 id=&quot;编辑-vimrc-文件&quot;&gt;&lt;a href=&quot;#编辑
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Vim" scheme="http://www.object.ws/tags/Vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用grep命令过滤到掉文件中的内容</title>
+    <link href="http://www.object.ws/2018/10/18/linux-grep-use/"/>
+    <id>http://www.object.ws/2018/10/18/linux-grep-use/</id>
+    <published>2018-10-18T12:31:13.000Z</published>
+    <updated>2019-06-05T14:15:27.078Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;过滤掉注释&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://www.object.ws/tags/Shell/"/>
+    
+      <category term="Grep" scheme="http://www.object.ws/tags/Grep/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker - Dockerfile</title>
+    <link href="http://www.object.ws/2018/09/14/docker-dockerfile/"/>
+    <id>http://www.object.ws/2018/09/14/docker-dockerfile/</id>
+    <published>2018-09-14T06:27:02.000Z</published>
+    <updated>2019-09-02T17:12:16.016Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Dockerfile&quot;&gt;&lt;a href=&quot;#Dockerfile&quot; class=&quot;headerlink&quot; title=&quot;Dockerfile:&quot;&gt;&lt;/a&gt;Dockerfile:&lt;/h2&gt;&lt;h3 id=&quot;语法详解：&quot;&gt;&lt;a href=&quot;#语法详解：&quot; class=&quot;
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Docker-Compose" scheme="http://www.object.ws/tags/Docker-Compose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker - Swarm、SwarmKit、Swarm Mode QuickStart</title>
+    <link href="http://www.object.ws/2018/05/30/docker-swarm/"/>
+    <id>http://www.object.ws/2018/05/30/docker-swarm/</id>
+    <published>2018-05-30T06:09:15.000Z</published>
+    <updated>2018-07-02T16:25:48.085Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Docker-Swarm简介：&quot;&gt;&lt;a href=&quot;#Docker-Swarm简介：&quot; class=&quot;headerlink&quot; title=&quot;Docker Swarm简介：&quot;&gt;&lt;/a&gt;Docker Swarm简介：&lt;/h2&gt;&lt;p&gt;Docker Swarm是Docke
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Swarm" scheme="http://www.object.ws/tags/Swarm/"/>
+    
+      <category term="Vagrant" scheme="http://www.object.ws/tags/Vagrant/"/>
+    
+      <category term="Swarmkit" scheme="http://www.object.ws/tags/Swarmkit/"/>
+    
+      <category term="Swarm Mode" scheme="http://www.object.ws/tags/Swarm-Mode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker - Compose 服务编排</title>
+    <link href="http://www.object.ws/2018/05/23/docker-compose/"/>
+    <id>http://www.object.ws/2018/05/23/docker-compose/</id>
+    <published>2018-05-23T04:50:04.000Z</published>
+    <updated>2018-12-13T01:58:18.228Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Docker-Compose简介&quot;&gt;&lt;a href=&quot;#Docker-Compose简介&quot; class=&quot;headerlink&quot; title=&quot;Docker - Compose简介&quot;&gt;&lt;/a&gt;Docker - Compose简介&lt;/h2&gt;&lt;h3 id=&quot;Compo
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Docker-Compose" scheme="http://www.object.ws/tags/Docker-Compose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker - 持久化存储和数据共享</title>
+    <link href="http://www.object.ws/2018/05/15/docker-data/"/>
+    <id>http://www.object.ws/2018/05/15/docker-data/</id>
+    <published>2018-05-15T13:18:06.000Z</published>
+    <updated>2019-09-08T15:27:05.218Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Docker-Data-Volume&quot;&gt;&lt;a href=&quot;#Docker-Data-Volume&quot; class=&quot;headerlink&quot; title=&quot;Docker - Data Volume&quot;&gt;&lt;/a&gt;Docker - Data Volume&lt;/h2&gt;&lt;p&gt;想要
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker -  NetWork</title>
+    <link href="http://www.object.ws/2018/05/09/docker-network/"/>
+    <id>http://www.object.ws/2018/05/09/docker-network/</id>
+    <published>2018-05-09T10:51:57.000Z</published>
+    <updated>2019-01-08T16:13:30.320Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Linux-Namespace&quot;&gt;&lt;a href=&quot;#Linux-Namespace&quot; class=&quot;headerlink&quot; title=&quot;Linux - Namespace:&quot;&gt;&lt;/a&gt;Linux - Namespace:&lt;/h2&gt;&lt;p&gt;目前，Linux实现了六
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker - Container &amp; Image</title>
+    <link href="http://www.object.ws/2018/04/26/docker-cntrimg/"/>
+    <id>http://www.object.ws/2018/04/26/docker-cntrimg/</id>
+    <published>2018-04-26T11:14:31.000Z</published>
+    <updated>2019-03-28T16:43:30.752Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Docker-核心概念：&quot;&gt;&lt;a href=&quot;#Docker-核心概念：&quot; class=&quot;headerlink&quot; title=&quot;Docker - 核心概念：&quot;&gt;&lt;/a&gt;Docker - 核心概念：&lt;/h2&gt;&lt;p&gt;docker主机(Host)：安装了Docker程序
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 搭建 Consul 集群</title>
+    <link href="http://www.object.ws/2018/04/03/centos-consul/"/>
+    <id>http://www.object.ws/2018/04/03/centos-consul/</id>
+    <published>2018-04-03T02:57:14.000Z</published>
+    <updated>2018-08-06T06:35:06.357Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;环境准备：&quot;&gt;&lt;a href=&quot;#环境准备：&quot; class=&quot;headerlink&quot; title=&quot;环境准备：&quot;&gt;&lt;/a&gt;环境准备：&lt;/h3&gt;&lt;p&gt;ssh shell工具： 远程连接&lt;br&gt;三个CentOS示例： 部署集群&lt;/p&gt;
+&lt;p&gt;配置好各个实例之间的网络访
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="MicroService" scheme="http://www.object.ws/tags/MicroService/"/>
+    
+      <category term="Cluster" scheme="http://www.object.ws/tags/Cluster/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Consul" scheme="http://www.object.ws/tags/Consul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>『ElasticSearch』- Introduction &amp; QuickStart</title>
+    <link href="http://www.object.ws/2018/03/25/elasticsearch-introduction/"/>
+    <id>http://www.object.ws/2018/03/25/elasticsearch-introduction/</id>
+    <published>2018-03-25T15:04:10.000Z</published>
+    <updated>2018-06-10T03:15:25.481Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介:&quot;&gt;&lt;/a&gt;简介:&lt;/h3&gt;&lt;p&gt;Elasticsearch是一个高度可扩展的开源全文搜索和分析引擎。它允许您快速、实时地存储、搜索和分析大量数据。它通常被用作支持具有复
+      
+    
+    </summary>
+    
+      <category term="ElasticSearch" scheme="http://www.object.ws/categories/ElasticSearch/"/>
+    
+    
+      <category term="Elasticsearch" scheme="http://www.object.ws/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7 安装 Jenkins</title>
+    <link href="http://www.object.ws/2018/03/13/centos-jenkins/"/>
+    <id>http://www.object.ws/2018/03/13/centos-jenkins/</id>
+    <published>2018-03-13T05:17:50.000Z</published>
+    <updated>2018-06-03T05:58:11.411Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Jenkins-简介&quot;&gt;&lt;a href=&quot;#Jenkins-简介&quot; class=&quot;headerlink&quot; title=&quot;Jenkins 简介&quot;&gt;&lt;/a&gt;Jenkins 简介&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Jenkins&lt;/strong&gt; 是一个开源软件项目，是基于
+      
+    
+    </summary>
+    
+    
+      <category term="Jenkins" scheme="http://www.object.ws/tags/Jenkins/"/>
+    
+  </entry>
+  
+</feed>
