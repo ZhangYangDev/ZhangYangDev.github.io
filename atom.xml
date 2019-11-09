@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-09-20T13:49:55.031Z</updated>
+  <updated>2019-11-09T16:12:45.481Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次解决Oracle数据库中表主键不够用的问题</title>
+    <link href="http://www.object.ws/2019/11/09/oracle-pk-nogrow/"/>
+    <id>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</id>
+    <published>2019-11-09T15:03:32.000Z</published>
+    <updated>2019-11-09T16:12:45.481Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;问题简述&quot;&gt;&lt;a href=&quot;#问题简述&quot; class=&quot;headerlink&quot; title=&quot;问题简述&quot;&gt;&lt;/a&gt;问题简述&lt;/h3&gt;&lt;p&gt;数据库中用来存储客户信息表的主键字段类型 &lt;strong&gt;VARCHAR2(4)&lt;/strong&gt;。某天，值累计到9999，
+      
+    
+    </summary>
+    
+      <category term="Oracle" scheme="http://www.object.ws/categories/Oracle/"/>
+    
+    
+      <category term="Oracle" scheme="http://www.object.ws/tags/Oracle/"/>
+    
+      <category term="PL/SQL" scheme="http://www.object.ws/tags/PL-SQL/"/>
+    
+      <category term="Function" scheme="http://www.object.ws/tags/Function/"/>
+    
+  </entry>
   
   <entry>
     <title>在CentOS下搭建GoLang开发环境</title>
@@ -40,34 +67,6 @@
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
       <category term="GoLang" scheme="http://www.object.ws/tags/GoLang/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Oracle PL/SQL 关于存储过程和存函数的使用</title>
-    <link href="http://www.object.ws/2019/09/04/oracle-func-proc/"/>
-    <id>http://www.object.ws/2019/09/04/oracle-func-proc/</id>
-    <published>2019-09-04T10:27:15.726Z</published>
-    <updated>2019-10-19T10:14:36.633Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。&lt;/p&gt;
-&lt;h2 id=&quot;存储过程&quot;&gt;&lt;a href=&quot;#存储过程&quot; class
-      
-    
-    </summary>
-    
-      <category term="Oracle" scheme="http://www.object.ws/categories/Oracle/"/>
-    
-    
-      <category term="Oracle" scheme="http://www.object.ws/tags/Oracle/"/>
-    
-      <category term="Cursor" scheme="http://www.object.ws/tags/Cursor/"/>
-    
-      <category term="PL/SQL" scheme="http://www.object.ws/tags/PL-SQL/"/>
     
   </entry>
   

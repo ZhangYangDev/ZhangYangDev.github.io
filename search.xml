@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[记一次解决Oracle数据库中表主键不够用的问题]]></title>
+    <url>%2F2019%2F11%2F09%2Foracle-pk-nogrow%2F</url>
+    <content type="text"><![CDATA[问题简述数据库中用来存储客户信息表的主键字段类型 VARCHAR2(4)。某天，值累计到9999，这时候系统出现异常 无法正常插入数据，综合其他模块来看，决定使用存储函数来解决主键字段不够用的情况，即使用子母结合数字的方式来生成主键序列，以下是具体的实现方式。 核心代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100create FUNCTION FN_CTPK_INCREASE/******************************************************************** [Function名称]: FN_CTPK_INCREASE [目 的]: 解决表字段不够用的问题 [备 注]: [参 数]: # INPUT: 无 # OUTPUT: 1. RTN_FIELD 返回处理好的PK值 [使用示例]: SELECT FN_CTPK_INCREASE() FROM DUAL; [VERSION ]: |----------|-----------|----------------|-------------------| |版本 |日期 |制作/修改者 |说明 | |----------|-----------|----------------|-------------------| |1.0 |2019-11-09 |柒索 | | |----------|-----------|----------------|-------------------| ********************************************************************/ RETURN VARCHAR2 AS RTN_FIELD VARCHAR2(30); /*最终返回值*/ FILED_VAL VARCHAR2(4); /*表中主键的最大值*/ FIELD_CNT NUMBER; /*统计数量*/ FILED_VAL1 VARCHAR2(1); /*拆分最大值 第一位*/ FILED_VAL2 VARCHAR2(1); /*拆分最大值 第二位*/ FILED_VAL3 VARCHAR2(1); /*拆分最大值 第三位*/ FILED_VAL4 VARCHAR2(1); /*拆分最大值 第四位*/BEGIN /*统计列中包含字母的值*/ SELECT COUNT(1) INTO FIELD_CNT FROM CITY WHERE REGEXP_LIKE(CID, &apos;([A-Z])&apos;); /*如果统计到列中包含字幕的值为0时 将返回值RTN_FIELD设置为A000*/ IF FIELD_CNT = 0 THEN RTN_FIELD := &apos;A000&apos;; ELSE /*获取CITY表中的最大值*/ SELECT NVL(MAX(CID), &apos;0000&apos;) INTO FILED_VAL FROM CITY WHERE REGEXP_LIKE(CID, &apos;([A-Z])&apos;); /*将拿到的值进行拆分*/ SELECT SUBSTR(FILED_VAL, 1, 1), SUBSTR(FILED_VAL, 2, 1), SUBSTR(FILED_VAL, 3, 1), SUBSTR(FILED_VAL, 4, 1) INTO FILED_VAL1, FILED_VAL2, FILED_VAL3, FILED_VAL4 FROM DUAL; /* ASCII编码中0、9、A、Z分别对应的数字如下： ASCII(&apos;0&apos;) = 48 ASCII(&apos;9&apos;) = 57 ASCII(&apos;A&apos;) = 65 ASCII(&apos;Z&apos;) = 90 */ IF TO_NUMBER(ASCII(FILED_VAL4)) = 90 THEN FILED_VAL4 := &apos;0&apos;; IF TO_NUMBER(ASCII(FILED_VAL3)) = 90 THEN FILED_VAL3 := &apos;0&apos;; IF TO_NUMBER(ASCII(FILED_VAL2)) = 90 THEN FILED_VAL2 := &apos;0&apos;; IF TO_NUMBER(ASCII(FILED_VAL1)) = 57 THEN FILED_VAL1 := &apos;A&apos;; ELSE FILED_VAL1 := CHR(TO_NUMBER(ASCII(FILED_VAL1)) + 1); END IF; ELSE IF TO_NUMBER(ASCII(FILED_VAL2)) = 57 THEN FILED_VAL2 := &apos;A&apos;; ELSE FILED_VAL2 := CHR(TO_NUMBER(ASCII(FILED_VAL2)) + 1); END IF; END IF; ELSE IF TO_NUMBER(ASCII(FILED_VAL3)) = 57 THEN FILED_VAL3 := &apos;A&apos;; ELSE FILED_VAL3 := CHR(TO_NUMBER(ASCII(FILED_VAL3)) + 1); END IF; END IF; ELSE IF TO_NUMBER(ASCII(FILED_VAL4)) = 57 THEN FILED_VAL4 := &apos;A&apos;; ELSE FILED_VAL4 := CHR(TO_NUMBER(ASCII(FILED_VAL4)) + 1); END IF; END IF; /*拼接处理结果 RETURN*/ RTN_FIELD := FILED_VAL1||FILED_VAL2||FILED_VAL3||FILED_VAL4; END IF; /*DBMS_OUTPUT.PUT_LINE(&apos;RETURN-:&apos; || RTN_FIELD);*/ RETURN RTN_FIELD;END FN_CTPK_INCREASE;/ 测试调用1234567891011/* 测试： 循环插入数据 查看主键的变化*/BEGIN FOR i IN 1 .. 1000 LOOP INSERT INTO SCOTT.CITY (CID, CNAME, CTYCODE, DISTRICT, INFO) VALUES (FN_CTPK_INCREASE(), &apos;Shanghai&apos;, &apos;CHN&apos;, &apos;Shanghai&apos;, &apos;&#123;&quot;Population&quot;: 9696300&#125;&apos;); END LOOP;END; 1SELECT FN_GFTCERT_SALE_PLC_CD(&apos;MV_CLIENT&apos;) FROM DUAL; 查看结果123SELECT * FROM CITYWHERE ROWNUM &lt; 50ORDER BY CID; 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950A000 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A001 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A002 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A003 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A004 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A005 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A006 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A007 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A008 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A009 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00A Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00B Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00C Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00D Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00E Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00F Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00G Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00H Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00I Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00J Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00K Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00L Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00M Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00N Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00O Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00P Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00Q Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00R Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00S Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00T Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00U Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00V Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00W Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00X Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00Y Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A00Z Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A010 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A011 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A012 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A013 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A014 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A015 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A016 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A017 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A018 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A019 Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A01A Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A01B Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A01C Shanghai CHN Shanghai &#123;"Population": 9696300&#125;A01D Shanghai CHN Shanghai &#123;"Population": 9696300&#125; 插入示例123456INSERT INTO SCOTT.CITY (CID, CNAME, CTYCODE, DISTRICT, INFO) VALUES (FN_CTPK_INCREASE(), &apos;Shanghai&apos;, &apos;CHN&apos;, &apos;Shanghai&apos;, &apos;&#123;&quot;Population&quot;: 9696300&#125;&apos;); Done.]]></content>
+      <categories>
+        <category>Oracle</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+        <tag>PL/SQL</tag>
+        <tag>Function</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[在CentOS下搭建GoLang开发环境]]></title>
     <url>%2F2019%2F09%2F19%2Fgolang-env%2F</url>
     <content type="text"><![CDATA[下载安装包1[vagrant@dk ~]$ wget http://mirrors.ustc.edu.cn/golang/go1.13.linux-amd64.tar.gz 使用USTC 中科大开源镜像站，速度更快一些。 解压&amp;配置123456789101112[vagrant@dk ~]$ sudo mkdir /opt/gowork # 工作目录[vagrant@dk ~]$ sudo tar -xvf go1.13.linux-amd64.tar.gz -C /opt/ [vagrant@dk ~]$ mkdir /opt/gowork [vagrant@dk ~]$ sudo vim /etc/profile # 配置GOPATH&amp;GOROOTexport GOPATH=/opt/goworkexport GOROOT=/opt/goexport PATH=$PATH:$GOROOT/bin:$GOPATH/bin[vagrant@dk ~]$ source /etc/profile # 刷新配置[vagrant@dk ~]$ go version # 查看版本go version go1.13 linux/amd64 Hello World:123[vagrant@dk ~]$ cd $GOPATH # 进入到工作目录[vagrant@dk gowork]$ sudo touch main.go[vagrant@dk gowork]$ sudo vim main.go main.go: 123456789package mainimport ( "fmt")func main()&#123; fmt.Println("Hello GoLang~")&#125; 12[vagrant@dk gowork]$ go run main.go # 执行main.goHello GoLang~ Done.]]></content>
@@ -11,19 +24,6 @@
         <tag>CentOS</tag>
         <tag>Linux</tag>
         <tag>GoLang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Oracle PL/SQL 关于存储过程和存函数的使用]]></title>
-    <url>%2F2019%2F09%2F04%2Foracle-func-proc%2F</url>
-    <content type="text"><![CDATA[在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。 存储过程语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 存储函数语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 使用场景我们发现过程与函数的区别其实是不大的，一般我们都可以用函数来实现的时候， 也可以使用过程来实现…. 但是，总有些情况，使用函数比使用过程要好，使用过程比使用函数要好，那什么时候使用过程，什么时候使用函数呢 不难发现的是，函数是必定要有一个返回值的，当我们在调用的时候，接受返回值就直接获取就行了。 也就是说 当返回值只有一个参数的时候，那么就使用存储函数！ 当返回值没有参数或者多于一个参数的时候，那么就使用过程！]]></content>
-      <categories>
-        <category>Oracle</category>
-      </categories>
-      <tags>
-        <tag>Oracle</tag>
-        <tag>Cursor</tag>
-        <tag>PL/SQL</tag>
       </tags>
   </entry>
   <entry>
@@ -587,6 +587,19 @@
       </categories>
       <tags>
         <tag>Gulp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Oracle PL/SQL 关于存储过程和存函数的使用]]></title>
+    <url>%2F2000%2F10%2F18%2Foracle-func-proc%2F</url>
+    <content type="text"><![CDATA[在Oracle中，存储过程和存储函数的概念其实是差不多的，一般地，我们都可以混合使用。只不过有的时候有的情况使用过程好一些，有的情况时候函数的时候好一些。下面会讲解在什么时机使用过程还是函数的。 存储过程语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 存储函数语法123create [or replace] procedure 过程名[(参数列表)] as PLSQL程序体；【begin…end;/】 使用场景我们发现过程与函数的区别其实是不大的，一般我们都可以用函数来实现的时候， 也可以使用过程来实现…. 但是，总有些情况，使用函数比使用过程要好，使用过程比使用函数要好，那什么时候使用过程，什么时候使用函数呢 不难发现的是，函数是必定要有一个返回值的，当我们在调用的时候，接受返回值就直接获取就行了。 也就是说 当返回值只有一个参数的时候，那么就使用存储函数！ 当返回值没有参数或者多于一个参数的时候，那么就使用过程！]]></content>
+      <categories>
+        <category>Oracle</category>
+      </categories>
+      <tags>
+        <tag>Oracle</tag>
+        <tag>Cursor</tag>
+        <tag>PL/SQL</tag>
       </tags>
   </entry>
   <entry>

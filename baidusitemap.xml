@@ -4,6 +4,54 @@
 
     
   <url>
+    <loc>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</loc>
+    <lastmod>2019-11-09T16:12:45.481Z</lastmod>
+    <data>
+        <display>
+        <title>记一次解决Oracle数据库中表主键不够用的问题</title>
+        <pubTime>2019-11-09T15:03:32.000Z</pubTime>
+        
+        <tag>Oracle</tag>
+         
+        <tag>PL/SQL</tag>
+         
+        <tag>Function</tag>
+         
+         
+           
+             
+              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.object.ws/2000/10/18/oracle-func-proc/</loc>
+    <lastmod>2019-11-09T14:51:10.549Z</lastmod>
+    <data>
+        <display>
+        <title>Oracle PL/SQL 关于存储过程和存函数的使用</title>
+        <pubTime>2000-10-18T12:03:32.000Z</pubTime>
+        
+        <tag>Oracle</tag>
+         
+        <tag>Cursor</tag>
+         
+        <tag>PL/SQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
     <lastmod>2019-11-03T02:10:24.251Z</lastmod>
     <data>
@@ -98,30 +146,6 @@
         <display>
         <title>Oracle 高级查询</title>
         <pubTime>2000-09-04T12:03:32.000Z</pubTime>
-        
-        <tag>Oracle</tag>
-         
-        <tag>Cursor</tag>
-         
-        <tag>PL/SQL</tag>
-         
-         
-           
-             
-              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.object.ws/2019/09/04/oracle-func-proc/</loc>
-    <lastmod>2019-10-19T10:14:36.633Z</lastmod>
-    <data>
-        <display>
-        <title>Oracle PL/SQL 关于存储过程和存函数的使用</title>
-        <pubTime>2019-09-04T10:27:15.726Z</pubTime>
         
         <tag>Oracle</tag>
          

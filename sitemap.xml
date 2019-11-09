@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</loc>
+    
+    <lastmod>2019-11-09T16:12:45.481Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2000/10/18/oracle-func-proc/</loc>
+    
+    <lastmod>2019-11-09T14:51:10.549Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
     
     <lastmod>2019-11-03T02:10:24.251Z</lastmod>
@@ -33,13 +47,6 @@
     <loc>http://www.object.ws/2000/09/04/oralce-select/</loc>
     
     <lastmod>2019-10-20T15:39:06.297Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2019/09/04/oracle-func-proc/</loc>
-    
-    <lastmod>2019-10-19T10:14:36.633Z</lastmod>
     
   </url>
   
