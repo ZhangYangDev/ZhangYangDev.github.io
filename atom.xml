@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-11-15T14:07:35.002Z</updated>
+  <updated>2019-11-15T14:54:50.249Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -15,26 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>MySQL 中的索引</title>
-    <link href="http://www.object.ws/2019/11/14/mysql-index/"/>
-    <id>http://www.object.ws/2019/11/14/mysql-index/</id>
-    <published>2019-11-14T02:29:29.000Z</published>
-    <updated>2019-11-15T14:07:35.002Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="NoSQL" scheme="http://www.object.ws/categories/NoSQL/"/>
-    
-    
-      <category term="MySQL" scheme="http://www.object.ws/tags/MySQL/"/>
-    
-      <category term="Index" scheme="http://www.object.ws/tags/Index/"/>
-    
-  </entry>
   
   <entry>
     <title>记一次解决Oracle数据库中表主键不够用的问题</title>
@@ -567,6 +547,29 @@
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
       <category term="Consul" scheme="http://www.object.ws/tags/Consul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>『ElasticSearch』- Introduction &amp; QuickStart</title>
+    <link href="http://www.object.ws/2018/03/25/elasticsearch-introduction/"/>
+    <id>http://www.object.ws/2018/03/25/elasticsearch-introduction/</id>
+    <published>2018-03-25T15:04:10.000Z</published>
+    <updated>2018-06-10T03:15:25.481Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介:&quot;&gt;&lt;/a&gt;简介:&lt;/h3&gt;&lt;p&gt;Elasticsearch是一个高度可扩展的开源全文搜索和分析引擎。它允许您快速、实时地存储、搜索和分析大量数据。它通常被用作支持具有复
+      
+    
+    </summary>
+    
+      <category term="ElasticSearch" scheme="http://www.object.ws/categories/ElasticSearch/"/>
+    
+    
+      <category term="Elasticsearch" scheme="http://www.object.ws/tags/Elasticsearch/"/>
     
   </entry>
   
