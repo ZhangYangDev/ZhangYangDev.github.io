@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-11-15T14:54:50.249Z</updated>
+  <updated>2019-11-18T12:53:30.532Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于CentOS使用Yum搭建简单K8s集群</title>
+    <link href="http://www.object.ws/2019/11/18/k8s-simple-yum/"/>
+    <id>http://www.object.ws/2019/11/18/k8s-simple-yum/</id>
+    <published>2019-11-18T12:30:30.000Z</published>
+    <updated>2019-11-18T12:53:30.532Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;环境简介&quot;&gt;&lt;a href=&quot;#环境简介&quot; class=&quot;headerlink&quot; title=&quot;环境简介&quot;&gt;&lt;/a&gt;环境简介&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;版本&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbod
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>记一次解决Oracle数据库中表主键不够用的问题</title>
@@ -547,29 +573,6 @@
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
       <category term="Consul" scheme="http://www.object.ws/tags/Consul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>『ElasticSearch』- Introduction &amp; QuickStart</title>
-    <link href="http://www.object.ws/2018/03/25/elasticsearch-introduction/"/>
-    <id>http://www.object.ws/2018/03/25/elasticsearch-introduction/</id>
-    <published>2018-03-25T15:04:10.000Z</published>
-    <updated>2018-06-10T03:15:25.481Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介:&quot;&gt;&lt;/a&gt;简介:&lt;/h3&gt;&lt;p&gt;Elasticsearch是一个高度可扩展的开源全文搜索和分析引擎。它允许您快速、实时地存储、搜索和分析大量数据。它通常被用作支持具有复
-      
-    
-    </summary>
-    
-      <category term="ElasticSearch" scheme="http://www.object.ws/categories/ElasticSearch/"/>
-    
-    
-      <category term="Elasticsearch" scheme="http://www.object.ws/tags/Elasticsearch/"/>
     
   </entry>
   

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="环境简介   名称 版本     VirtualBox.app 6.0.10   Vagrant 2.2.3   CentOS 7.6   Etcd 3.3.11   Kubernetes v1.5.2    虚拟机相关配置参考Vagrantfile. 环境准备Vagrantfile: 12345678910111213141516171819202122232425262728293031323">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CentOS使用Yum搭建简单K8s集群">
+<meta property="og:url" content="http://www.object.ws/2019/11/18/k8s-simple-yum/index.html">
+<meta property="og:site_name" content="柒索">
+<meta property="og:description" content="环境简介   名称 版本     VirtualBox.app 6.0.10   Vagrant 2.2.3   CentOS 7.6   Etcd 3.3.11   Kubernetes v1.5.2    虚拟机相关配置参考Vagrantfile. 环境准备Vagrantfile: 12345678910111213141516171819202122232425262728293031323">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-18T12:53:30.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于CentOS使用Yum搭建简单K8s集群">
+<meta name="twitter:description" content="环境简介   名称 版本     VirtualBox.app 6.0.10   Vagrant 2.2.3   CentOS 7.6   Etcd 3.3.11   Kubernetes v1.5.2    虚拟机相关配置参考Vagrantfile. 环境准备Vagrantfile: 12345678910111213141516171819202122232425262728293031323">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="柒索" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://www.object.ws/2019/11/18/k8s-simple-yum/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基于CentOS使用Yum搭建简单K8s集群 | 柒索</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">柒索</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">一个头脑聪明，五肢发达的男人。</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-guestbook">
+    <a href="/guestbook" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />留言板</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.object.ws/2019/11/18/k8s-simple-yum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="柒索">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/13316894?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="柒索">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于CentOS使用Yum搭建简单K8s集群
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-18 20:30:30" itemprop="dateCreated datePublished" datetime="2019-11-18T20:30:30+08:00">2019-11-18</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="环境简介"><a href="#环境简介" class="headerlink" title="环境简介"></a>环境简介</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VirtualBox.app</td>
+<td>6.0.10</td>
+</tr>
+<tr>
+<td>Vagrant</td>
+<td>2.2.3</td>
+</tr>
+<tr>
+<td>CentOS</td>
+<td>7.6</td>
+</tr>
+<tr>
+<td>Etcd</td>
+<td>3.3.11</td>
+</tr>
+<tr>
+<td>Kubernetes</td>
+<td>v1.5.2</td>
+</tr>
+</tbody>
+</table>
+<p>虚拟机相关配置参考Vagrantfile.</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>Vagrantfile:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- mode: ruby -*-</span></span><br><span class="line"><span class="comment"># vi: set ft=ruby :</span></span><br><span class="line"></span><br><span class="line">Vagrant.require_version <span class="string">"&gt;= 1.6.0"</span></span><br><span class="line"></span><br><span class="line">boxes = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="symbol">:name</span> =&gt; <span class="string">"k8s-master"</span>,</span><br><span class="line">        <span class="symbol">:eth1</span> =&gt; <span class="string">"192.168.11.21"</span>,</span><br><span class="line">        <span class="symbol">:mem</span> =&gt; <span class="string">"1024"</span>,</span><br><span class="line">        <span class="symbol">:cpu</span> =&gt; <span class="string">"1"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="symbol">:name</span> =&gt; <span class="string">"k8s-node1"</span>,</span><br><span class="line">        <span class="symbol">:eth1</span> =&gt; <span class="string">"192.168.11.22"</span>,</span><br><span class="line">        <span class="symbol">:mem</span> =&gt; <span class="string">"1024"</span>,</span><br><span class="line">        <span class="symbol">:cpu</span> =&gt; <span class="string">"1"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="symbol">:name</span> =&gt; <span class="string">"k8s-node2"</span>,</span><br><span class="line">        <span class="symbol">:eth1</span> =&gt; <span class="string">"192.168.11.23"</span>,</span><br><span class="line">        <span class="symbol">:mem</span> =&gt; <span class="string">"1024"</span>,</span><br><span class="line">        <span class="symbol">:cpu</span> =&gt; <span class="string">"1"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">Vagrant.configure(<span class="number">2</span>) <span class="keyword">do</span> <span class="params">|config|</span></span><br><span class="line"></span><br><span class="line">  config.vm.box = <span class="string">"centos-7.6"</span></span><br><span class="line"></span><br><span class="line">  boxes.each <span class="keyword">do</span> <span class="params">|opts|</span></span><br><span class="line">      config.vm.define opts[<span class="symbol">:name</span>] <span class="keyword">do</span> <span class="params">|config|</span></span><br><span class="line">        config.vm.hostname = opts[<span class="symbol">:name</span>]</span><br><span class="line">        config.vm.provider <span class="string">"vmware_fusion"</span> <span class="keyword">do</span> <span class="params">|v|</span></span><br><span class="line">          v.vmx[<span class="string">"memsize"</span>] = opts[<span class="symbol">:mem</span>]</span><br><span class="line">          v.vmx[<span class="string">"numvcpus"</span>] = opts[<span class="symbol">:cpu</span>]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        config.vm.provider <span class="string">"virtualbox"</span> <span class="keyword">do</span> <span class="params">|v|</span></span><br><span class="line">          v.customize [<span class="string">"modifyvm"</span>, <span class="symbol">:id</span>, <span class="string">"--memory"</span>, opts[<span class="symbol">:mem</span>]]</span><br><span class="line">          v.customize [<span class="string">"modifyvm"</span>, <span class="symbol">:id</span>, <span class="string">"--cpus"</span>, opts[<span class="symbol">:cpu</span>]]</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        config.vm.network <span class="symbol">:private_network</span>, <span class="symbol">ip:</span> opts[<span class="symbol">:eth1</span>]</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>创建完成之后分别为三台机器更新yum源和epel源：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">curl -o  /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>分别修改三台机器的 <code>/etc/hosts</code>文件，添加以下内容，使得三台机器之间可以互相访问：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.11.21 k8s-master</span><br><span class="line">192.168.11.22 k8s-node1</span><br><span class="line">192.168.11.23 k8s-node2</span><br></pre></td></tr></table></figure>
+<p>修改完成之后测试是否可以互通。</p>
+<h2 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h2><h3 id="在K8s-master节点安装配置etcd"><a href="#在K8s-master节点安装配置etcd" class="headerlink" title="在K8s-master节点安装配置etcd"></a>在K8s-master节点安装配置etcd</h3><p>yum安装etcd：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# yum install etcd -y  # 安装etcd</span><br></pre></td></tr></table></figure>
+<p>修改etcd配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# vim /etc/etcd/etcd.conf  # 修改配置文件</span><br><span class="line">ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"  # 第6行</span><br><span class="line">ETCD_ADVERTISE_CLIENT_URLS="http://192.168.11.21:2379" # 第21行</span><br></pre></td></tr></table></figure>
+<p>设置etcd开机启动&amp;启动etcd：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# systemctl start etcd.service  # 启动etcd</span><br><span class="line">[root@k8s-master ~]# systemctl enable etcd.service # 设置开启启动</span><br></pre></td></tr></table></figure>
+<p>测试etcd服务是否健康：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# etcdctl -C http://192.168.11.21:2379 cluster-health                   </span><br><span class="line">member 8e9e05c52164694d is healthy: got healthy result from http://192.168.11.21:2379     cluster is healthy</span><br></pre></td></tr></table></figure>
+<h3 id="在K8s-master节点安装kubernetes"><a href="#在K8s-master节点安装kubernetes" class="headerlink" title="在K8s-master节点安装kubernetes"></a>在K8s-master节点安装kubernetes</h3><p>使用yum安装kubernetes：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# yum install kubernetes-master.x86_64 -y</span><br></pre></td></tr></table></figure>
+<p>修改kubernetes的apiserver的配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# vim /etc/kubernetes/apiserver  :set nu </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 第8行 	将默认值修改为0.0.0.0</span><br><span class="line">KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0" </span><br><span class="line"><span class="meta">#</span> 第11行 打开注释</span><br><span class="line">KUBE_API_PORT="--port=8080"     									 </span><br><span class="line"><span class="meta">#</span> 第14行 打开注释</span><br><span class="line">KUBELET_PORT="--kubelet-port=10250"								 </span><br><span class="line"><span class="meta">#</span>第17行 将默认值修改为master节点ip</span><br><span class="line">KUBE_ETCD_SERVERS="--etcd-servers=http://192.168.11.21:2379" </span><br><span class="line"><span class="meta">#</span> 第23行 删掉ServiceAccount内容</span><br><span class="line">KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"</span><br></pre></td></tr></table></figure>
+<p>修改kubernetes的配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# vim /etc/kubernetes/config  </span><br><span class="line">KUBE_MASTER="--master=http://192.168.11.21:8080"  # 第22行</span><br></pre></td></tr></table></figure>
+<p>设置开机启动&amp;启动K8s相关服务:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# systemctl enable kube-apiserver.service  </span><br><span class="line">[root@k8s-master ~]# systemctl restart kube-apiserver.service</span><br><span class="line">[root@k8s-master ~]# systemctl enable kube-controller-manager.service </span><br><span class="line">[root@k8s-master ~]# systemctl restart kube-controller-manager.service</span><br><span class="line">[root@k8s-master ~]# systemctl enable kube-scheduler.service </span><br><span class="line">[root@k8s-master ~]# systemctl restart kube-scheduler.service</span><br></pre></td></tr></table></figure>
+<p>检查服务是否安装正常</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl get componentstatus                                                                                                       </span><br><span class="line">NAME                 STATUS    MESSAGE             ERROR                                                                                               </span><br><span class="line">etcd-0               Healthy   &#123;"health":"true"&#125;                                                                                                       </span><br><span class="line">scheduler            Healthy   ok                                                                                                                      </span><br><span class="line">controller-manager   Healthy   ok</span><br></pre></td></tr></table></figure>
+<h3 id="在两个Node节点分别安装kubernetes"><a href="#在两个Node节点分别安装kubernetes" class="headerlink" title="在两个Node节点分别安装kubernetes"></a>在两个Node节点分别安装kubernetes</h3><p>在k8s-node1&amp; k8s-node2节点分别执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install kubernetes-node.x86_64 -y  # 安装k8s</span><br><span class="line"></span><br><span class="line">vim /etc/kubernetes/config :set nu # 修改kubernetes配置文件</span><br><span class="line">KUBE_MASTER="--master=http://192.168.11.21:8080" </span><br><span class="line"></span><br><span class="line">vim /etc/kubernetes/kubelet # 修改kubernetes配置文件</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 第5行 将默认值修改为 0.0.0.0</span><br><span class="line">KUBELET_ADDRESS="--address=0.0.0.0"  </span><br><span class="line"><span class="meta">#</span> 第8行 打开注释</span><br><span class="line">KUBELET_PORT="--port=10250"		  		 </span><br><span class="line"><span class="meta">#</span> 第11行 修改默认值为node节点的Ip</span><br><span class="line">KUBELET_HOSTNAME="--hostname-override=10.0.0.12"         </span><br><span class="line"><span class="meta">#</span> 第14行 修改默认值为Master节点的IP</span><br><span class="line">KUBELET_API_SERVER="--api-servers=http://10.0.0.11:8080"</span><br></pre></td></tr></table></figure>
+<p>修改完成配置之后，分别重启相关服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable kubelet.service</span><br><span class="line">systemctl restart kubelet.service</span><br><span class="line">systemctl enable kube-proxy.service</span><br><span class="line">systemctl restart kube-proxy.service</span><br></pre></td></tr></table></figure>
+<p>至此一个简单的K8s集群就搭建完毕了。</p>
+<h2 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h2><p>在Master节点检查集群服务是否正常:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl get nodes                                                                                                                 </span><br><span class="line">NAME            STATUS    AGE               </span><br><span class="line">192.168.11.22   Ready     29s                                                    </span><br><span class="line">192.168.11.23   Ready     27s</span><br></pre></td></tr></table></figure>
+<p>如果出现如上内容说明集群各节点正常运行。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/09/oracle-pk-nogrow/" rel="next" title="记一次解决Oracle数据库中表主键不够用的问题">
+                <i class="fa fa-chevron-left"></i> 记一次解决Oracle数据库中表主键不够用的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars1.githubusercontent.com/u/13316894?v=3&s=460"
+                alt="柒索" />
+            
+              <p class="site-author-name" itemprop="name">柒索</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/zhangyangdev" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:zhangyangdev@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://plus.google.com/zhangyangdev" target="_blank" title="Google"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境简介"><span class="nav-number">1.</span> <span class="nav-text">环境简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始搭建"><span class="nav-number">3.</span> <span class="nav-text">开始搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在K8s-master节点安装配置etcd"><span class="nav-number">3.1.</span> <span class="nav-text">在K8s-master节点安装配置etcd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在K8s-master节点安装kubernetes"><span class="nav-number">3.2.</span> <span class="nav-text">在K8s-master节点安装kubernetes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在两个Node节点分别安装kubernetes"><span class="nav-number">3.3.</span> <span class="nav-text">在两个Node节点分别安装kubernetes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境测试"><span class="nav-number">4.</span> <span class="nav-text">环境测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">柒索</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
