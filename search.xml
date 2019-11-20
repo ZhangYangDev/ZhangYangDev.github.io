@@ -620,9 +620,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Oracle 高级查询]]></title>
+    <title><![CDATA[Oracle DQL DML 常见操作]]></title>
     <url>%2F2000%2F09%2F04%2Foralce-select%2F</url>
-    <content type="text"><![CDATA[WITH…AS…创建临时表查询 UNION&amp;UNION ALLPS:UNION比UNION ALL 效率低，如果明确确认集合中不包括重复记录则使用UNION ALL ，如果表数据很大可能会导致用磁盘进行排序耗费时间]]></content>
+    <content type="text"><![CDATA[DQLWITH…AS…With查询语句不是以select开始的，而是以“WITH”关键字开头创建临时表查询 可认为在真正进行查询之前预先构造了一个临时表，之后便可多次使用它做进一步的分析和处理 UNION&amp;UNION ALLPS:UNION比UNION ALL 效率低，如果明确确认集合中不包括重复记录则使用UNION ALL ，如果表数据很大可能会导致用磁盘进行排序耗费时间 为了合并多个SELECT语句的结果，可以使用集合操作符，实现集合的并、交、差。 集合操作符包括UNION、UNION ALL、INTERSECT和MINUS。 多条作集合操作的SELECT语句的列的个数和数据类型必须匹配。 MINUSMINUS函数获取两个结果集的差集。只有在第一个结果集中存在，在第二个结果集中不存在的数据，才能够被显示出来。也就是结果集一减去结果集二的结果。 DMLSELECT INTO语句形式为：SELECT vale1, value2 into Table2 from Table1 要求目标表Table2不存在，因为在插入时会自动创建表Table2，并将Table1中指定字段数据复制到Table2中。示例如下： INSERT INTO SELECT（1）要求目标表Table2必须存在，并且字段field,field2…也必须存在 （2）注意Table2的主键约束，如果Table2有主键而且不为空，则 field1， field2…中必须包括主键 （3）注意语法，不要加values，和插入一条数据的sql混了，不要写成: MERGEINSERT FIRST]]></content>
       <categories>
         <category>Oracle</category>
       </categories>

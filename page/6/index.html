@@ -327,7 +327,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2000/09/04/oralce-select/" itemprop="url">
-                  Oracle 高级查询
+                  Oracle DQL DML 常见操作
                 </a>
               
             
@@ -407,10 +407,10 @@
       
         
           
-          WITH…AS…创建临时表查询 
-UNION&amp;UNION ALLPS:UNION比UNION ALL 效率低，如果明确确认集合中不包括重复记录则使用UNION ALL ，如果表数据很大可能会导致用磁盘进行排序耗费时间
-
-          
+          DQLWITH…AS…With查询语句不是以select开始的，而是以“WITH”关键字开头创建临时表查询 
+ 可认为在真正进行查询之前预先构造了一个临时表，之后便可多次使用它做进一步的分析和处理
+UNION&amp;UNION ALLPS:UNION比UNION ALL 效率低，如果明确确认集合中
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2000/09/04/oralce-select/#more" rel="contents">

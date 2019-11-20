@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2000/09/04/oralce-select/</loc>
+    
+    <lastmod>2019-11-20T14:53:52.361Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2019/11/18/k8s-simple-yum/</loc>
     
     <lastmod>2019-11-18T13:41:52.570Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://www.object.ws/2019/06/11/docker-maven-pro/</loc>
     
     <lastmod>2019-10-22T13:20:33.854Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2000/09/04/oralce-select/</loc>
-    
-    <lastmod>2019-10-20T15:39:06.297Z</lastmod>
     
   </url>
   
