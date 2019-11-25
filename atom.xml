@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-11-18T13:41:52.570Z</updated>
+  <updated>2019-11-30T16:32:03.085Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Docker - 基于Harbor搭建Docker私有镜像仓库</title>
+    <link href="http://www.object.ws/2019/11/29/docker-harbor/"/>
+    <id>http://www.object.ws/2019/11/29/docker-harbor/</id>
+    <published>2019-11-29T02:24:12.000Z</published>
+    <updated>2019-11-30T16:32:03.085Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;h3 id=&quot;什么是Harbor&quot;&gt;&lt;a href=&quot;#什么是Harbor&quot; class=&quot;headerlink&quot; title=&quot;什么是Harb
+      
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
+    
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title>基于CentOS使用Yum搭建简单K8s集群</title>
     <link href="http://www.object.ws/2019/11/18/k8s-simple-yum/"/>
     <id>http://www.object.ws/2019/11/18/k8s-simple-yum/</id>
     <published>2019-11-18T12:30:30.000Z</published>
-    <updated>2019-11-18T13:41:52.570Z</updated>
+    <updated>2019-11-30T07:24:03.929Z</updated>
     
     <summary type="html">
     
@@ -39,6 +66,14 @@
     
     </summary>
     
+      <category term="Kubernetes" scheme="http://www.object.ws/categories/Kubernetes/"/>
+    
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="Kubernetes" scheme="http://www.object.ws/tags/Kubernetes/"/>
     
   </entry>
   
@@ -541,38 +576,6 @@
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS7 搭建 Consul 集群</title>
-    <link href="http://www.object.ws/2018/04/03/centos-consul/"/>
-    <id>http://www.object.ws/2018/04/03/centos-consul/</id>
-    <published>2018-04-03T02:57:14.000Z</published>
-    <updated>2018-08-06T06:35:06.357Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;环境准备：&quot;&gt;&lt;a href=&quot;#环境准备：&quot; class=&quot;headerlink&quot; title=&quot;环境准备：&quot;&gt;&lt;/a&gt;环境准备：&lt;/h3&gt;&lt;p&gt;ssh shell工具： 远程连接&lt;br&gt;三个CentOS示例： 部署集群&lt;/p&gt;
-&lt;p&gt;配置好各个实例之间的网络访
-      
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="MicroService" scheme="http://www.object.ws/tags/MicroService/"/>
-    
-      <category term="Cluster" scheme="http://www.object.ws/tags/Cluster/"/>
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
-    
-      <category term="Consul" scheme="http://www.object.ws/tags/Consul/"/>
     
   </entry>
   
