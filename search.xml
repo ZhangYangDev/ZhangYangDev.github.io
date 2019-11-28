@@ -618,7 +618,7 @@
   <entry>
     <title><![CDATA[基于Kubadm搭建K8s集群服务]]></title>
     <url>%2F2000%2F11%2F28%2Fk8s-install-v1.5%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[环境简介安装过程]]></content>
       <categories>
         <category>Kubernetes</category>
       </categories>
