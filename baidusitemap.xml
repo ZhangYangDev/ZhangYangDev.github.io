@@ -4,6 +4,76 @@
 
     
   <url>
+    <loc>http://www.object.ws/2019/04/13/centos-login-fail/</loc>
+    <lastmod>2019-12-02T15:15:36.889Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7.6出现SSH登录失败的解决方法</title>
+        <pubTime>2019-04-13T11:49:04.000Z</pubTime>
+        
+        <tag>CentOS</tag>
+         
+        <tag>Nginx</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://www.object.ws/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.object.ws/2019/11/15/oracle-sql-find/</loc>
+    <lastmod>2019-12-02T15:13:47.311Z</lastmod>
+    <data>
+        <display>
+        <title>查询Oracle数据库中使用了全表扫描的SQL语句</title>
+        <pubTime>2019-11-15T15:03:32.000Z</pubTime>
+        
+        <tag>Oracle</tag>
+         
+        <tag>PL/SQL</tag>
+         
+        <tag>SQL</tag>
+         
+         
+           
+             
+              <breadCrumb title="Oracle" url="http://www.object.ws/categories/Oracle/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.object.ws/2000/11/28/k8s-install-v1.5/</loc>
+    <lastmod>2019-11-30T16:46:29.341Z</lastmod>
+    <data>
+        <display>
+        <title>基于Kubadm搭建K8s集群</title>
+        <pubTime>2000-11-28T14:36:28.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>Docker</tag>
+         
+        <tag>Kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kubernetes" url="http://www.object.ws/categories/Kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
     <lastmod>2019-11-30T16:43:21.329Z</lastmod>
     <data>
@@ -34,30 +104,6 @@
         <display>
         <title>基于CentOS使用Yum搭建简单K8s集群</title>
         <pubTime>2019-11-18T12:30:30.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>Docker</tag>
-         
-        <tag>Kubernetes</tag>
-         
-         
-           
-             
-              <breadCrumb title="Kubernetes" url="http://www.object.ws/categories/Kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.object.ws/2000/11/28/k8s-install-v1.5/</loc>
-    <lastmod>2019-11-29T13:11:48.082Z</lastmod>
-    <data>
-        <display>
-        <title>基于Kubadm搭建K8s集群服务</title>
-        <pubTime>2000-11-28T14:36:28.000Z</pubTime>
         
         <tag>Linux</tag>
          
@@ -463,28 +509,6 @@
            
              
               <breadCrumb title="Docker" url="http://www.object.ws/categories/Docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.object.ws/2019/04/13/centos-login-fail/</loc>
-    <lastmod>2019-08-22T12:18:32.974Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS 7.6出现SSH登录失败的解决方法</title>
-        <pubTime>2019-04-13T11:49:04.000Z</pubTime>
-        
-        <tag>CentOS</tag>
-         
-        <tag>Nginx</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="http://www.object.ws/categories/Linux/"/>
           
         </display>
     </data>

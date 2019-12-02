@@ -78,6 +78,33 @@
   </entry>
   
   <entry>
+    <title>查询Oracle数据库中使用了全表扫描的SQL语句</title>
+    <link href="http://www.object.ws/2019/11/15/oracle-sql-find/"/>
+    <id>http://www.object.ws/2019/11/15/oracle-sql-find/</id>
+    <published>2019-11-15T15:03:32.000Z</published>
+    <updated>2019-12-02T15:13:47.311Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;Oracle排查全表扫描的语句&quot;&gt;&lt;a href=&quot;#Oracle排查全表扫描的语句&quot; class=&quot;headerlink&quot; title=&quot;Oracle排查全表扫描的语句&quot;&gt;&lt;/a&gt;Oracle排查全表扫描的语句&lt;/h4&gt;&lt;figure class=&quot;highli
+      
+    
+    </summary>
+    
+      <category term="Oracle" scheme="http://www.object.ws/categories/Oracle/"/>
+    
+    
+      <category term="Oracle" scheme="http://www.object.ws/tags/Oracle/"/>
+    
+      <category term="PL/SQL" scheme="http://www.object.ws/tags/PL-SQL/"/>
+    
+      <category term="SQL" scheme="http://www.object.ws/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>记一次解决Oracle数据库中表主键不够用的问题</title>
     <link href="http://www.object.ws/2019/11/09/oracle-pk-nogrow/"/>
     <id>http://www.object.ws/2019/11/09/oracle-pk-nogrow/</id>
@@ -223,7 +250,7 @@
     <link href="http://www.object.ws/2019/04/13/centos-login-fail/"/>
     <id>http://www.object.ws/2019/04/13/centos-login-fail/</id>
     <published>2019-04-13T11:49:04.000Z</published>
-    <updated>2019-08-22T12:18:32.974Z</updated>
+    <updated>2019-12-02T15:15:36.889Z</updated>
     
     <summary type="html">
     
@@ -537,33 +564,6 @@
       
       
         &lt;h2 id=&quot;Linux-Namespace&quot;&gt;&lt;a href=&quot;#Linux-Namespace&quot; class=&quot;headerlink&quot; title=&quot;Linux - Namespace:&quot;&gt;&lt;/a&gt;Linux - Namespace:&lt;/h2&gt;&lt;p&gt;目前，Linux实现了六
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
-    
-    
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
-    
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker - Container &amp; Image</title>
-    <link href="http://www.object.ws/2018/04/26/docker-cntrimg/"/>
-    <id>http://www.object.ws/2018/04/26/docker-cntrimg/</id>
-    <published>2018-04-26T11:14:31.000Z</published>
-    <updated>2019-03-28T16:43:30.752Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Docker-核心概念：&quot;&gt;&lt;a href=&quot;#Docker-核心概念：&quot; class=&quot;headerlink&quot; title=&quot;Docker - 核心概念：&quot;&gt;&lt;/a&gt;Docker - 核心概念：&lt;/h2&gt;&lt;p&gt;docker主机(Host)：安装了Docker程序
       
     
     </summary>
