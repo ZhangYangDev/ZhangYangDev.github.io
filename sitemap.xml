@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
+    
+    <lastmod>2019-12-04T15:54:41.114Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2019/04/13/centos-login-fail/</loc>
     
     <lastmod>2019-12-02T15:50:10.867Z</lastmod>
@@ -75,13 +82,6 @@
     <loc>http://www.object.ws/2017/10/23/mongodb-crud/</loc>
     
     <lastmod>2019-11-09T14:49:37.184Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
-    
-    <lastmod>2019-11-03T02:10:24.251Z</lastmod>
     
   </url>
   
