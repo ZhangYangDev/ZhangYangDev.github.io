@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-11-30T16:43:21.329Z</updated>
+  <updated>2019-11-30T16:46:00.948Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.object.ws/2019/11/29/docker-harbor/"/>
     <id>http://www.object.ws/2019/11/29/docker-harbor/</id>
     <published>2019-11-29T02:24:12.000Z</published>
-    <updated>2019-11-30T16:43:21.329Z</updated>
+    <updated>2019-11-30T16:46:00.948Z</updated>
     
     <summary type="html">
     
@@ -136,7 +136,7 @@
     <link href="http://www.object.ws/2019/09/19/golang-env/"/>
     <id>http://www.object.ws/2019/09/19/golang-env/</id>
     <published>2019-09-19T07:15:01.000Z</published>
-    <updated>2019-09-20T13:49:55.031Z</updated>
+    <updated>2019-11-24T07:39:32.138Z</updated>
     
     <summary type="html">
     
@@ -207,9 +207,9 @@
     
       <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
-      <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     

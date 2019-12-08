@@ -87,8 +87,8 @@
       </categories>
       <tags>
         <tag>CentOS</tag>
-        <tag>Java</tag>
         <tag>Linux</tag>
+        <tag>Java</tag>
         <tag>Docker</tag>
         <tag>Maven</tag>
       </tags>
@@ -285,9 +285,9 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>CentOS</tag>
         <tag>MicroService</tag>
         <tag>Cluster</tag>
+        <tag>CentOS</tag>
         <tag>Linux</tag>
         <tag>Consul</tag>
       </tags>
