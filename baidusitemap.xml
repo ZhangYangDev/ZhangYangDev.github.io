@@ -785,11 +785,11 @@
         <title>CentOS7 搭建 Consul 集群</title>
         <pubTime>2018-04-03T02:57:14.000Z</pubTime>
         
+        <tag>CentOS</tag>
+         
         <tag>MicroService</tag>
          
         <tag>Cluster</tag>
-         
-        <tag>CentOS</tag>
          
         <tag>Linux</tag>
          
@@ -1261,11 +1261,11 @@
         <title>『Node.js - Express』 - QuickStart</title>
         <pubTime>2017-10-28T06:59:39.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Node.js</tag>
          
         <tag>Express</tag>
+         
+        <tag>CentOS</tag>
          
          
            
