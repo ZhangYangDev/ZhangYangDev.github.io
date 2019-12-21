@@ -372,9 +372,9 @@
     
       <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
-      <category term="WordPress" scheme="http://www.object.ws/tags/WordPress/"/>
-    
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
+    
+      <category term="WordPress" scheme="http://www.object.ws/tags/WordPress/"/>
     
   </entry>
   

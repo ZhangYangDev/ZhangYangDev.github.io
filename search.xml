@@ -164,8 +164,8 @@
       </categories>
       <tags>
         <tag>CentOS</tag>
-        <tag>WordPress</tag>
         <tag>Docker</tag>
+        <tag>WordPress</tag>
       </tags>
   </entry>
   <entry>
@@ -285,9 +285,9 @@
         <category>Linux</category>
       </categories>
       <tags>
+        <tag>CentOS</tag>
         <tag>MicroService</tag>
         <tag>Cluster</tag>
-        <tag>CentOS</tag>
         <tag>Linux</tag>
         <tag>Consul</tag>
       </tags>
@@ -444,9 +444,9 @@
         <category>NoSQL</category>
       </categories>
       <tags>
-        <tag>CentOS</tag>
         <tag>Node.js</tag>
         <tag>Express</tag>
+        <tag>CentOS</tag>
       </tags>
   </entry>
   <entry>
