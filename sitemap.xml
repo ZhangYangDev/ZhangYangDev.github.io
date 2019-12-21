@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
+    
+    <lastmod>2019-12-21T03:29:12.915Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
     
     <lastmod>2019-12-12T02:50:54.853Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://www.object.ws/2000/11/28/k8s-install-v1.5/</loc>
     
     <lastmod>2019-11-30T16:46:29.341Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
-    
-    <lastmod>2019-11-30T16:46:00.948Z</lastmod>
     
   </url>
   

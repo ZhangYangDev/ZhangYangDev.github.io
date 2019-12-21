@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
+    <lastmod>2019-12-21T03:29:12.915Z</lastmod>
+    <data>
+        <display>
+        <title>Docker - 基于Harbor搭建Docker私有镜像仓库</title>
+        <pubTime>2019-11-29T02:24:12.000Z</pubTime>
+        
+        <tag>CentOS</tag>
+         
+        <tag>Linux</tag>
+         
+        <tag>Docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="Docker" url="http://www.object.ws/categories/Docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.object.ws/2000/07/23/nsca-part1-train/</loc>
     <lastmod>2019-12-12T02:50:54.853Z</lastmod>
     <data>
@@ -87,30 +111,6 @@
            
              
               <breadCrumb title="Kubernetes" url="http://www.object.ws/categories/Kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
-    <lastmod>2019-11-30T16:46:00.948Z</lastmod>
-    <data>
-        <display>
-        <title>Docker - 基于Harbor搭建Docker私有镜像仓库</title>
-        <pubTime>2019-11-29T02:24:12.000Z</pubTime>
-        
-        <tag>CentOS</tag>
-         
-        <tag>Linux</tag>
-         
-        <tag>Docker</tag>
-         
-         
-           
-             
-              <breadCrumb title="Docker" url="http://www.object.ws/categories/Docker/"/>
           
         </display>
     </data>
