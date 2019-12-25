@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://www.object.ws/2019/12/21/bd-simple-hadoop/</loc>
+    <lastmod>2019-12-21T03:39:07.272Z</lastmod>
+    <data>
+        <display>
+        <title>搭建伪分布式Hadoop环境</title>
+        <pubTime>2019-12-21T03:30:11.000Z</pubTime>
+        
+        <tag>Hadoop</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Hadoop" url="http://www.object.ws/categories/Hadoop/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.object.ws/2019/11/29/docker-harbor/</loc>
     <lastmod>2019-12-21T03:29:12.915Z</lastmod>
     <data>
@@ -11,9 +33,9 @@
         <title>Docker - 基于Harbor搭建Docker私有镜像仓库</title>
         <pubTime>2019-11-29T02:24:12.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -149,9 +171,9 @@
         <title>在CentOS下搭建GoLang开发环境</title>
         <pubTime>2019-09-19T07:15:01.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>GoLang</tag>
          
@@ -197,9 +219,9 @@
         <title>Docker -  NetWork</title>
         <pubTime>2018-05-09T10:51:57.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -353,9 +375,9 @@
         <title>在项目中使用Docker Maven Plugin插件远程构建镜像</title>
         <pubTime>2019-06-11T02:24:12.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Java</tag>
          
@@ -425,9 +447,9 @@
         <title>Docker - 持久化存储和数据共享</title>
         <pubTime>2018-05-15T13:18:06.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -473,9 +495,9 @@
         <title>Docker - Dockerfile</title>
         <pubTime>2018-09-14T06:27:02.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -619,9 +641,9 @@
         <title>Docker - Container & Image</title>
         <pubTime>2018-04-26T11:14:31.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -689,9 +711,9 @@
         <title>Docker - Introduction & QuickStart</title>
         <pubTime>2018-03-11T02:24:12.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -713,9 +735,9 @@
         <title>Docker - Compose 服务编排</title>
         <pubTime>2018-05-23T04:50:04.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -741,9 +763,9 @@
         
         <tag>CentOS</tag>
          
-        <tag>Docker</tag>
-         
         <tag>WordPress</tag>
+         
+        <tag>Docker</tag>
          
          
            
@@ -785,13 +807,13 @@
         <title>CentOS7 搭建 Consul 集群</title>
         <pubTime>2018-04-03T02:57:14.000Z</pubTime>
         
-        <tag>CentOS</tag>
+        <tag>Linux</tag>
          
         <tag>MicroService</tag>
          
         <tag>Cluster</tag>
          
-        <tag>Linux</tag>
+        <tag>CentOS</tag>
          
         <tag>Consul</tag>
          
@@ -835,9 +857,9 @@
         <title>Docker - Swarm、SwarmKit、Swarm Mode QuickStart</title>
         <pubTime>2018-05-30T06:09:15.000Z</pubTime>
         
-        <tag>CentOS</tag>
-         
         <tag>Linux</tag>
+         
+        <tag>CentOS</tag>
          
         <tag>Docker</tag>
          
@@ -1261,11 +1283,11 @@
         <title>『Node.js - Express』 - QuickStart</title>
         <pubTime>2017-10-28T06:59:39.000Z</pubTime>
         
+        <tag>CentOS</tag>
+         
         <tag>Node.js</tag>
          
         <tag>Express</tag>
-         
-        <tag>CentOS</tag>
          
          
            

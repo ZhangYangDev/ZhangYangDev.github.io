@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2019-12-21T03:29:12.915Z</updated>
+  <updated>2019-12-21T03:39:07.272Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建伪分布式Hadoop环境</title>
+    <link href="http://www.object.ws/2019/12/21/bd-simple-hadoop/"/>
+    <id>http://www.object.ws/2019/12/21/bd-simple-hadoop/</id>
+    <published>2019-12-21T03:30:11.000Z</published>
+    <updated>2019-12-21T03:39:07.272Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;搭建伪分布式Hadoop环境&quot;&gt;&lt;a href=&quot;#搭建伪分布式Hadoop环境&quot; class=&quot;headerlink&quot; title=&quot;搭建伪分布式Hadoop环境&quot;&gt;&lt;/a&gt;搭建伪分布式Hadoop环境&lt;/h2&gt;&lt;h3 id=&quot;环境说明&quot;&gt;&lt;a href=&quot;#环
+      
+    
+    </summary>
+    
+      <category term="Hadoop" scheme="http://www.object.ws/categories/Hadoop/"/>
+    
+    
+      <category term="Hadoop" scheme="http://www.object.ws/tags/Hadoop/"/>
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker - 基于Harbor搭建Docker私有镜像仓库</title>
@@ -35,9 +60,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
@@ -150,9 +175,9 @@
       <category term="GoLang" scheme="http://www.object.ws/categories/GoLang/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="GoLang" scheme="http://www.object.ws/tags/GoLang/"/>
     
@@ -205,9 +230,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
     
@@ -372,9 +397,9 @@
     
       <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
       <category term="WordPress" scheme="http://www.object.ws/tags/WordPress/"/>
+    
+      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
   </entry>
   
@@ -451,9 +476,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
@@ -480,9 +505,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
@@ -515,9 +540,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
@@ -544,36 +569,9 @@
       <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
     
     
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
       <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker -  NetWork</title>
-    <link href="http://www.object.ws/2018/05/09/docker-network/"/>
-    <id>http://www.object.ws/2018/05/09/docker-network/</id>
-    <published>2018-05-09T10:51:57.000Z</published>
-    <updated>2019-11-16T02:47:28.711Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Linux-Namespace&quot;&gt;&lt;a href=&quot;#Linux-Namespace&quot; class=&quot;headerlink&quot; title=&quot;Linux - Namespace:&quot;&gt;&lt;/a&gt;Linux - Namespace:&lt;/h2&gt;&lt;p&gt;目前，Linux实现了六
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
-    
-    
       <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
     
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
