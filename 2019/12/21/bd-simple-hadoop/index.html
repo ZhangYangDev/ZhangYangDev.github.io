@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="柒索">
 <meta property="og:description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： 1sudo yum install openssh-clients openssh-server 安装完成后，可以使用下面命令进行测试： 1ssh localhost 输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-21T03:39:07.272Z">
+<meta property="og:updated_time" content="2020-01-21T07:24:27.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建伪分布式Hadoop环境">
 <meta name="twitter:description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： 1sudo yum install openssh-clients openssh-server 安装完成后，可以使用下面命令进行测试： 1ssh localhost 输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
@@ -419,8 +419,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel</span><br></pre></td></tr></table></figure>
 <p>安装完成后，输入 <code>java</code> 和 <code>javac</code> 命令，如果能输出对应的命令帮助，则表明jdk已正确安装。</p>
 <h3 id="配置-JAVA-环境变量"><a href="#配置-JAVA-环境变量" class="headerlink" title="配置 JAVA 环境变量"></a>配置 JAVA 环境变量</h3><p>执行命令:</p>
-<p>编辑 ~/.bashrc，在结尾追加：</p>
-<p>&gt; &lt;locate for=&#34;edit-bashrc&#34; path=&#34;/root/.bashrc&#34; hint=&#34;双击编辑 .bashrc&#34;&gt;&lt;/locate&gt;</p>
+<p>编辑 ~/.bashrc，在结尾追加:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
 <p>保存文件后执行下面命令使 JAVA_HOME 环境变量生效:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
