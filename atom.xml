@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2020-01-21T07:24:27.567Z</updated>
+  <updated>2020-08-13T06:06:50.500Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -17,11 +17,70 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux 升级 Python 至 3.x</title>
+    <link href="http://www.object.ws/2020/04/08/linux-python-upgrade/"/>
+    <id>http://www.object.ws/2020/04/08/linux-python-upgrade/</id>
+    <published>2020-04-08T09:10:24.000Z</published>
+    <updated>2020-08-13T06:06:50.500Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CentOS6.5 中默认安装了 Python，版本比较低，为了使用新版 3.x，需要对旧版本进行升级。&lt;/p&gt;
+&lt;p&gt;由于很多基本的命令、软件包都依赖旧版本，比如：yum。所以，在更新 Python 时，建议不要删除旧版本（新旧版本可以共存）。&lt;/p&gt;
+&lt;h3 id=&quot;查
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.object.ws/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
+    
+      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
+    
+      <category term="Python" scheme="http://www.object.ws/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Boot项目在生产环境中的部署</title>
+    <link href="http://www.object.ws/2020/03/12/sptingboot-prd-deploy/"/>
+    <id>http://www.object.ws/2020/03/12/sptingboot-prd-deploy/</id>
+    <published>2020-03-12T11:50:45.000Z</published>
+    <updated>2020-08-13T06:12:20.767Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;除了使用java -jar运行Spring Boot应用程序外，还可以为Unix系统打包完全可执行的应用程序。 这使得在常见的生产环境中安装和管理Spring Boot应用程序非常容易。&lt;/p&gt;
+&lt;p&gt;Spring Boot 提供了一个tools工具，该工具可以方便的让我们
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.object.ws/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.object.ws/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://www.object.ws/tags/Spring/"/>
+    
+      <category term="Spring Boot" scheme="http://www.object.ws/tags/Spring-Boot/"/>
+    
+      <category term="Spring Data" scheme="http://www.object.ws/tags/Spring-Data/"/>
+    
+  </entry>
+  
+  <entry>
     <title>搭建伪分布式Hadoop环境</title>
     <link href="http://www.object.ws/2019/12/21/bd-simple-hadoop/"/>
     <id>http://www.object.ws/2019/12/21/bd-simple-hadoop/</id>
     <published>2019-12-21T03:30:11.000Z</published>
-    <updated>2020-01-21T07:24:27.567Z</updated>
+    <updated>2020-01-30T06:34:05.336Z</updated>
     
     <summary type="html">
     
@@ -377,7 +436,7 @@
     <link href="http://www.object.ws/2018/12/02/centos-wordpress/"/>
     <id>http://www.object.ws/2018/12/02/centos-wordpress/</id>
     <published>2018-12-02T11:53:28.000Z</published>
-    <updated>2018-12-11T06:14:09.291Z</updated>
+    <updated>2020-05-29T12:46:41.412Z</updated>
     
     <summary type="html">
     
@@ -518,62 +577,6 @@
       <category term="Swarmkit" scheme="http://www.object.ws/tags/Swarmkit/"/>
     
       <category term="Swarm Mode" scheme="http://www.object.ws/tags/Swarm-Mode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker - Compose 服务编排</title>
-    <link href="http://www.object.ws/2018/05/23/docker-compose/"/>
-    <id>http://www.object.ws/2018/05/23/docker-compose/</id>
-    <published>2018-05-23T04:50:04.000Z</published>
-    <updated>2018-12-13T01:58:18.228Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Docker-Compose简介&quot;&gt;&lt;a href=&quot;#Docker-Compose简介&quot; class=&quot;headerlink&quot; title=&quot;Docker - Compose简介&quot;&gt;&lt;/a&gt;Docker - Compose简介&lt;/h2&gt;&lt;h3 id=&quot;Compo
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
-    
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
-    
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
-      <category term="Docker-Compose" scheme="http://www.object.ws/tags/Docker-Compose/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker - 持久化存储和数据共享</title>
-    <link href="http://www.object.ws/2018/05/15/docker-data/"/>
-    <id>http://www.object.ws/2018/05/15/docker-data/</id>
-    <published>2018-05-15T13:18:06.000Z</published>
-    <updated>2019-09-08T15:27:05.218Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Docker-Data-Volume&quot;&gt;&lt;a href=&quot;#Docker-Data-Volume&quot; class=&quot;headerlink&quot; title=&quot;Docker - Data Volume&quot;&gt;&lt;/a&gt;Docker - Data Volume&lt;/h2&gt;&lt;p&gt;想要
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
-    
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
-    
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
   </entry>
   

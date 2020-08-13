@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.object.ws/2020/03/12/sptingboot-prd-deploy/</loc>
+    
+    <lastmod>2020-08-13T06:12:20.767Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2020/04/08/linux-python-upgrade/</loc>
+    
+    <lastmod>2020-08-13T06:06:50.500Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/1900/04/24/springboot-Testcontainer/</loc>
+    
+    <lastmod>2020-08-13T05:57:18.216Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.object.ws/2018/12/02/centos-wordpress/</loc>
+    
+    <lastmod>2020-05-29T12:46:41.412Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.object.ws/2019/12/21/bd-simple-hadoop/</loc>
     
-    <lastmod>2020-01-21T07:24:27.567Z</lastmod>
+    <lastmod>2020-01-30T06:34:05.336Z</lastmod>
     
   </url>
   
@@ -222,13 +250,6 @@
     <loc>http://www.object.ws/2018/05/23/docker-compose/</loc>
     
     <lastmod>2018-12-13T01:58:18.228Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.object.ws/2018/12/02/centos-wordpress/</loc>
-    
-    <lastmod>2018-12-11T06:14:09.291Z</lastmod>
     
   </url>
   

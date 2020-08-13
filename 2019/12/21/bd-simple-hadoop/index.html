@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="柒索">
 <meta property="og:description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： 1sudo yum install openssh-clients openssh-server 安装完成后，可以使用下面命令进行测试： 1ssh localhost 输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-21T07:24:27.567Z">
+<meta property="og:updated_time" content="2020-01-30T06:34:05.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建伪分布式Hadoop环境">
 <meta name="twitter:description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： 1sudo yum install openssh-clients openssh-server 安装完成后，可以使用下面命令进行测试： 1ssh localhost 输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
@@ -415,6 +415,8 @@
 <p>安装完成后，可以使用下面命令进行测试：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh localhost</span><br></pre></td></tr></table></figure>
 <p>输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有问题。测试正常后使用 <code>exit</code> 命令退出ssh。</p>
+<h3 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h3><p>配置免密码登录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="安装-JAVA-环境"><a href="#安装-JAVA-环境" class="headerlink" title="安装 JAVA 环境"></a>安装 JAVA 环境</h2><h3 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h3><p>使用 yum 来安装1.7版本 OpenJDK：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel</span><br></pre></td></tr></table></figure>
 <p>安装完成后，输入 <code>java</code> 和 <code>javac</code> 命令，如果能输出对应的命令帮助，则表明jdk已正确安装。</p>
@@ -480,8 +482,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/hadoop/sbin/stop-dfs.sh</span><br></pre></td></tr></table></figure>
 <p>再起启动只需要执行下面命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/hadoop/sbin/start-dfs.sh</span><br></pre></td></tr></table></figure>
-<h2 id="部署完成"><a href="#部署完成" class="headerlink" title="部署完成"></a>部署完成</h2><p>### </p>
-
+<h2 id="部署完成"><a href="#部署完成" class="headerlink" title="部署完成"></a>部署完成</h2>
       
     </div>
 
@@ -525,6 +526,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/12/sptingboot-prd-deploy/" rel="prev" title="Spring Boot项目在生产环境中的部署">
+                Spring Boot项目在生产环境中的部署 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -602,7 +607,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -842,7 +847,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建伪分布式Hadoop环境"><span class="nav-number">1.</span> <span class="nav-text">搭建伪分布式Hadoop环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境说明"><span class="nav-number">1.1.</span> <span class="nav-text">环境说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-SSH-客户端"><span class="nav-number">2.</span> <span class="nav-text">安装 SSH 客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装SSH"><span class="nav-number">2.1.</span> <span class="nav-text">安装SSH</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-JAVA-环境"><span class="nav-number">3.</span> <span class="nav-text">安装 JAVA 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-JDK"><span class="nav-number">3.1.</span> <span class="nav-text">安装 JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-JAVA-环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">配置 JAVA 环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hadoop"><span class="nav-number">4.</span> <span class="nav-text">安装 Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Hadoop"><span class="nav-number">4.1.</span> <span class="nav-text">下载 Hadoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Hadoop-1"><span class="nav-number">4.2.</span> <span class="nav-text">安装 Hadoop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-伪分布式环境配置"><span class="nav-number">5.</span> <span class="nav-text">Hadoop 伪分布式环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置-Hadoop-的环境变量"><span class="nav-number">5.1.</span> <span class="nav-text">设置 Hadoop 的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-Hadoop-的配置文件"><span class="nav-number">5.2.</span> <span class="nav-text">修改 Hadoop 的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-NameNode-和-DataNode-守护进程"><span class="nav-number">5.3.</span> <span class="nav-text">启动 NameNode 和 DataNode 守护进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-Hadoop-伪分布式实例"><span class="nav-number">6.</span> <span class="nav-text">运行 Hadoop 伪分布式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-Hadoop-自带的例子"><span class="nav-number">6.1.</span> <span class="nav-text">查看 Hadoop 自带的例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-HDFS-中创建用户目录"><span class="nav-number">6.2.</span> <span class="nav-text">在 HDFS 中创建用户目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备实验数据"><span class="nav-number">6.3.</span> <span class="nav-text">准备实验数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行实验"><span class="nav-number">6.4.</span> <span class="nav-text">运行实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看运行结果"><span class="nav-number">6.5.</span> <span class="nav-text">查看运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除-HDFS-上的输出结果"><span class="nav-number">6.6.</span> <span class="nav-text">删除 HDFS 上的输出结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭-Hadoop-进程"><span class="nav-number">6.7.</span> <span class="nav-text">关闭 Hadoop 进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署完成"><span class="nav-number">7.</span> <span class="nav-text">部署完成</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建伪分布式Hadoop环境"><span class="nav-number">1.</span> <span class="nav-text">搭建伪分布式Hadoop环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境说明"><span class="nav-number">1.1.</span> <span class="nav-text">环境说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-SSH-客户端"><span class="nav-number">2.</span> <span class="nav-text">安装 SSH 客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装SSH"><span class="nav-number">2.1.</span> <span class="nav-text">安装SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#免密登录"><span class="nav-number">2.2.</span> <span class="nav-text">免密登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-JAVA-环境"><span class="nav-number">3.</span> <span class="nav-text">安装 JAVA 环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-JDK"><span class="nav-number">3.1.</span> <span class="nav-text">安装 JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-JAVA-环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">配置 JAVA 环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hadoop"><span class="nav-number">4.</span> <span class="nav-text">安装 Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-Hadoop"><span class="nav-number">4.1.</span> <span class="nav-text">下载 Hadoop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Hadoop-1"><span class="nav-number">4.2.</span> <span class="nav-text">安装 Hadoop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop-伪分布式环境配置"><span class="nav-number">5.</span> <span class="nav-text">Hadoop 伪分布式环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置-Hadoop-的环境变量"><span class="nav-number">5.1.</span> <span class="nav-text">设置 Hadoop 的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-Hadoop-的配置文件"><span class="nav-number">5.2.</span> <span class="nav-text">修改 Hadoop 的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-NameNode-和-DataNode-守护进程"><span class="nav-number">5.3.</span> <span class="nav-text">启动 NameNode 和 DataNode 守护进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-Hadoop-伪分布式实例"><span class="nav-number">6.</span> <span class="nav-text">运行 Hadoop 伪分布式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-Hadoop-自带的例子"><span class="nav-number">6.1.</span> <span class="nav-text">查看 Hadoop 自带的例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-HDFS-中创建用户目录"><span class="nav-number">6.2.</span> <span class="nav-text">在 HDFS 中创建用户目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备实验数据"><span class="nav-number">6.3.</span> <span class="nav-text">准备实验数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行实验"><span class="nav-number">6.4.</span> <span class="nav-text">运行实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看运行结果"><span class="nav-number">6.5.</span> <span class="nav-text">查看运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除-HDFS-上的输出结果"><span class="nav-number">6.6.</span> <span class="nav-text">删除 HDFS 上的输出结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭-Hadoop-进程"><span class="nav-number">6.7.</span> <span class="nav-text">关闭 Hadoop 进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署完成"><span class="nav-number">7.</span> <span class="nav-text">部署完成</span></a></li></ol></div>
             
 
           </div>
@@ -862,7 +867,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
