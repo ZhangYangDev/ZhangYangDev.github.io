@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2021-01-15T14:07:48.445Z</updated>
+  <updated>2021-01-15T14:10:17.720Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -21,13 +21,13 @@
     <link href="http://www.object.ws/2021/01/15/mysql-coltorow/"/>
     <id>http://www.object.ws/2021/01/15/mysql-coltorow/</id>
     <published>2021-01-15T14:00:29.000Z</published>
-    <updated>2021-01-15T14:07:48.445Z</updated>
+    <updated>2021-01-15T14:10:17.720Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;问题概述&quot;&gt;&lt;a href=&quot;#问题概述&quot; class=&quot;headerlink&quot; title=&quot;问题概述&quot;&gt;&lt;/a&gt;问题概述&lt;/h3&gt;&lt;p&gt;这个使用ETL进行数据导入而产生的问题，需要使用&lt;code&gt;Informatica&lt;/code&gt;对数据进行采集从&lt;code&gt;
+        &lt;h3 id=&quot;问题概述&quot;&gt;&lt;a href=&quot;#问题概述&quot; class=&quot;headerlink&quot; title=&quot;问题概述&quot;&gt;&lt;/a&gt;问题概述&lt;/h3&gt;&lt;p&gt;这个问题是使用ETL进行数据导入而产生的，需要使用&lt;code&gt;Informatica&lt;/code&gt;对数据进行采集从&lt;code
       
     
     </summary>
