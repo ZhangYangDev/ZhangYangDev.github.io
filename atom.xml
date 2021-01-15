@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.object.ws/"/>
-  <updated>2020-08-13T06:06:50.500Z</updated>
+  <updated>2021-01-15T14:07:48.445Z</updated>
   <id>http://www.object.ws/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL数据库中[列转行]一列转多行的问题</title>
+    <link href="http://www.object.ws/2021/01/15/mysql-coltorow/"/>
+    <id>http://www.object.ws/2021/01/15/mysql-coltorow/</id>
+    <published>2021-01-15T14:00:29.000Z</published>
+    <updated>2021-01-15T14:07:48.445Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;问题概述&quot;&gt;&lt;a href=&quot;#问题概述&quot; class=&quot;headerlink&quot; title=&quot;问题概述&quot;&gt;&lt;/a&gt;问题概述&lt;/h3&gt;&lt;p&gt;这个使用ETL进行数据导入而产生的问题，需要使用&lt;code&gt;Informatica&lt;/code&gt;对数据进行采集从&lt;code&gt;
+      
+    
+    </summary>
+    
+      <category term="MySQL" scheme="http://www.object.ws/categories/MySQL/"/>
+    
+    
+      <category term="MySQL" scheme="http://www.object.ws/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 升级 Python 至 3.x</title>
@@ -542,41 +565,6 @@
       <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
     
       <category term="Docker-Compose" scheme="http://www.object.ws/tags/Docker-Compose/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker - Swarm、SwarmKit、Swarm Mode QuickStart</title>
-    <link href="http://www.object.ws/2018/05/30/docker-swarm/"/>
-    <id>http://www.object.ws/2018/05/30/docker-swarm/</id>
-    <published>2018-05-30T06:09:15.000Z</published>
-    <updated>2018-07-02T16:25:48.085Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Docker-Swarm简介：&quot;&gt;&lt;a href=&quot;#Docker-Swarm简介：&quot; class=&quot;headerlink&quot; title=&quot;Docker Swarm简介：&quot;&gt;&lt;/a&gt;Docker Swarm简介：&lt;/h2&gt;&lt;p&gt;Docker Swarm是Docke
-      
-    
-    </summary>
-    
-      <category term="Docker" scheme="http://www.object.ws/categories/Docker/"/>
-    
-    
-      <category term="Linux" scheme="http://www.object.ws/tags/Linux/"/>
-    
-      <category term="CentOS" scheme="http://www.object.ws/tags/CentOS/"/>
-    
-      <category term="Docker" scheme="http://www.object.ws/tags/Docker/"/>
-    
-      <category term="Swarm" scheme="http://www.object.ws/tags/Swarm/"/>
-    
-      <category term="Vagrant" scheme="http://www.object.ws/tags/Vagrant/"/>
-    
-      <category term="Swarmkit" scheme="http://www.object.ws/tags/Swarmkit/"/>
-    
-      <category term="Swarm Mode" scheme="http://www.object.ws/tags/Swarm-Mode/"/>
     
   </entry>
   
