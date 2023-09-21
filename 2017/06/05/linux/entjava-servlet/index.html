@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>『Enterprise Java - Servlet』 在 Java8中使Servlet 3.1 | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言：本文讲解了在 JAVA8的环境中使用 Servlet3.1的标准容器中使用 Http 上下文的方式来深入了解 Servlet，通过一个简单的Maven Web项目，可以通过您喜爱的浏览器或Postman来访问。 环境准备： Java Version : 1.8.0_121 Maven Version：Apache Maven 3.3.9 IDE：IntelliJ IDEA (2017.2.3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『Enterprise Java - Servlet』 在 Java8中使Servlet 3.1">
+<meta property="og:url" content="http://www.object.ws/2017/06/05/linux/entjava-servlet/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="前言：本文讲解了在 JAVA8的环境中使用 Servlet3.1的标准容器中使用 Http 上下文的方式来深入了解 Servlet，通过一个简单的Maven Web项目，可以通过您喜爱的浏览器或Postman来访问。 环境准备： Java Version : 1.8.0_121 Maven Version：Apache Maven 3.3.9 IDE：IntelliJ IDEA (2017.2.3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2017-06-05T15:31:32.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.507Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Servlet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2017/06/05/linux/entjava-servlet/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '『Enterprise Java - Servlet』 在 Java8中使Servlet 3.1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">『Enterprise Java - Servlet』 在 Java8中使Servlet 3.1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-06-05T15:31:32.000Z" title="发表于 2017-06-05 23:31:32">2017-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.507Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="『Enterprise Java - Servlet』 在 Java8中使Servlet 3.1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>本文讲解了在 JAVA8的环境中使用 Servlet3.1的标准容器中使用 Http 上下文的方式来深入了解 Servlet，通过一个简单的Maven Web项目，可以通过您喜爱的浏览器或Postman来访问。</p>
+<h3 id="环境准备："><a href="#环境准备：" class="headerlink" title="环境准备："></a>环境准备：</h3><ul>
+<li>Java Version : 1.8.0_121</li>
+<li>Maven Version：Apache Maven 3.3.9</li>
+<li>IDE：IntelliJ IDEA (2017.2.3)</li>
+<li>System：macOS Sierra</li>
+</ul>
+<h2 id="Servlet-简介"><a href="#Servlet-简介" class="headerlink" title="Servlet - 简介:"></a>Servlet - 简介:</h2><p>Servlet是基于Java技术的web组件，容器托管的，用于生成动态内容。它是运行在 Web 服务器或应用服务器上的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。像其他基于Java的组件技术一样，Servlet也是基于平台无关的Java类格式，被编译为平台无关的字节码，可以被基于Java技术的web server动态加载并运行。容器，有时候也叫做servlet引擎，是web server为支持servlet功能扩展的部分。客户端通过Servlet容器实现的请求/应答模型与Servlet交互。</p>
+<p>使用 Servlet，您可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页。</p>
+<p>Java Servlet 通常情况下与使用 CGI（Common Gateway Interface，公共网关接口）实现的程序可以达到异曲同工的效果。但是相比于 CGI，Servlet 有以下几点优势：</p>
+<ul>
+<li>性能明显更好。</li>
+<li>Servlet 在 Web 服务器的地址空间内执行。这样它就没有必要再创建一个单独的进程来处理每个客户端请求。</li>
+<li>Servlet 是独立于平台的，因为它们是用 Java 编写的。</li>
+<li>服务器上的 Java 安全管理器执行了一系列限制，以保护服务器计算机上的资源。因此，Servlet 是可信的。</li>
+<li>Java 类库的全部功能对 Servlet 来说都是可用的。它可以通过 sockets 和 RMI 机制与 applets、数据库或其他软件进行交互。</li>
+</ul>
+<h2 id="Servlet-容器"><a href="#Servlet-容器" class="headerlink" title="Servlet - 容器:"></a>Servlet - 容器:</h2><p>Servlet容器是web server或application server的一部分，提供基于请求/响应发送模型的网络服务，解码基于MIME的请求，并且格式化基于MIME的响应。Servlet 容器也包含了管理Servlet生命周期。 </p>
+<p>Servlet容器可以嵌入到宿主的web server中，或者通过Web Server的本地扩展API单独作为附加组件安装。Servelt容器也可能内嵌或安装到包含web功能的application server中。 </p>
+<p>所有Servlet容器必须支持基于HTTP协议的请求/响应模型，比如像基于HTTPS（HTTP over SSL）协议的请求/应答模型可以选择性的支持。容器必须实现的HTTP协议版本包含HTTP/1.0 和 HTTP/1.1。因为容器或许支持RFC2616 (HTTP/1.1)描述的缓存机制，缓存机制可能在将客户端请求交给Servlet处理之前修改它们，也可能在将Servlet生成的响应发送给客户端之前修改它们，或者可能根据RFC2616规范直接对请求作出响应而不交给Servlet进行处理。 </p>
+<p>Servlet容器应该使Servlet执行在一个安全限制的环境中。在Java平台标准版（J2SE, v.1.3 或更高） 或者 Java平台企业版(Java EE, v.1.3 或更高) 的环境下，这些限制应该被放置在Java平台定义的安全许可架构中。比如，高端的application server为了保证容器的其他组件不受到负面影响可能会限制Thread对象的创建。 </p>
+<p>Java SE 6是构建Servlet容器最低的Java平台版本。 </p>
+<h3 id="事件序列"><a href="#事件序列" class="headerlink" title="事件序列:"></a>事件序列:</h3><p>以下是一个典型的事件序列： </p>
+<p>1、客户端（如 web浏览器）发送一个HTTP请求到web服务器； </p>
+<p>2、Web服务器接收到请求并且交给servlet容器处理，servlet容器可以运行在与宿主web服务器同一个进程中，也可以是同一主机的不同进程，或者位于不同的主机的web服务器中，对请求进行处理。 </p>
+<p>3、servlet容器根据servlet配置选择相应的servlet，并使用代表请求和响应对象的参数进行调用。 </p>
+<p>4、servlet通过请求对象得到远程用户，HTTP POST参数和其他有关数据可能作为请求的一部分随请求一起发送过来。Servlet执行我们编写的任意的逻辑，然后动态产生响应内容发送回客户端。发送数据到客户端是通过响应对象完成的。 </p>
+<p>5、一旦servlet完成请求的处理，servlet容器必须确保响应正确的刷出，并且将控制权还给宿主Web服务器。 </p>
+<h2 id="Servlet-规范"><a href="#Servlet-规范" class="headerlink" title="Servlet - 规范:"></a>Servlet - 规范:</h2><p>许多供应商已经实施了servlet规范（例如：Tomcat，Jetty），尽管规范的确发展，供应商最终还是为我们部署我们的Web应用程序提供了实现。</p>
+<p>通过<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=340">JSR 340的提案</a>，servlet 3.1规范在大版本3.0（<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=315">JSR 315</a>）上进行了迭代，允许我们的Web应用程序利用非阻塞IO和HTTP协议升级机制等功能。</p>
+<p>在Servlet 3.0规范发布后的一大特点是不再需要一个<code>web.xml</code> 作为描述为我们所有的Servlet、过滤器、Listeners、init-PARAMS在 xml 文件中进行配置，大多数元数据、配置现在可以通过注释来完成。</p>
+<p>此次使用<code>web.xml</code> 仅仅是为了在尝试访问安全路由时配置容器的登录过程。</p>
+<p>web.xml:</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-app</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+	<span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd<span class="token punctuation">"</span></span>
+	<span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>3.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+	
+	<span class="token comment">&lt;!-- 将以任何安全路由的基本身份验证来挑战用户 --></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>login-config</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>auth-method</span><span class="token punctuation">></span></span>BASIC<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>auth-method</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>realm-name</span><span class="token punctuation">></span></span>servletbasics<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>realm-name</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>login-config</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-app</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="Servlet-生命周期："><a href="#Servlet-生命周期：" class="headerlink" title="Servlet - 生命周期："></a>Servlet - 生命周期：</h2><p>Servlet是按照一个严格定义的生命周期被管理，该生命周期规定了Servlet如何被加载、实例化、初始化、处理客户端请求，以及何时结束服务。该声明周期可以通过javax.servlet.Servlet接口中的init、service和destroy这些API来表示，所有Servlet必须直接或间接的实现GenericServlet或HttpServlet抽象类。</p>
+<p>以下是典型servlet的生命周期。</p>
+<ol>
+<li><p>init 实例化:</p>
+<p>用户访问这个Servlet，由容器实例化，它的<code>init()</code>方法被调用一次。通常，<code>Servlet</code>被实例化一次，并且在使用中产生大量并发，尽管容器可以汇集实现SingleThreadModel的多个servlet来处理重负载。</p>
+</li>
+<li><p>调用Service服务:<br>Servi为每个请求调用Servlets的service()方法，如果您的servlet实现了HttpServlet接口，那么该请求将被委派给与您给定的请求动词匹配的任何便利方法。</p>
+</li>
+<li><p>销毁 Servlet:<br>destroy()方法被调用，允许我们钩入生命周期，并终止servlet使用的任何资源。</p>
+</li>
+<li><p>垃圾收集:<br>垃圾收集器收集servlet。</p>
+</li>
+</ol>
+<h2 id="Servlet-过滤器"><a href="#Servlet-过滤器" class="headerlink" title="Servlet - 过滤器:"></a>Servlet - 过滤器:</h2><p>Servlet的过滤器旨在拦截对servlet，jsp或甚至静态HTML文件的请求。他们还将响应拦截回客户端，因此可用于修改请求/响应，有时甚至根据特定条件阻止或重定向它们。</p>
+<p>其中包括：</p>
+<ul>
+<li>身份验证：拦截请求以防止未经身份验证的用户</li>
+<li>压缩：将响应压缩回客户端</li>
+<li>更改请求/响应体的交换格式</li>
+<li>跟踪请求/响应</li>
+</ul>
+<h2 id="Servlet-监听器"><a href="#Servlet-监听器" class="headerlink" title="Servlet - 监听器:"></a>Servlet - 监听器:</h2><p>servlet规范允许我们定义WebListener，它可以对Web应用程序中发生的某些事件做出反应。事件可以在会话，请求，应用程序级别，不同类型的WebListener被设计为对不同的事件做出反应。</p>
+<p>对于不同的场景，存在以下WebListeners：</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th align="left">WebListener 接口</th>
+<th align="left">Event</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Web context</td>
+<td align="left">ServletContextListener<br />ServletContextAttributeListener</td>
+<td align="left">ServletContextEvent<br />ServletContextAttributeEvent</td>
+</tr>
+<tr>
+<td>Session</td>
+<td align="left">HttpSessionListener<br />HttpSessionActivationListener<br />HttpSessionAttributeListener</td>
+<td align="left">HttpSessionEvent<br />HttpSessionEvent<br />HttpSessionBindingEvent</td>
+</tr>
+<tr>
+<td>Request</td>
+<td align="left">ServletRequestListener<br />ServletRequestAttributeListener</td>
+<td align="left">ServletRequestEvent<br />ServletRequestAttributeEvent</td>
+</tr>
+</tbody></table>
+<h2 id="Servlet-Context："><a href="#Servlet-Context：" class="headerlink" title="Servlet - Context："></a>Servlet - Context：</h2><h2 id="Servlet-注解："><a href="#Servlet-注解：" class="headerlink" title="Servlet - 注解："></a>Servlet - 注解：</h2><p>在web应用中，使用注解的类仅当它们位于WEB-INF/classes目录中，或它们被打包到位于应用的WEB-INF/lib中的jar文件中时它们的注解才将被处理。 </p>
+<p>Web应用部署描述符的web-app元素包含一个新的“metadata-complete”属性。“metadata-complete”属性定义了web描述符是否是完整的，或是否应该在部署时检查jar包中的类文件和web fragments。如果“metadata-complete”设置为“true”，部署工具必须必须忽略存在于应用的类文件中的所有指定部署信息的servlet注解和web fragments。如果metadata-complete属性没有指定或设置为“false”，部署工具必须检查应用的类文件的注解，并扫描web fragments。 </p>
+<p>以下注解必须被Servlet 3.0兼容的容器支持。 </p>
+<h3 id="WebServlet"><a href="#WebServlet" class="headerlink" title="@WebServlet:"></a>@WebServlet:</h3><p>该注解用于在Web应用中定义Servlet组件。该注解在一个类上指定并包含声明Servlet的元数据。必须指定注解的urlPatterns或value属性。所有其他属性是可选的默认设置。@WebServlet注解的类必须继承javax.servlet.http.HttpServlet类。 </p>
+<p>使用示例:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@WebServlet</span><span class="token punctuation">(</span>”<span class="token operator">/</span>foo”<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CalculatorServlet</span> <span class="token keyword">extends</span> <span class="token class-name">HttpServlet</span><span class="token punctuation">&#123;</span>
+<span class="token comment">//...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="WebFilter"><a href="#WebFilter" class="headerlink" title="@WebFilter:"></a>@WebFilter:</h3><p>该注解用于在Web应用中定义Filter。该注解在一个类上指定且包含声明过滤器的元数据。如果没有指定Filter名字则默认是全限定类名。注解的urlPatterns属性, servletNames 属性 或 value 属性必须被指定。所有其他属性是可选的默认设置。@WebFilter注解的类必须实现javax.servlet.Filter。 </p>
+<p>使用示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@WebFilter</span><span class="token punctuation">(</span>“<span class="token operator">/</span>foo”<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doFilter</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> req<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> res<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="WebInitPara"><a href="#WebInitPara" class="headerlink" title="@WebInitPara:"></a>@WebInitPara:</h3><p>该注解用于指定必须传递到Servlet或Filter的任何初始化参数。它是WebServlet和WebFilter注解的一个属性。 </p>
+<h3 id="WebListener"><a href="#WebListener" class="headerlink" title="@WebListener:"></a>@WebListener:</h3><p>WebListener注解用于注解用来获得特定web应用上下文中的各种操作事件的监听器。@WebListener注解的类必须实现以下接口： </p>
+<ul>
+<li>javax.servlet.ServletContextListener </li>
+<li>javax.servlet.ServletContextAttributeListener </li>
+<li>javax.servlet.ServletRequestListener </li>
+<li>javax.servlet.ServletRequestAttributeListener </li>
+<li>javax.servlet.http.HttpSessionListener </li>
+<li>javax.servlet.http.HttpSessionAttributeListener </li>
+<li>javax.servlet.http.HttpSessionIdListener </li>
+</ul>
+<p>使用示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@WebListener</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyListener</span> <span class="token keyword">implements</span> <span class="token class-name">ServletContextListener</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">contextInitialized</span><span class="token punctuation">(</span><span class="token class-name">ServletContextEvent</span> sce<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">ServletContext</span> sc <span class="token operator">=</span> sce<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sc<span class="token punctuation">.</span><span class="token function">addServlet</span><span class="token punctuation">(</span><span class="token string">"myServlet"</span><span class="token punctuation">,</span> <span class="token string">"Sample servlet"</span><span class="token punctuation">,</span> <span class="token string">"foo.bar.MyServlet"</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sc<span class="token punctuation">.</span><span class="token function">addServletMapping</span><span class="token punctuation">(</span><span class="token string">"myServlet"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#123;</span> <span class="token string">"/urlpattern/*"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="MultipartConfig"><a href="#MultipartConfig" class="headerlink" title="@MultipartConfig:"></a>@MultipartConfig:</h3><p>该注解，当指定在Servlet上时，表示请求期望是mime/multipart类型。相应servlet的HttpServletRequest对象必须使用getParts和getPart方法遍历各个mime附件以获取mime附件。javax.servlet.annotation.MultipartConfig的location属性和<multipart-config>的<location>元素被解析为一个绝对路径且默认为javax.servlet.context.tempdir。如果指定了相对地址，它将是相对于tempdir位置。绝对路径与相对地址的测试必须使用java.io.File.isAbsolute。</p>
+<h2 id="Servlet-异步操作"><a href="#Servlet-异步操作" class="headerlink" title="Servlet - 异步操作:"></a>Servlet - 异步操作:</h2><p>异步处理在重负载或在客户端和服务器之间以不同速度读取和写入大量数据的情况下特别有用，意味着两个实体之一可能会等待来自另一个的输入。</p>
+<p>在servlet 3.0规范中，引入了<a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/7/api/javax/servlet/Servlet.html">servlet</a>内部的异步处理，允许长时间运行的任务在一个单独的线程中完成，以允许请求线程返回到从它处理其他请求的池中。</p>
+<p>通过servlet 3.1规范，我们得到了能够以异步方式在客户端和服务器之间读写数据的功能，从而允许以非阻塞方式异步处理客户端和服务器之间的长时间读写操作，特别适用于大型读取和写入时可能阻止的数据流以不同的速度完成。这些功能通过<a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/7/api/javax/servlet/ReadListener.html">ReadListener</a>和<a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/7/api/javax/servlet/WriteListener.html">WriteListener</a>接口来实现。</p>
+<p>作为servlet 3.1规范的一部分，我们为servlet和过滤器提供异步处理支持。</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p>JCP(Java Servlet 3.1规范):<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=340">https://jcp.org/en/jsr/detail?id=340</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2017/06/05/linux/entjava-servlet/">http://www.object.ws/2017/06/05/linux/entjava-servlet/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Servlet/">Servlet</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2017/06/23/java/lombok-note/" title="Lombok - 使用注解让你的JavaBean变得更加简洁"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Lombok - 使用注解让你的JavaBean变得更加简洁</div></div></a></div><div class="next-post pull-right"><a href="/2017/05/09/javascript/npm-note/" title="『管理工具-NPM』相关内容整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">『管理工具-NPM』相关内容整理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">如何在Oracle数据库中使用递归查询</div></div></a></div><div><a href="/2019/06/11/docker/docker-maven-pro/" title="在项目中使用Docker Maven Plugin插件远程构建镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-11</div><div class="title">在项目中使用Docker Maven Plugin插件远程构建镜像</div></div></a></div><div><a href="/2017/09/02/java/gradle-node/" title="『构建工具-Gradle』相关内容整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-09-02</div><div class="title">『构建工具-Gradle』相关内容整理</div></div></a></div><div><a href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">使用Screw快速生成数据库文档</div></div></a></div><div><a href="/2021/07/18/java/java-file-utils/" title="Java文件操作(打包压缩、下载、转换等)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-18</div><div class="title">Java文件操作(打包压缩、下载、转换等)</div></div></a></div><div><a href="/2019/03/18/java/java-spring-cros/" title="使用Spring CROS解决项目中的跨域问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-18</div><div class="title">使用Spring CROS解决项目中的跨域问题</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">前言：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">环境准备：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">Servlet - 简介:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E5%AE%B9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">Servlet - 容器:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%BA%8F%E5%88%97"><span class="toc-number">3.1.</span> <span class="toc-text">事件序列:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E8%A7%84%E8%8C%83"><span class="toc-number">4.</span> <span class="toc-text">Servlet - 规范:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">Servlet - 生命周期：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">6.</span> <span class="toc-text">Servlet - 过滤器:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-number">7.</span> <span class="toc-text">Servlet - 监听器:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-Context%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">Servlet - Context：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E6%B3%A8%E8%A7%A3%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">Servlet - 注解：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WebServlet"><span class="toc-number">9.1.</span> <span class="toc-text">@WebServlet:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebFilter"><span class="toc-number">9.2.</span> <span class="toc-text">@WebFilter:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebInitPara"><span class="toc-number">9.3.</span> <span class="toc-text">@WebInitPara:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WebListener"><span class="toc-number">9.4.</span> <span class="toc-text">@WebListener:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MultipartConfig"><span class="toc-number">9.5.</span> <span class="toc-text">@MultipartConfig:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlet-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">10.</span> <span class="toc-text">Servlet - 异步操作:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-number">11.</span> <span class="toc-text">参考资料：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

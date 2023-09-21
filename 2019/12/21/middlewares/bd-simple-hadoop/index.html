@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>搭建伪分布式Hadoop环境 | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： sudo yum install openssh-clients openssh-server  安装完成后，可以使用下面命令进行测试： ssh localhost  输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建伪分布式Hadoop环境">
+<meta property="og:url" content="http://www.object.ws/2019/12/21/middlewares/bd-simple-hadoop/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="搭建伪分布式Hadoop环境环境说明 CentOS 7.2 64 位 OpenJDK- 1.8 Hadoop- 2.7  安装 SSH 客户端安装SSH安装SSH： sudo yum install openssh-clients openssh-server  安装完成后，可以使用下面命令进行测试： ssh localhost  输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2019-12-21T03:30:11.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.507Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2019/12/21/middlewares/bd-simple-hadoop/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '搭建伪分布式Hadoop环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">搭建伪分布式Hadoop环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-21T03:30:11.000Z" title="发表于 2019-12-21 11:30:11">2019-12-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.507Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hadoop/">Hadoop</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="搭建伪分布式Hadoop环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="搭建伪分布式Hadoop环境"><a href="#搭建伪分布式Hadoop环境" class="headerlink" title="搭建伪分布式Hadoop环境"></a>搭建伪分布式Hadoop环境</h2><h3 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h3><ul>
+<li>CentOS 7.2 64 位</li>
+<li>OpenJDK- 1.8</li>
+<li>Hadoop- 2.7</li>
+</ul>
+<h2 id="安装-SSH-客户端"><a href="#安装-SSH-客户端" class="headerlink" title="安装 SSH 客户端"></a>安装 SSH 客户端</h2><h3 id="安装SSH"><a href="#安装SSH" class="headerlink" title="安装SSH"></a>安装SSH</h3><p>安装SSH：</p>
+<pre class="line-numbers language-none"><code class="language-none">sudo yum install openssh-clients openssh-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>安装完成后，可以使用下面命令进行测试：</p>
+<pre class="line-numbers language-none"><code class="language-none">ssh localhost<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>输入 root 账户的密码，如果可以正常登录，则说明SSH安装没有问题。测试正常后使用 <code>exit</code> 命令退出ssh。</p>
+<h3 id="免密登录"><a href="#免密登录" class="headerlink" title="免密登录"></a>免密登录</h3><p>配置免密码登录：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="安装-JAVA-环境"><a href="#安装-JAVA-环境" class="headerlink" title="安装 JAVA 环境"></a>安装 JAVA 环境</h2><h3 id="安装-JDK"><a href="#安装-JDK" class="headerlink" title="安装 JDK"></a>安装 JDK</h3><p>使用 yum 来安装1.7版本 OpenJDK：</p>
+<pre class="line-numbers language-none"><code class="language-none">sudo yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>安装完成后，输入 <code>java</code> 和 <code>javac</code> 命令，如果能输出对应的命令帮助，则表明jdk已正确安装。</p>
+<h3 id="配置-JAVA-环境变量"><a href="#配置-JAVA-环境变量" class="headerlink" title="配置 JAVA 环境变量"></a>配置 JAVA 环境变量</h3><p>执行命令:</p>
+<p>编辑 ~/.bashrc，在结尾追加:</p>
+<pre class="line-numbers language-none"><code class="language-none">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-1.8.0-openjdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>保存文件后执行下面命令使 JAVA_HOME 环境变量生效:</p>
+<pre class="line-numbers language-none"><code class="language-none">source ~&#x2F;.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>为了检测系统中 JAVA 环境是否已经正确配置并生效，可以分别执行下面命令:</p>
+<pre class="line-numbers language-none"><code class="language-none">java -version
+$JAVA_HOME&#x2F;bin&#x2F;java -version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>若两条命令输出的结果一致，且都为我们前面安装的 openjdk-1.8.0 的版本，则表明 JDK 环境已经正确安装并配置。</p>
+<h2 id="安装-Hadoop"><a href="#安装-Hadoop" class="headerlink" title="安装 Hadoop"></a>安装 Hadoop</h2><h3 id="下载-Hadoop"><a href="#下载-Hadoop" class="headerlink" title="下载 Hadoop"></a>下载 Hadoop</h3><p>本教程使用 hadoop-2.7 版本，使用 wget 工具在线下载（注：本教程是从清华大学的镜像源下载，如果下载失败或报错，可以自己在网上找到国内其他一个镜像源下载 2.7 版本的 hadoop 即可）：</p>
+<pre class="line-numbers language-none"><code class="language-none">wget https:&#x2F;&#x2F;archive.apache.org&#x2F;dist&#x2F;hadoop&#x2F;common&#x2F;hadoop-2.7.4&#x2F;hadoop-2.7.4.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="安装-Hadoop-1"><a href="#安装-Hadoop-1" class="headerlink" title="安装 Hadoop"></a>安装 Hadoop</h3><p>将 Hadoop 安装到 /usr/local 目录下:</p>
+<pre class="line-numbers language-none"><code class="language-none">tar -zxf hadoop-2.7.4.tar.gz -C &#x2F;usr&#x2F;local<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>对安装的目录进行重命名，便于后续操作方便:</p>
+<pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local
+mv .&#x2F;hadoop-2.7.4&#x2F; .&#x2F;hadoop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>检查Hadoop是否已经正确安装:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hadoop version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果成功输出hadoop的版本信息，表明hadoop已经成功安装。</p>
+<h2 id="Hadoop-伪分布式环境配置"><a href="#Hadoop-伪分布式环境配置" class="headerlink" title="Hadoop 伪分布式环境配置"></a>Hadoop 伪分布式环境配置</h2><p>Hadoop伪分布式模式使用多个守护线程模拟分布的伪分布运行模式。</p>
+<h3 id="设置-Hadoop-的环境变量"><a href="#设置-Hadoop-的环境变量" class="headerlink" title="设置 Hadoop 的环境变量"></a>设置 Hadoop 的环境变量</h3><p>编辑 ~/.bashrc，在结尾追加如下内容：</p>
+<pre class="line-numbers language-none"><code class="language-none">export HADOOP_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;hadoop
+export HADOOP_INSTALL&#x3D;$HADOOP_HOME
+export HADOOP_MAPRED_HOME&#x3D;$HADOOP_HOME
+export HADOOP_COMMON_HOME&#x3D;$HADOOP_HOME
+export HADOOP_HDFS_HOME&#x3D;$HADOOP_HOME
+export YARN_HOME&#x3D;$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR&#x3D;$HADOOP_HOME&#x2F;lib&#x2F;native
+export PATH&#x3D;$PATH:$HADOOP_HOME&#x2F;sbin:$HADOOP_HOME&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使Hadoop环境变量配置生效:</p>
+<pre class="line-numbers language-none"><code class="language-none">source ~&#x2F;.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="修改-Hadoop-的配置文件"><a href="#修改-Hadoop-的配置文件" class="headerlink" title="修改 Hadoop 的配置文件"></a>修改 Hadoop 的配置文件</h3><p>Hadoop的配置文件位于安装目录的 /etc/hadoop 目录下，在本文中即位于 /url/local/hadoop/etc/hadoop 目录下，需要修改的配置文件为如下两个:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;etc&#x2F;hadoop&#x2F;core-site.xml
+&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;etc&#x2F;hadoop&#x2F;hdfs-site.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>修改<code>core-site.xml</code>节点的内容为如下所示：;</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;&#x2F;name&gt;
+        &lt;value&gt;file:&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;tmp&lt;&#x2F;value&gt;
+        &lt;description&gt;location to store temporary files&lt;&#x2F;description&gt;
+    &lt;&#x2F;property&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;&#x2F;name&gt;
+        &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:9000&lt;&#x2F;value&gt;
+    &lt;&#x2F;property&gt;
+&lt;&#x2F;configuration&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>修改<code>hdfs-site.xml</code>节点的内容为如下所示：;</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;
+        &lt;value&gt;1&lt;&#x2F;value&gt;
+    &lt;&#x2F;property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;&#x2F;name&gt;
+        &lt;value&gt;file:&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;tmp&#x2F;dfs&#x2F;name&lt;&#x2F;value&gt;
+    &lt;&#x2F;property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;&#x2F;name&gt;
+        &lt;value&gt;file:&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;tmp&#x2F;dfs&#x2F;data&lt;&#x2F;value&gt;
+    &lt;&#x2F;property&gt;
+&lt;&#x2F;configuration&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>格式化NameNode:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hdfs namenode -format<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在输出信息中看到如下信息，则表示格式化成功:</p>
+<pre class="line-numbers language-none"><code class="language-none">Storage directory &#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;tmp&#x2F;dfs&#x2F;name has been successfully formatted.
+Exiting with status 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="启动-NameNode-和-DataNode-守护进程"><a href="#启动-NameNode-和-DataNode-守护进程" class="headerlink" title="启动 NameNode 和 DataNode 守护进程"></a>启动 NameNode 和 DataNode 守护进程</h3><p>启动 NameNode 和 DataNode 进程:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;sbin&#x2F;start-dfs.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行过程中会提示输入用户密码，输入 root 用户密码即可。另外，启动时ssh会显示警告提示是否继续连接，输入 yes 即可。   </p>
+<p>检查 NameNode 和 DataNode 是否正常启动:</p>
+<pre class="line-numbers language-none"><code class="language-none">jps<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果NameNode和DataNode已经正常启动，会显示NameNode、DataNode和SecondaryNameNode的进程信息:</p>
+<pre class="line-numbers language-none"><code class="language-none">[hadoop@VM_80_152_centos ~]$ jps
+3689 SecondaryNameNode
+3520 DataNode
+3800 Jps
+3393 NameNode<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="运行-Hadoop-伪分布式实例"><a href="#运行-Hadoop-伪分布式实例" class="headerlink" title="运行 Hadoop 伪分布式实例"></a>运行 Hadoop 伪分布式实例</h2><p>Hadoop自带了丰富的例子，包括 wordcount、grep、sort 等。下面我们将以grep例子为教程，输入一批文件，从中筛选出符合正则表达式 <code>dfs[a-z.]+</code> 的单词并统计出现的次数。</p>
+<h3 id="查看-Hadoop-自带的例子"><a href="#查看-Hadoop-自带的例子" class="headerlink" title="查看 Hadoop 自带的例子"></a>查看 Hadoop 自带的例子</h3><p>Hadoop 附带了丰富的例子, 执行下面命令可以查看：</p>
+<pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local&#x2F;hadoop
+.&#x2F;bin&#x2F;hadoop jar .&#x2F;share&#x2F;hadoop&#x2F;mapreduce&#x2F;hadoop-mapreduce-examples-2.7.4.jar
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="在-HDFS-中创建用户目录"><a href="#在-HDFS-中创建用户目录" class="headerlink" title="在 HDFS 中创建用户目录"></a>在 HDFS 中创建用户目录</h3><p>在 HDFS 中创建用户目录 hadoop：</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hdfs dfs -mkdir -p &#x2F;user&#x2F;hadoop<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="准备实验数据"><a href="#准备实验数据" class="headerlink" title="准备实验数据"></a>准备实验数据</h3><p>本教程中，我们将以 Hadoop 所有的 xml 配置文件作为输入数据来完成实验。执行下面命令在 HDFS 中新建一个 input 文件夹并将 hadoop 配置文件上传到该文件夹下：</p>
+<pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local&#x2F;hadoop
+.&#x2F;bin&#x2F;hdfs dfs -mkdir &#x2F;user&#x2F;hadoop&#x2F;input
+.&#x2F;bin&#x2F;hdfs dfs -put .&#x2F;etc&#x2F;hadoop&#x2F;*.xml &#x2F;user&#x2F;hadoop&#x2F;input<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>使用下面命令可以查看刚刚上传到 HDFS 的文件:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hdfs dfs -ls &#x2F;user&#x2F;hadoop&#x2F;input<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="运行实验"><a href="#运行实验" class="headerlink" title="运行实验"></a>运行实验</h3><p>运行实验:</p>
+<pre class="line-numbers language-none"><code class="language-none">cd &#x2F;usr&#x2F;local&#x2F;hadoop
+.&#x2F;bin&#x2F;hadoop jar .&#x2F;share&#x2F;hadoop&#x2F;mapreduce&#x2F;hadoop-mapreduce-examples-2.7.4.jar grep &#x2F;user&#x2F;hadoop&#x2F;input &#x2F;user&#x2F;hadoop&#x2F;output &#39;dfs[a-z.]+&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>上述命令以 HDFS 文件系统中的 input 为输入数据来运行 Hadoop 自带的 grep 程序，提取其中符合正则表达式 dfs[a-z.]+ 的数据并进行次数统计，将结果输出到 HDFS 文件系统的 output 文件夹下。</p>
+<h3 id="查看运行结果"><a href="#查看运行结果" class="headerlink" title="查看运行结果"></a>查看运行结果</h3><p>上述例子完成后的结果保存在 HDFS 中，通过下面命令查看结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hdfs dfs -cat &#x2F;user&#x2F;hadoop&#x2F;output&#x2F;*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果运行成功，可以看到如下结果:</p>
+<pre class="line-numbers language-none"><code class="language-none">1       dfsadmin
+1       dfs.replication
+1       dfs.namenode.name.dir
+1       dfs.datanode.data.dir<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="删除-HDFS-上的输出结果"><a href="#删除-HDFS-上的输出结果" class="headerlink" title="删除 HDFS 上的输出结果"></a>删除 HDFS 上的输出结果</h3><p>删除 HDFS 中的结果目录:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;bin&#x2F;hdfs dfs -rm -r &#x2F;user&#x2F;hadoop&#x2F;output<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>运行 Hadoop 程序时，为了防止覆盖结果，程序指定的输出目录不能存在，否则会提示错误，因此在下次运行前需要先删除输出目录。</p>
+<h3 id="关闭-Hadoop-进程"><a href="#关闭-Hadoop-进程" class="headerlink" title="关闭 Hadoop 进程"></a>关闭 Hadoop 进程</h3><p>关闭 Hadoop 进程：</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;sbin&#x2F;stop-dfs.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>再起启动只需要执行下面命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;usr&#x2F;local&#x2F;hadoop&#x2F;sbin&#x2F;start-dfs.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="部署完成"><a href="#部署完成" class="headerlink" title="部署完成"></a>部署完成</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2019/12/21/middlewares/bd-simple-hadoop/">http://www.object.ws/2019/12/21/middlewares/bd-simple-hadoop/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Hadoop/">Hadoop</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/01/30/java/mac-change-jdk-version/" title="Mac环境下切换jdk版本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Mac环境下切换jdk版本</div></div></a></div><div class="next-post pull-right"><a href="/2019/11/29/docker/docker-harbor/" title="Docker - 基于Harbor搭建Docker私有镜像仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker - 基于Harbor搭建Docker私有镜像仓库</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2018/04/26/docker/docker-cntrimg/" title="Docker - Container &amp; Image"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-26</div><div class="title">Docker - Container &amp; Image</div></div></a></div><div><a href="/2018/05/15/docker/docker-data/" title="Docker - 持久化存储和数据共享"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-15</div><div class="title">Docker - 持久化存储和数据共享</div></div></a></div><div><a href="/2018/09/14/docker/docker-dockerfile/" title="Docker - Dockerfile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">Docker - Dockerfile</div></div></a></div><div><a href="/2019/11/29/docker/docker-harbor/" title="Docker - 基于Harbor搭建Docker私有镜像仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-29</div><div class="title">Docker - 基于Harbor搭建Docker私有镜像仓库</div></div></a></div><div><a href="/2018/03/11/docker/docker-introduction/" title="Docker - Introduction &amp; QuickStart"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-11</div><div class="title">Docker - Introduction &amp; QuickStart</div></div></a></div><div><a href="/2019/06/11/docker/docker-maven-pro/" title="在项目中使用Docker Maven Plugin插件远程构建镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-11</div><div class="title">在项目中使用Docker Maven Plugin插件远程构建镜像</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8FHadoop%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">搭建伪分布式Hadoop环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.</span> <span class="toc-text">环境说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-SSH-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.</span> <span class="toc-text">安装 SSH 客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85SSH"><span class="toc-number">2.1.</span> <span class="toc-text">安装SSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-number">2.2.</span> <span class="toc-text">免密登录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-JAVA-%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">安装 JAVA 环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-JDK"><span class="toc-number">3.1.</span> <span class="toc-text">安装 JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-JAVA-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">3.2.</span> <span class="toc-text">配置 JAVA 环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hadoop"><span class="toc-number">4.</span> <span class="toc-text">安装 Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-Hadoop"><span class="toc-number">4.1.</span> <span class="toc-text">下载 Hadoop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hadoop-1"><span class="toc-number">4.2.</span> <span class="toc-text">安装 Hadoop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop-%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">Hadoop 伪分布式环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-Hadoop-%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">5.1.</span> <span class="toc-text">设置 Hadoop 的环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Hadoop-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.2.</span> <span class="toc-text">修改 Hadoop 的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-NameNode-%E5%92%8C-DataNode-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">5.3.</span> <span class="toc-text">启动 NameNode 和 DataNode 守护进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C-Hadoop-%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">运行 Hadoop 伪分布式实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-Hadoop-%E8%87%AA%E5%B8%A6%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">6.1.</span> <span class="toc-text">查看 Hadoop 自带的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-HDFS-%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%9B%AE%E5%BD%95"><span class="toc-number">6.2.</span> <span class="toc-text">在 HDFS 中创建用户目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE"><span class="toc-number">6.3.</span> <span class="toc-text">准备实验数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%9E%E9%AA%8C"><span class="toc-number">6.4.</span> <span class="toc-text">运行实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">6.5.</span> <span class="toc-text">查看运行结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4-HDFS-%E4%B8%8A%E7%9A%84%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="toc-number">6.6.</span> <span class="toc-text">删除 HDFS 上的输出结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-Hadoop-%E8%BF%9B%E7%A8%8B"><span class="toc-number">6.7.</span> <span class="toc-text">关闭 Hadoop 进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90"><span class="toc-number">7.</span> <span class="toc-text">部署完成</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

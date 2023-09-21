@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>『构建工具-Gradle』相关内容整理 | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Gradle - 简介：Gradle是一个基于Apache Ant和Apache Maven概念的项目自动化建构工具。它使用一种基于Groovy的特定领域语言来声明项目设置，而不是传统的XML。 当前其支持的语言限于Java、Groovy和Scala，计划未来将支持更多的语言。Gradle，这是一个构建系统(工具)，我们认为这是Java（JVM）世界中构建技术的巨大飞跃。  Gradle提供了：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『构建工具-Gradle』相关内容整理">
+<meta property="og:url" content="http://www.object.ws/2017/09/02/java/gradle-node/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="Gradle - 简介：Gradle是一个基于Apache Ant和Apache Maven概念的项目自动化建构工具。它使用一种基于Groovy的特定领域语言来声明项目设置，而不是传统的XML。 当前其支持的语言限于Java、Groovy和Scala，计划未来将支持更多的语言。Gradle，这是一个构建系统(工具)，我们认为这是Java（JVM）世界中构建技术的巨大飞跃。  Gradle提供了：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2017-09-02T07:15:01.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.503Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Gradle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2017/09/02/java/gradle-node/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '『构建工具-Gradle』相关内容整理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">『构建工具-Gradle』相关内容整理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-09-02T07:15:01.000Z" title="发表于 2017-09-02 15:15:01">2017-09-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.503Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Tools/">Tools</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="『构建工具-Gradle』相关内容整理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p><img src="https://camo.githubusercontent.com/45933e6c03cf27fa6a490944a0b36dda20e325a7/687474703a2f2f6269742e6c792f326b5a57776738" alt="Gradle "></p>
+<h2 id="Gradle-简介："><a href="#Gradle-简介：" class="headerlink" title="Gradle - 简介："></a>Gradle - 简介：</h2><p><strong>Gradle</strong>是一个基于<strong>Apache Ant</strong>和<strong>Apache Maven</strong>概念的项目<strong>自动化建构</strong>工具。它使用一种基于<strong>Groovy</strong>的特定领域语言来声明项目设置，而不是传统的<strong>XML</strong>。</p>
+<p>当前其支持的语言限于<strong>Java</strong>、<strong>Groovy</strong>和<strong>Scala</strong>，计划未来将支持更多的语言。Gradle，这是一个构建系统(工具)，我们认为这是Java（JVM）世界中构建技术的巨大飞跃。 </p>
+<p>Gradle提供了：</p>
+<ul>
+<li><p>一个非常灵活的通用构建工具，如Ant。</p>
+</li>
+<li><p>一种可切换的，像 maven 一样的基于约定约定优于配置的构建框架</p>
+</li>
+<li><p>强大的多工程构建支持</p>
+</li>
+<li><p>强大的依赖管理(基于 ApacheIvy)</p>
+</li>
+<li><p>对已有的 maven 和 ivy 仓库的全面支持</p>
+</li>
+<li><p>支持传递性依赖管理，而不需要远程仓库或者 pom.xml 或者 ivy 配置文件</p>
+</li>
+<li><p>ant 式的任务和构建是 gradle 的第一公民</p>
+</li>
+<li><p>基于 groovy，其 build 脚本使用 groovy dsl 编写</p>
+</li>
+<li><p>具有广泛的领域模型支持你的构建</p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://docs.gradle.org/4.1/userguide/introduction.html">https://docs.gradle.org/4.1/userguide/introduction.html</a></p>
+</li>
+</ul>
+<h2 id="Gradle-概述："><a href="#Gradle-概述：" class="headerlink" title="Gradle - 概述："></a>Gradle - 概述：</h2><h3 id="基于声明的构建和基于约定的构建"><a href="#基于声明的构建和基于约定的构建" class="headerlink" title="基于声明的构建和基于约定的构建"></a>基于声明的构建和基于约定的构建</h3><p>Gradle的核心是基于Groovy的丰富的可扩展的域特定语言（DSL）。Gradle通过提供可以根据需要进行组合的声明性语言元素将声明式构建推送到一个新的层次。这些元素还为Java，Groovy，OSGi，Web和Scala项目提供了逐个常规的支持。更重要的是，这种声明性语言是可扩展的。添加您自己的新语言元素或增强现有的元素，从而提供简洁，可维护和易于理解的构建。</p>
+<h3 id="为以依赖为基础的编程方式提供语言支持"><a href="#为以依赖为基础的编程方式提供语言支持" class="headerlink" title="为以依赖为基础的编程方式提供语言支持"></a>为以依赖为基础的编程方式提供语言支持</h3><p>声明性语言优点在于通用任务图，你可以将其充分利用在构建中. 它提供了最大限度的灵活性，以让 Gradle 适应你的特殊需求。</p>
+<h3 id="构建结构化"><a href="#构建结构化" class="headerlink" title="构建结构化"></a>构建结构化</h3><p>Gradle 的灵活和丰富性最终能够支持在你的构建中应用通用的设计模式。 例如，它可以很容易地将你的构建拆分为多个可重用的模块，最后再进行组装，但不要强制地进行模块的拆分。 不要把原本在一起的东西强行分开（比如在你的项目结构里），从而避免让你的构建变成一场噩梦。 最后，你可以创建一个结构良好，易于维护，易于理解的构建。</p>
+<h3 id="深度-API"><a href="#深度-API" class="headerlink" title="深度 API"></a>深度 API</h3><p>Gradle 允许你在构建执行的整个生命周期，对它的核心配置及执行行为进行监视并自定义。</p>
+<h3 id="Gradle-的扩展"><a href="#Gradle-的扩展" class="headerlink" title="Gradle 的扩展"></a>Gradle 的扩展</h3><p>Gradle 有非常良好的扩展性。 从简单的单项目构建，到庞大的多项目构建，它都能显著地提升你的效率。 这才是真正的结构化构建。通过最先进的增量构建功能，它可以解决许多大型企业所面临的性能瓶颈问题。</p>
+<h3 id="多项目构建"><a href="#多项目构建" class="headerlink" title="多项目构建"></a>多项目构建</h3><p>Gradle 对多项目构建的支持非常出色。项目依赖是首先需要考虑的问题。 我们允许你在多项目构建当中对项目依赖关系进行建模，因为它们才是你真正的问题域。 Gradle 遵守你的布局。</p>
+<p>Gradle 提供了局部构建的功能。 如果你在构建一个单独的子项目，Gradle 也会帮你构建它所依赖的所有子项目。 你也可以选择重新构建依赖于特定子项目的子项目。 这种增量构建将使得在大型构建任务中省下大量时间。</p>
+<h3 id="多种方式管理依赖"><a href="#多种方式管理依赖" class="headerlink" title="多种方式管理依赖"></a>多种方式管理依赖</h3><p>不同的团队喜欢用不同的方式来管理他们的外部依赖。 从 Maven 和 Ivy 的远程仓库的传递依赖管理，到本地文件系统的 jar 包或目录，Gradle 对所有的管理策略都提供了方便的支持。</p>
+<h3 id="Gradle-是第一个构建集成工具"><a href="#Gradle-是第一个构建集成工具" class="headerlink" title="Gradle 是第一个构建集成工具"></a>Gradle 是第一个构建集成工具</h3><p>Ant tasks 是最重要的。而更有趣的是，Ant projects 也是最重要的。 Gradle 对任意的 Ant 项目提供了深度导入，并在运行时将 Ant 目标(target)转换为原生的 Gradle 任务(task)。 你可以从 Gradle 上依赖它们(Ant targets)，增强它们，甚至在你的 build.xml 上定义对 Gradle tasks 的依赖。Gradle 为属性、路径等等提供了同样的整合。</p>
+<p>Gradle 完全支持用于发布或检索依赖的 Maven 或 Ivy 仓库。 Gradle 同样提供了一个转换器，用于将一个 Maven pom.xml 文件转换为一个 Gradle 脚本。Maven 项目的运行时导入的功能将很快会有。</p>
+<h3 id="易于移植"><a href="#易于移植" class="headerlink" title="易于移植"></a>易于移植</h3><p>Gradle 能适应你已有的任何结构。因此，你总可以在你构建项目的同一个分支当中开发你的 Gradle 构建脚本，并且它们能够并行进行。 我们通常建议编写测试，以保证生成的文件是一样的。 这种移植方式会尽可能的可靠和减少破坏性。这也是重构的最佳做法。</p>
+<h3 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h3><p>Gradle 的构建脚本是采用 Groovy 写的，而不是用 XML。 但与其他方法不同，它并不只是展示了由一种动态语言编写的原始脚本的强大。 那样将导致维护构建变得很困难。 Gradle 的整体设计是面向被作为一门语言，而不是一个僵化的框架。 并且 Groovy 是我们允许你通过抽象的 Gradle 描述你个人的 story 的黏合剂。 Gradle 提供了一些标准通用的 story。这是我们相比其他声明性构建系统的主要特点。 我们的 Groovy 支持也不是简单的糖衣层，整个 Gradle 的 API 都是完全 groovy 化的。只有通过 Groovy才能去运用它并对它提高效率。</p>
+<h3 id="The-Gradle-wrapper"><a href="#The-Gradle-wrapper" class="headerlink" title="The Gradle wrapper"></a>The Gradle wrapper</h3><p>Gradle Wrapper 允许你在没有安装 Gradle 的机器上执行 Gradle 构建。 这一点是非常有用的。比如，对一些持续集成服务来说。 它对一个开源项目保持低门槛构建也是非常有用的。 Wrapper 对企业来说也很有用，它使得对客户端计算机零配置。 它强制使用指定的版本，以减少兼容支持问题。</p>
+<h3 id="自由和开源"><a href="#自由和开源" class="headerlink" title="自由和开源"></a>自由和开源</h3><p>Gradle 是一个开源项目，并遵循 ASL 许可。</p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://docs.gradle.org/4.1/userguide/overview.html">https://docs.gradle.org/4.1/userguide/overview.html</a></p>
+<h2 id="Gradle-安装："><a href="#Gradle-安装：" class="headerlink" title="Gradle - 安装："></a>Gradle - 安装：</h2><p>关于 Gradle 的安装官网上为我们提供了非常详细的过程，如果你使用的是 MacOS，那么建议使用 Homebrew 进行安装，简单快捷。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  ~ brew <span class="token function">install</span> gradle  <span class="token comment"># 安装Gradle</span>
+➜  ~ gradle <span class="token parameter variable">-v</span>			  <span class="token comment"># 查看版本信息</span>
+
+------------------------------------------------------------
+Gradle <span class="token number">4.1</span>
+------------------------------------------------------------
+
+Build time:   <span class="token number">2017</span>-08-07 <span class="token number">14</span>:38:48 UTC
+Revision:     941559e020f6c357ebb08d5c67acdb858a3defc2
+
+Groovy:       <span class="token number">2.4</span>.11
+Ant:          Apache Ant<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> version <span class="token number">1.9</span>.6 compiled on June <span class="token number">29</span> <span class="token number">2015</span>
+JVM:          <span class="token number">1.8</span>.0_121 <span class="token punctuation">(</span>Oracle Corporation <span class="token number">25.121</span>-b13<span class="token punctuation">)</span>
+OS:           Mac OS X <span class="token number">10.12</span>.6 x86_64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置Gradle的环境变量：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">GRADLE_HOME</span><span class="token operator">=</span>/usr/local/gradle<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Reference：<a target="_blank" rel="noopener" href="https://docs.gradle.org/4.1/userguide/installation.html">https://docs.gradle.org/4.1/userguide/installation.html</a></p>
+<h2 id="Gradle-构建基础："><a href="#Gradle-构建基础：" class="headerlink" title="Gradle - 构建基础："></a>Gradle - 构建基础：</h2><h3 id="Projects-amp-tasks"><a href="#Projects-amp-tasks" class="headerlink" title="Projects &amp; tasks:"></a>Projects &amp; tasks:</h3><p>projects 和 tasks是 Gradle 中最重要的两个概念。</p>
+<p>任何一个 Gradle 构建都是由一个或多个 projects 组成。每个 project 包括许多可构建组成部分。 这完全取决于你要构建些什么。举个例子，每个 project 或许是一个 jar 包或者一个 web 应用，它也可以是一个由许多其他项目中产生的 jar 构成的 zip 压缩包。一个 project 不必描述它只能进行构建操作。它也可以部署你的应用或搭建你的环境。不要担心它像听上去的那样庞大。 Gradle 的 build-by-convention 可以让您来具体定义一个 project 到底该做什么。</p>
+<p>每个 project 都由多个 tasks 组成。每个 task 都代表了构建执行过程中的一个原子性操作。如编译，打包，生成 javadoc，发布到某个仓库等操作。</p>
+<h3 id="build-gradle文件："><a href="#build-gradle文件：" class="headerlink" title="build.gradle文件："></a>build.gradle文件：</h3><p>示例代码：</p>
+<pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">task hello <span class="token punctuation">&#123;</span>
+    doLast <span class="token punctuation">&#123;</span>
+        println <span class="token string">'Hello world!'</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在命令行里, 进入脚本所在的文件夹然后输入 <strong>gradle -q hello</strong> 来执行构建脚本，示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">gradle <span class="token parameter variable">-q</span> hello Hello world<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>这里发生了什么? 这个构建脚本定义了一个独立的 task, 叫做 hello, 并且加入了一个 action. 当你运行 <strong>gradle hello</strong>, Gradle 执行叫做 hello 的 task, 也就是执行了你所提供的 action. 这个 action 是一个包含了一些 Groovy 代码的闭包(closure 这个概念不清楚的同学好好谷歌下).</p>
+<p>如果你认为这些看上去和 Ant 的 targets 很相像, 好吧, 你是对的. Gradle tasks 和 Ant 的 targets 是对等的. 但是你将会会看到, Gradle tasks 更加强大. 我们使用一个不同于 Ant 的术语 task, 看上去比 target 更加能直白. 不幸的是这带来了一个术语冲突, 因为 Ant 称它的命令, 比如 javac 或者 copy, 叫 tasks. 所以当我们谈论 tasks, 是指 Gradle 的 tasks. 如果我们讨论 Ant 的 tasks (Ant 命令), 我们会直接称呼 ant task.</p>
+<p> <strong>-q</strong>. 代表 quite 模式. 它不会生成 Gradle 的日志信息 (log messages), 所以用户只能看到 tasks 的输出. 它使得的输出更加清晰. 你并不一定需要加入这个选项.</p>
+<h2 id="Gradle-构建项目："><a href="#Gradle-构建项目：" class="headerlink" title="Gradle - 构建项目："></a>Gradle - 构建项目：</h2><h3 id="创建项目目录："><a href="#创建项目目录：" class="headerlink" title="创建项目目录："></a>创建项目目录：</h3><p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  ~ <span class="token function">mkdir</span> gradle-app
+➜  ~ <span class="token builtin class-name">cd</span> gradle-app<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="使用-Gradle-Wrapper构建："><a href="#使用-Gradle-Wrapper构建：" class="headerlink" title="使用 Gradle Wrapper构建："></a>使用 Gradle Wrapper构建：</h3><p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app gradle wrapper
+
+BUILD SUCCESSFUL <span class="token keyword">in</span> 0s
+<span class="token number">1</span> actionable task: <span class="token number">1</span> executed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下是 Gradle Wrapper 生成的文件。</p>
+<p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app tree
+<span class="token builtin class-name">.</span>
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+└── gradlew.bat
+
+<span class="token number">2</span> directories, <span class="token number">4</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li> gradlew : 这是一个可执行文件，应用于运行gradle构建任务</li>
+<li> gradlew.bat : 同上，运行再 windows/doc 平台。</li>
+<li> gradle/wrapper/gradle-wrapper.properties ：gradle包装器配置文件</li>
+</ul>
+<h4 id="gradle-wrapper-properties："><a href="#gradle-wrapper-properties：" class="headerlink" title="gradle-wrapper.properties："></a>gradle-wrapper.properties：</h4><p>示例代码：</p>
+<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token key attr-name">➜</span> <span class="token value attr-value"> gradle-app cat gradle/wrapper/gradle-wrapper.properties</span>
+<span class="token key attr-name">distributionBase</span><span class="token punctuation">=</span><span class="token value attr-value">GRADLE_USER_HOME</span>
+<span class="token key attr-name">distributionPath</span><span class="token punctuation">=</span><span class="token value attr-value">wrapper/dists</span>
+<span class="token key attr-name">zipStoreBase</span><span class="token punctuation">=</span><span class="token value attr-value">GRADLE_USER_HOME</span>
+<span class="token key attr-name">zipStorePath</span><span class="token punctuation">=</span><span class="token value attr-value">wrapper/dists</span>
+<span class="token key attr-name">distributionUrl</span><span class="token punctuation">=</span><span class="token value attr-value">https\://services.gradle.org/distributions/gradle-4.1-bin.zip</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="初始化你创建的项目："><a href="#初始化你创建的项目：" class="headerlink" title="初始化你创建的项目："></a>初始化你创建的项目：</h3><p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app ./gradlew init
+Downloading https://services.gradle.org/distributions/gradle-4.1-bin.zip
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+Unzipping /Users/UName/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/gradle-4.1-bin.zip to /Users/UName/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs
+Set executable permissions for: 
+/Users/UName/.gradle/wrapper/dists/gradle-4.1-bin/c3kp51zwwt108wc78u68yt7vs/
+gradle-4.1/bin/gradle
+
+BUILD SUCCESSFUL <span class="token keyword">in</span> 18s
+<span class="token number">2</span> actionable tasks: <span class="token number">1</span> executed, <span class="token number">1</span> up-to-date<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在可以再次查看下项目：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app tree
+<span class="token builtin class-name">.</span>
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+└── settings.gradle
+
+<span class="token number">2</span> directories, <span class="token number">6</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>相较于之前，则多了<code>build.gradle</code>和<code>settings.gradle</code>两个文件。</p>
+<h4 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle:"></a>build.gradle:</h4><pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy"><span class="token comment">/*
+  * 此构建文件是由Gradle'init'任务生成的。
+  *
+  * 这个生成的文件包含一个注释掉的示例Java项目，让你开始。
+  * 有关更多详细信息，请参阅Gradle中的Java Quickstart一章
+  * 用户指南可在https://docs.gradle.org/4.1/userguide/tutorial_java_projects.html
+  */</span>
+
+<span class="token comment">/*
+// 应用 JAVA 插件来添加项目对 JAVA 的支持
+apply plugin: 'java'
+
+// 此处可以声明在何处找到项目的依赖关系
+repositories &#123;   
+//项目空间引用远程仓库--- jcenter(),您可以在这里声明任何Maven / Ivy /文件库。
+    jcenter()
+&#125;
+
+// 声明生产和测试代码的依赖关系
+dependencies &#123;
+    // 生产代码在编译时使用SLF4J logging API
+    compile 'org.slf4j:slf4j-api:1.7.25'
+
+    // 声明您希望在测试中使用的最喜欢的测试框架的依赖关系.
+    // Gradache测试任务也支持TestNG. 只需要testCompile 依赖于 
+    // testCompile 'org.testng:testng:6.8.1' ，和添加
+    // 'test.useTestNG()' 到你的构建脚本中。
+    testCompile 'junit:junit:4.12'
+&#125;
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle:"></a>settings.gradle:</h4><pre class="line-numbers language-groovy" data-language="groovy"><code class="language-groovy">➜  gradle<span class="token operator">-</span>app cat settings<span class="token punctuation">.</span>gradle
+<span class="token comment">/*
+ * 此设置文件是由Gradle'init'任务生成的。
+ *
+ * 设置文件用于指定要在构建中包含哪些项目，在单个项目中构建此文件可以为空或甚至删除。
+ *
+ * 在用户指南中可以找到有关在Gradle中配置多项目构建的详细信息
+ * https://docs.gradle.org/4.1/userguide/multi_project_builds.html
+ */</span>
+
+<span class="token comment">/*
+// 作为多项目构建的一部分 来声明项目使用'include'方法
+include 'shared'
+include 'api'
+include 'services:webservice'
+*/</span>
+
+rootProject<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'gradle-app'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="继续完善项目："><a href="#继续完善项目：" class="headerlink" title="继续完善项目："></a>继续完善项目：</h3><p>整个项目的目录结构如下,与 Maven 工程目录结构无差别:</p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>src/main/java</td>
+<td>JAVA 源码</td>
+</tr>
+<tr>
+<td>src/main/resources</td>
+<td>生产资源文件</td>
+</tr>
+<tr>
+<td>src/test/java</td>
+<td>测试源码</td>
+</tr>
+<tr>
+<td>src/test/resources</td>
+<td>测试资源文件</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app tree
+<span class="token builtin class-name">.</span>
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradle-app.iml  <span class="token comment"># 导入 IDEA 后生成的文件</span>
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+    ├── main
+    │   └── <span class="token function">java</span>
+    │       └── ws
+    │           └── object
+    │               └── gradle
+    │                   └── App.java
+    └── <span class="token builtin class-name">test</span>
+        └── <span class="token function">java</span>
+            └── ws
+                └── object
+                    └── gradle
+                        └── AppTest.java
+
+<span class="token number">13</span> directories, <span class="token number">9</span> files<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>App.java</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">ws<span class="token punctuation">.</span>object<span class="token punctuation">.</span>gradle</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">App</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getAppId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"hello-world"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span> <span class="token string">"Hello World!"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong>AppTest.java</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">ws<span class="token punctuation">.</span>object<span class="token punctuation">.</span>gradle</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">junit<span class="token punctuation">.</span>framework<span class="token punctuation">.</span></span><span class="token class-name">TestCase</span></span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * Unit test for simple App.
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AppTest</span> <span class="token keyword">extends</span> <span class="token class-name">TestCase</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testAppId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">App</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">assertEquals</span><span class="token punctuation">(</span><span class="token string">"App ID"</span><span class="token punctuation">,</span> <span class="token string">"hello-world"</span><span class="token punctuation">,</span> app<span class="token punctuation">.</span><span class="token function">getAppId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="构建创建的项目："><a href="#构建创建的项目：" class="headerlink" title="构建创建的项目："></a>构建创建的项目：</h3><p>现在我们已经创建了App.java和AppTest.java，我们准备好构建项目。 这可以通过执行如下所示的构建任务来完成。示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app ./gradlew build
+
+BUILD SUCCESSFUL <span class="token keyword">in</span> 1s
+<span class="token number">4</span> actionable tasks: <span class="token number">4</span> executed<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="让项目跑起来："><a href="#让项目跑起来：" class="headerlink" title="让项目跑起来："></a>让项目跑起来：</h3><p>使用内置的jar库运行应用程序，示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app <span class="token function">java</span> <span class="token parameter variable">-cp</span> build/libs/gradle-app.jar ws.object.gradle.App
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>或者您可以使用内置的类文件夹运行，示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  gradle-app <span class="token function">java</span> <span class="token parameter variable">-cp</span> build/classes/java/main/  ws.object.gradle.App
+Hello World<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p><a target="_blank" rel="noopener" href="https://gradle.org/">Gradle Official Website</a></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Gradle">Gradle Wikipedia</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/gradle/gradle">Gradle Github</a></p>
+<p><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/gradle/">Building Java Projects with Gradle</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2017/09/02/java/gradle-node/">http://www.object.ws/2017/09/02/java/gradle-node/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Gradle/">Gradle</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2017/09/10/javascript/nowsh-note/" title="如何使用 Now.sh来免费部署你的项目？"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">如何使用 Now.sh来免费部署你的项目？</div></div></a></div><div class="next-post pull-right"><a href="/2017/08/22/java/springboot-actuator/" title="Spring Boot - Actuator QuickStart"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring Boot - Actuator QuickStart</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">如何在Oracle数据库中使用递归查询</div></div></a></div><div><a href="/2019/06/11/docker/docker-maven-pro/" title="在项目中使用Docker Maven Plugin插件远程构建镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-11</div><div class="title">在项目中使用Docker Maven Plugin插件远程构建镜像</div></div></a></div><div><a href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">使用Screw快速生成数据库文档</div></div></a></div><div><a href="/2021/07/18/java/java-file-utils/" title="Java文件操作(打包压缩、下载、转换等)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-07-18</div><div class="title">Java文件操作(打包压缩、下载、转换等)</div></div></a></div><div><a href="/2019/03/18/java/java-spring-cros/" title="使用Spring CROS解决项目中的跨域问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-18</div><div class="title">使用Spring CROS解决项目中的跨域问题</div></div></a></div><div><a href="/2020/01/30/java/mac-change-jdk-version/" title="Mac环境下切换jdk版本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-30</div><div class="title">Mac环境下切换jdk版本</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Gradle - 简介：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E6%A6%82%E8%BF%B0%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Gradle - 概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%A3%B0%E6%98%8E%E7%9A%84%E6%9E%84%E5%BB%BA%E5%92%8C%E5%9F%BA%E4%BA%8E%E7%BA%A6%E5%AE%9A%E7%9A%84%E6%9E%84%E5%BB%BA"><span class="toc-number">2.1.</span> <span class="toc-text">基于声明的构建和基于约定的构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%A5%E4%BE%9D%E8%B5%96%E4%B8%BA%E5%9F%BA%E7%A1%80%E7%9A%84%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F%E6%8F%90%E4%BE%9B%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81"><span class="toc-number">2.2.</span> <span class="toc-text">为以依赖为基础的编程方式提供语言支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%BB%93%E6%9E%84%E5%8C%96"><span class="toc-number">2.3.</span> <span class="toc-text">构建结构化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6-API"><span class="toc-number">2.4.</span> <span class="toc-text">深度 API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-%E7%9A%84%E6%89%A9%E5%B1%95"><span class="toc-number">2.5.</span> <span class="toc-text">Gradle 的扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA"><span class="toc-number">2.6.</span> <span class="toc-text">多项目构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E7%AE%A1%E7%90%86%E4%BE%9D%E8%B5%96"><span class="toc-number">2.7.</span> <span class="toc-text">多种方式管理依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle-%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9E%84%E5%BB%BA%E9%9B%86%E6%88%90%E5%B7%A5%E5%85%B7"><span class="toc-number">2.8.</span> <span class="toc-text">Gradle 是第一个构建集成工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%93%E4%BA%8E%E7%A7%BB%E6%A4%8D"><span class="toc-number">2.9.</span> <span class="toc-text">易于移植</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Groovy"><span class="toc-number">2.10.</span> <span class="toc-text">Groovy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Gradle-wrapper"><span class="toc-number">2.11.</span> <span class="toc-text">The Gradle wrapper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%94%B1%E5%92%8C%E5%BC%80%E6%BA%90"><span class="toc-number">2.12.</span> <span class="toc-text">自由和开源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">Gradle - 安装：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E6%9E%84%E5%BB%BA%E5%9F%BA%E7%A1%80%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">Gradle - 构建基础：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Projects-amp-tasks"><span class="toc-number">4.1.</span> <span class="toc-text">Projects &amp; tasks:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#build-gradle%E6%96%87%E4%BB%B6%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">build.gradle文件：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">Gradle - 构建项目：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">创建项目目录：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Gradle-Wrapper%E6%9E%84%E5%BB%BA%EF%BC%9A"><span class="toc-number">5.2.</span> <span class="toc-text">使用 Gradle Wrapper构建：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gradle-wrapper-properties%EF%BC%9A"><span class="toc-number">5.2.1.</span> <span class="toc-text">gradle-wrapper.properties：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BD%A0%E5%88%9B%E5%BB%BA%E7%9A%84%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.3.</span> <span class="toc-text">初始化你创建的项目：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#build-gradle"><span class="toc-number">5.3.1.</span> <span class="toc-text">build.gradle:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#settings-gradle"><span class="toc-number">5.3.2.</span> <span class="toc-text">settings.gradle:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E5%AE%8C%E5%96%84%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.4.</span> <span class="toc-text">继续完善项目：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%88%9B%E5%BB%BA%E7%9A%84%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="toc-number">5.5.</span> <span class="toc-text">构建创建的项目：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A9%E9%A1%B9%E7%9B%AE%E8%B7%91%E8%B5%B7%E6%9D%A5%EF%BC%9A"><span class="toc-number">5.6.</span> <span class="toc-text">让项目跑起来：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">参考资料：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

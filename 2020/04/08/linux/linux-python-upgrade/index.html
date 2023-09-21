@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux 升级 Python 至 3.x | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CentOS6.5 中默认安装了 Python，版本比较低，为了使用新版 3.x，需要对旧版本进行升级。 由于很多基本的命令、软件包都依赖旧版本，比如：yum。所以，在更新 Python 时，建议不要删除旧版本（新旧版本可以共存）。 查看 Python 版本号当 Linux 上安装 Python 后（默认安装），只需要输入简单的命令，就可以查看 Python 的版本号： python -V # 或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 升级 Python 至 3.x">
+<meta property="og:url" content="http://www.object.ws/2020/04/08/linux/linux-python-upgrade/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="CentOS6.5 中默认安装了 Python，版本比较低，为了使用新版 3.x，需要对旧版本进行升级。 由于很多基本的命令、软件包都依赖旧版本，比如：yum。所以，在更新 Python 时，建议不要删除旧版本（新旧版本可以共存）。 查看 Python 版本号当 Linux 上安装 Python 后（默认安装），只需要输入简单的命令，就可以查看 Python 的版本号： python -V # 或">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2020-04-08T09:10:24.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.507Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2020/04/08/linux/linux-python-upgrade/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux 升级 Python 至 3.x',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Linux 升级 Python 至 3.x</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-08T09:10:24.000Z" title="发表于 2020-04-08 17:10:24">2020-04-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.507Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux 升级 Python 至 3.x"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>CentOS6.5 中默认安装了 Python，版本比较低，为了使用新版 3.x，需要对旧版本进行升级。</p>
+<p>由于很多基本的命令、软件包都依赖旧版本，比如：yum。所以，在更新 Python 时，建议不要删除旧版本（新旧版本可以共存）。</p>
+<h3 id="查看-Python-版本号"><a href="#查看-Python-版本号" class="headerlink" title="查看 Python 版本号"></a>查看 Python 版本号</h3><p>当 Linux 上安装 Python 后（默认安装），只需要输入简单的命令，就可以查看 Python 的版本号：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python <span class="token parameter variable">-V</span>
+<span class="token comment"># 或者</span>
+python <span class="token parameter variable">--version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="下载新版本"><a href="#下载新版本" class="headerlink" title="下载新版本"></a>下载新版本</h3><p>进入 Python下载页面，选择需要的版本。</p>
+<p>这里，我选择的版本是 3.6.3 。</p>
+<p>进入 /usr/local/src 目录</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /usr/local/src/
+<span class="token function">wget</span> https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h3><p>下载完成之后，进行解压缩：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> Python-3.6.3.tgz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="配置、编译、安装"><a href="#配置、编译、安装" class="headerlink" title="配置、编译、安装"></a>配置、编译、安装</h3><p>安装openssl-devel（pip需要）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># yum install openssl-devel</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>进入解压缩后的目录，安装配置：</p>
+<pre class="line-numbers language-none"><code class="language-none">cd Python-3.6.3&#x2F;
+.&#x2F;configure<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>配置完成之后，就可以编译安装了：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编译</span>
+<span class="token function">make</span>
+<span class="token comment"># 安装</span>
+<span class="token function">make</span> <span class="token function">install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>安装成功以后，就可以查看 Python 的版本了：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># python -V</span>
+Python <span class="token number">2.7</span>.5
+<span class="token comment"># python3 -V</span>
+Python <span class="token number">3.5</span>.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意：在 /usr/local/bin/ 下有一个 python3 的链接，指向 bin 目录下的 python 3.6。</p>
+<h3 id="设置-3-x-为默认版本"><a href="#设置-3-x-为默认版本" class="headerlink" title="设置 3.x 为默认版本"></a>设置 3.x 为默认版本</h3><p>查看 Python 的路径，在 /usr/bin 下面。可以看到 python 链接的是 python 2.6，所以，执行 python 就相当于执行 python 2.6。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ls -al /usr/bin | grep python</span>
+-rwxr-xr-x.  <span class="token number">1</span> root root      <span class="token number">11216</span> <span class="token number">12</span>月  <span class="token number">1</span> <span class="token number">2015</span> abrt-action-analyze-python
+lrwxrwxrwx.  <span class="token number">1</span> root root          <span class="token number">7</span> <span class="token number">8</span>月  <span class="token number">30</span> <span class="token number">12</span>:11 python -<span class="token operator">></span> python2
+lrwxrwxrwx.  <span class="token number">1</span> root root          <span class="token number">9</span> <span class="token number">8</span>月  <span class="token number">30</span> <span class="token number">12</span>:11 python2 -<span class="token operator">></span> python2.6
+-rwxr-xr-x.  <span class="token number">1</span> root root       <span class="token number">7136</span> <span class="token number">11</span>月 <span class="token number">20</span> <span class="token number">2015</span> python2.6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>将原来 python 的软链接重命名：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># mv /usr/bin/python /usr/bin/python.bak</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将 python 链接至 python3：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># ln -s /usr/local/bin/python3 /usr/bin/python</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>再查看 Python 的版本：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># python -V</span>
+Python <span class="token number">3.6</span>.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>输出的是 3.x，说明已经使用的是 python3了。</p>
+<h3 id="配置-yum"><a href="#配置-yum" class="headerlink" title="配置 yum"></a>配置 yum</h3><p>升级 Python 之后，由于将默认的 python 指向了 python3，yum 不能正常使用，需要编辑 yum 的配置文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># vi /usr/bin/yum</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将 #!/usr/bin/python 改为 #!/usr/bin/python2.6，保存退出即可。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2020/04/08/linux/linux-python-upgrade/">http://www.object.ws/2020/04/08/linux/linux-python-upgrade/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/CentOS/">CentOS</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/09/04/database/oracle-func-proc/" title="Oracle PL/SQL 关于存储过程和存函数的使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Oracle PL/SQL 关于存储过程和存函数的使用</div></div></a></div><div class="next-post pull-right"><a href="/2020/03/12/java/sptingboot-prd-deploy/" title="Spring Boot项目在生产环境中的部署"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring Boot项目在生产环境中的部署</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2018/04/26/docker/docker-cntrimg/" title="Docker - Container &amp; Image"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-26</div><div class="title">Docker - Container &amp; Image</div></div></a></div><div><a href="/2018/05/15/docker/docker-data/" title="Docker - 持久化存储和数据共享"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-15</div><div class="title">Docker - 持久化存储和数据共享</div></div></a></div><div><a href="/2018/09/14/docker/docker-dockerfile/" title="Docker - Dockerfile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">Docker - Dockerfile</div></div></a></div><div><a href="/2019/11/29/docker/docker-harbor/" title="Docker - 基于Harbor搭建Docker私有镜像仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-29</div><div class="title">Docker - 基于Harbor搭建Docker私有镜像仓库</div></div></a></div><div><a href="/2018/03/11/docker/docker-introduction/" title="Docker - Introduction &amp; QuickStart"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-11</div><div class="title">Docker - Introduction &amp; QuickStart</div></div></a></div><div><a href="/2019/06/11/docker/docker-maven-pro/" title="在项目中使用Docker Maven Plugin插件远程构建镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-11</div><div class="title">在项目中使用Docker Maven Plugin插件远程构建镜像</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-Python-%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="toc-number">1.</span> <span class="toc-text">查看 Python 版本号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%96%B0%E7%89%88%E6%9C%AC"><span class="toc-number">2.</span> <span class="toc-text">下载新版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.</span> <span class="toc-text">解压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E3%80%81%E7%BC%96%E8%AF%91%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">配置、编译、安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-3-x-%E4%B8%BA%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">设置 3.x 为默认版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-yum"><span class="toc-number">7.</span> <span class="toc-text">配置 yum</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

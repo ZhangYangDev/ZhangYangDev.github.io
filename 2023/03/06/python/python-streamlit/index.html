@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Streamlit的基本使用 | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文介绍了如何使用Streamlit创建交互式的数据科学应用和漂亮的用户界面。我们将讨论Streamlit的基础使用方法，环境配置以及提供一些示例代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Streamlit的基本使用">
+<meta property="og:url" content="http://www.object.ws/2023/03/06/python/python-streamlit/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="本文介绍了如何使用Streamlit创建交互式的数据科学应用和漂亮的用户界面。我们将讨论Streamlit的基础使用方法，环境配置以及提供一些示例代码。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-03-06T05:57:37.000Z">
+<meta property="article:modified_time" content="2023-03-06T09:22:13.000Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Streamlit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2023/03/06/python/python-streamlit/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Streamlit的基本使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-06 17:22:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Streamlit的基本使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T09:22:13.000Z" title="更新于 2023-03-06 17:22:13">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Streamlit的基本使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>本文介绍了如何使用Streamlit创建交互式的数据科学应用和漂亮的用户界面。我们将讨论Streamlit的基础使用方法，环境配置以及提供一些示例代码。</p>
+<h2 id="相关介绍"><a href="#相关介绍" class="headerlink" title="相关介绍"></a>相关介绍</h2><p>Streamlit是一个用于构建数据科学应用程序的库。它可以帮助你快速创建漂亮的用户界面，并与Python代码进行交互。<br>Streamlit提供了很多组件，如文本、图像、表格、图表等，使应用的展示更加丰富和灵活。</p>
+<p>Streamlit的主要特点包括：</p>
+<ul>
+<li>简单易用：只需少量代码即可创建应用</li>
+<li>即时预览：在代码保存后，应用会自动更新并实时预览效果</li>
+<li>支持大量数据科学库：如Pandas、Matplotlib等</li>
+<li>内置调试功能：Streamlit提供了方便的调试工具，帮助你快速排查问题</li>
+<li>除了基本功能外，Streamlit还支持许多高级特性，如部署到云端服务、与机器学习模型集成等。</li>
+</ul>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>首先，确保你已经安装了Python和pip。然后，按照以下步骤进行环境配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 创建一个新的虚拟环境（可选）：</span>
+$ python <span class="token parameter variable">-m</span> venv myenv
+
+<span class="token comment"># 2. 激活虚拟环境：</span>
+$ <span class="token builtin class-name">source</span> myenv/bin/activate
+
+<span class="token comment"># 3.安装Streamlit：</span>
+$ pip <span class="token function">install</span> streamlit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><p>以下这些是 Streamlit API中一些常用的示例。Streamlit还提供其他一些实用功能和组件，用于构建交互式应用程序。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+<span class="token comment"># 在应用程序中显示文本、数据或图像</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+<span class="token comment"># 设置应用程序标题</span>
+st<span class="token punctuation">.</span>title<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+<span class="token comment"># 显示大型标题</span>
+st<span class="token punctuation">.</span>header<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+<span class="token comment"># 显示次级标题</span>
+st<span class="token punctuation">.</span>subheader<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+<span class="token comment"># 显示纯文本</span>
+st<span class="token punctuation">.</span>text<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+<span class="token comment"># 渲染 Markdown 文本</span>
+st<span class="token punctuation">.</span>markdown<span class="token punctuation">(</span>markdown_string<span class="token punctuation">)</span>
+
+<span class="token comment"># 渲染 LaTeX 数学表达式</span>
+st<span class="token punctuation">.</span>latex<span class="token punctuation">(</span>latex_string<span class="token punctuation">)</span>
+
+<span class="token comment"># 显示图像</span>
+st<span class="token punctuation">.</span>image<span class="token punctuation">(</span>image<span class="token punctuation">,</span> caption<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> use_column_width<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示视频</span>
+st<span class="token punctuation">.</span>video<span class="token punctuation">(</span>video<span class="token punctuation">,</span> start_time<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 播放音频文件</span>
+st<span class="token punctuation">.</span>audio<span class="token punctuation">(</span>audio<span class="token punctuation">,</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'audio/wav'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示 Matplotlib 图形</span>
+st<span class="token punctuation">.</span>pyplot<span class="token punctuation">(</span>fig<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示 Pandas 数据帧</span>
+st<span class="token punctuation">.</span>dataframe<span class="token punctuation">(</span>data<span class="token punctuation">,</span> width<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> height<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示表格</span>
+st<span class="token punctuation">.</span>table<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+
+<span class="token comment"># 显示复选框</span>
+st<span class="token punctuation">.</span>checkbox<span class="token punctuation">(</span>label<span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示单选框</span>
+st<span class="token punctuation">.</span>radio<span class="token punctuation">(</span>label<span class="token punctuation">,</span> options<span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示下拉选择框</span>
+st<span class="token punctuation">.</span>selectbox<span class="token punctuation">(</span>label<span class="token punctuation">,</span> options<span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示多选框</span>
+st<span class="token punctuation">.</span>multiselect<span class="token punctuation">(</span>label<span class="token punctuation">,</span> options<span class="token punctuation">,</span> default<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示滑动条</span>
+st<span class="token punctuation">.</span>slider<span class="token punctuation">(</span>label<span class="token punctuation">,</span> min_value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> max_value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> step<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示文本输入框</span>
+st<span class="token punctuation">.</span>text_input<span class="token punctuation">(</span>label<span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示数字输入框</span>
+st<span class="token punctuation">.</span>number_input<span class="token punctuation">(</span>label<span class="token punctuation">,</span> min_value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> max_value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> value<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> step<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token builtin">format</span><span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 显示按钮</span>
+st<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p>Streamlit非常易于使用，你只需要编写一个Python脚本即可创建一个交互式应用。以下是创建一个简单应用的示例代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 引入streamlit库</span>
+<span class="token keyword">import</span> streamlit <span class="token keyword">as</span> st
+
+<span class="token comment"># 添加标题</span>
+st<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'我的第一个Streamlit应用'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 添加文本内容</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'欢迎来到Streamlit的世界！'</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 添加图片</span>
+st<span class="token punctuation">.</span>image<span class="token punctuation">(</span><span class="token string">'logo.png'</span><span class="token punctuation">,</span> caption<span class="token operator">=</span><span class="token string">'Streamlit Logo'</span><span class="token punctuation">,</span> use_column_width<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 添加交互组件</span>
+name <span class="token operator">=</span> st<span class="token punctuation">.</span>text_input<span class="token punctuation">(</span><span class="token string">'请输入你的名字'</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> name<span class="token punctuation">:</span>
+    st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f'你好，</span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string">!'</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># 添加数据展示</span>
+data <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span>
+st<span class="token punctuation">.</span>write<span class="token punctuation">(</span><span class="token string">'这是一个数据展示示例：'</span><span class="token punctuation">)</span>
+st<span class="token punctuation">.</span>line_chart<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在命令行中运行以上代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ streamlit run app.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你将看到一个本地服务器的URL地址，点击即可打开应用。</p>
+<p>总结<br>在本文中，我们介绍了Streamlit的基础使用方法和环境配置，并提供了一个简单的示例代码。希望通过阅读本文，你能对基于Streamlit构建交互式应用有所了解，并能开始开发自己的应用。</p>
+<p>如果你对Streamlit感兴趣，可以参考官方文档（<a target="_blank" rel="noopener" href="https://docs.streamlit.io/%EF%BC%89%E8%8E%B7%E5%8F%96%E6%9B%B4%E5%A4%9A%E4%BF%A1%E6%81%AF%E5%92%8C%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81%E3%80%82%E6%84%9F%E8%B0%A2%E9%98%85%E8%AF%BB%EF%BC%81">https://docs.streamlit.io/）获取更多信息和示例代码。感谢阅读！</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2023/03/06/python/python-streamlit/">http://www.object.ws/2023/03/06/python/python-streamlit/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/Streamlit/">Streamlit</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/07/java/java-jep-doc/" title="xx"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">xx</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">如何在Oracle数据库中使用递归查询</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">如何在Oracle数据库中使用递归查询</div></div></a></div><div><a href="/2020/04/08/linux/linux-python-upgrade/" title="Linux 升级 Python 至 3.x"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-08</div><div class="title">Linux 升级 Python 至 3.x</div></div></a></div><div><a href="/2022/01/04/python/python-baostock/" title="使用baostock(证券宝)获取金融数据"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-04</div><div class="title">使用baostock(证券宝)获取金融数据</div></div></a></div><div><a href="/2019/01/24/python/python-pip-conf/" title="Python pip配置国内清华大学Tuna镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Python pip配置国内清华大学Tuna镜像</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">相关介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8API"><span class="toc-number">3.</span> <span class="toc-text">常用API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">基础使用</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

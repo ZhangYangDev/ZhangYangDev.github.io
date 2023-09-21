@@ -1,0 +1,504 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何使用 Now.sh来免费部署你的项目？ | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言 ZEIT：Our Mission，Make Cloud Computing as Easy and Accessible as Mobile computing.  ZEIT是美国 (域名Ip指向美国华盛顿州西雅图市)一家提供云部署服务的公司，旗下的 Now.sh提供了Realtime global deployments(全球化实时部署)服务。 Now.sh 提供了免费的OSS 服务，配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用 Now.sh来免费部署你的项目？">
+<meta property="og:url" content="http://www.object.ws/2017/09/10/javascript/nowsh-note/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="前言 ZEIT：Our Mission，Make Cloud Computing as Easy and Accessible as Mobile computing.  ZEIT是美国 (域名Ip指向美国华盛顿州西雅图市)一家提供云部署服务的公司，旗下的 Now.sh提供了Realtime global deployments(全球化实时部署)服务。 Now.sh 提供了免费的OSS 服务，配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2017-09-10T15:51:59.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.507Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Now.sh">
+<meta property="article:tag" content="Deployments">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2017/09/10/javascript/nowsh-note/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何使用 Now.sh来免费部署你的项目？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">如何使用 Now.sh来免费部署你的项目？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-09-10T15:51:59.000Z" title="发表于 2017-09-10 23:51:59">2017-09-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.507Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Tools/">Tools</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何使用 Now.sh来免费部署你的项目？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>ZEIT：Our Mission，Make Cloud Computing as Easy and Accessible as Mobile computing.</p>
+</blockquote>
+<p>ZEIT是美国 <code>(域名Ip指向美国华盛顿州西雅图市)</code>一家提供云部署服务的公司，旗下的 Now.sh提供了Realtime global deployments(全球化实时部署)服务。</p>
+<p>Now.sh 提供了免费的OSS 服务，配置如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">带宽</td>
+<td align="center">1GB*</td>
+</tr>
+<tr>
+<td align="center">日志</td>
+<td align="center">100MB*</td>
+</tr>
+<tr>
+<td align="center">部署</td>
+<td align="center">∞</td>
+</tr>
+<tr>
+<td align="center">并发实例</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">域</td>
+<td align="center">- †</td>
+</tr>
+<tr>
+<td align="center">MAX文件大小/存储空间</td>
+<td align="center">1MB / 1GB</td>
+</tr>
+<tr>
+<td align="center">自动增长支持</td>
+<td align="center">不支持</td>
+</tr>
+<tr>
+<td align="center">团队协作人数</td>
+<td align="center">支持</td>
+</tr>
+</tbody></table>
+<p>图例：</p>
+<ul>
+<li>*超出此限额时，您需支付“按需”的价格。服务不中断，不会造成停机。</li>
+<li>†对于某些开源项目，我们赞助了自定义域的支持。请<a href="mailto:support@zeit.co">联系我们，</a>以确定您是否适用。</li>
+<li>‡在免费计划中，您的代码将是公开的和开源的，可通过所有部署的路径URL提供。<code>/_src</code></li>
+</ul>
+<p>Reference：<a target="_blank" rel="noopener" href="https://zeit.co/pricing">https://zeit.co/pricing</a></p>
+<h2 id="Now-sh-简介："><a href="#Now-sh-简介：" class="headerlink" title="Now.sh - 简介："></a>Now.sh - 简介：</h2><p>now allows you to take your JavaScript (Node.js) or Docker powered websites, applications and services to the cloud with ease, speed and reliability. In practical terms, any directory that contains a package.json or Dockerfile can be transported to the cloud with one command: now.  Every time you deploy a project, now will provide you with a new, unique URL (even before the upload has finished). These URLs will look like this (my-app is your automatically determined application name): my-app-erkgfjtrna.now.sh.  When it’s time to take your deployment to production, you simply pick an appropriate alias (a custom domain).</p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://zeit.co/now#whats-now">https://zeit.co/now#whats-now</a></p>
+<h2 id="Now-sh-安装："><a href="#Now-sh-安装：" class="headerlink" title="Now.sh - 安装："></a>Now.sh - 安装：</h2><h3 id="基于客户端进行安装："><a href="#基于客户端进行安装：" class="headerlink" title="基于客户端进行安装："></a>基于客户端进行安装：</h3><p>客户端下载地址：<a target="_blank" rel="noopener" href="https://zeit.co/download">https://zeit.co/download</a></p>
+<p>安装过程就不一一赘述了，因为我也没安装过。我觉得使用<code>homebrew</code>或<code>npm</code>之类的工具安装使用会更方便一些。</p>
+<h3 id="基于-npm-进行安装："><a href="#基于-npm-进行安装：" class="headerlink" title="基于 npm 进行安装："></a>基于 npm 进行安装：</h3><p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  <span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> now
+/usr/local/bin/now -<span class="token operator">></span> /usr/local/lib/node_modules/now/download/dist/now
+
+<span class="token operator">></span> now@8.2.2 postinstall /usr/local/lib/node_modules/now
+<span class="token operator">></span> <span class="token function">node</span> download/install.js
+
+<span class="token operator">></span> For the <span class="token builtin class-name">source</span> code, check out: https://github.com/zeit/now-cli
+
+<span class="token operator">></span> Downloading now CLI <span class="token number">8.2</span>.2 <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token punctuation">]</span> <span class="token number">100</span>%
+
++ now@8.2.2
+added <span class="token number">1</span> package <span class="token keyword">in</span> <span class="token number">15</span>.18s<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果你还不会使用 npm (<em>Node</em> <em>Package</em> <em>Manager</em>)，请翻阅之前发布的 npm使用教程。</p>
+<p>Reference:<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/now">https://www.npmjs.com/package/now</a></p>
+<h2 id="Now-sh-CLI"><a href="#Now-sh-CLI" class="headerlink" title="Now.sh - CLI:"></a>Now.sh - CLI:</h2><p>以下是所有可用命令的完整列表，以及您可以使用的命令和您每天工作时应记住的命令：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Syntax</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">now deploy [path]</td>
+<td align="center">使用此命令时，当前目录中的文件将被上传到now.sh，并将创建一个新的部署。之后，您将立即收到其网址，以便与全球其他人分享。</td>
+</tr>
+<tr>
+<td align="center">now ls\list [app]</td>
+<td align="center">显示所有部署的列表。如果被定义，它将仅列出该命名空间下的部署。</td>
+</tr>
+<tr>
+<td align="center">now rm\remove [id]</td>
+<td align="center">从now.sh平台中删除部署。该参数可以是您之前的部署的URL或主机名。</td>
+</tr>
+<tr>
+<td align="center">now ln\alias [id] [url]</td>
+<td align="center">在现有部署上配置别名或自定义域名。</td>
+</tr>
+<tr>
+<td align="center">now domains [name]</td>
+<td align="center">允许您直接从命令行管理域名。</td>
+</tr>
+<tr>
+<td align="center">now certs [cmd]</td>
+<td align="center">默认情况下，now.sh将自动为您的部署配置证书。使用此子命令，您可以看到他们何时到期。</td>
+</tr>
+<tr>
+<td align="center">now secrets [name]</td>
+<td align="center">如果您需要将敏感信息存储在只能由其中运行的代码访问的部署上。这可以通过使用它来实现，它允许您以安全的方式存储应用程序所需的功能（如API令牌或密码）</td>
+</tr>
+<tr>
+<td align="center">now dns [name]</td>
+<td align="center">列出使用<a target="_blank" rel="noopener" href="https://zeit.co/world">zeit.world</a>为域创建的所有DNS记录。该列表不包括由名称服务器自动生成的记录（如默认记录，为记录自动创建的记录等）。<code>SOA``A / AAAA``ALIAS</code></td>
+</tr>
+<tr>
+<td align="center">now open</td>
+<td align="center">运行此子命令将在默认浏览器的当前目录中打开项目的最新部署（别名此时无效）</td>
+</tr>
+<tr>
+<td align="center">now billing\cc</td>
+<td align="center">轻松添加或删除帐户中的信用卡，并调整结算方式。</td>
+</tr>
+<tr>
+<td align="center">now upgrade\downgrade [plan]</td>
+<td align="center">从命令行界面切换您的计划。即使命令运行后，我们也不要求您使用Web界面。整个过程直接发生在你的终端上。</td>
+</tr>
+<tr>
+<td align="center">now help</td>
+<td align="center">显示终端中的子命令和选项列表</td>
+</tr>
+<tr>
+<td align="center">now login</td>
+<td align="center">登录你的 ZEIT账户</td>
+</tr>
+<tr>
+<td align="center">Reference：<a target="_blank" rel="noopener" href="https://zeit.co/docs/features/now-cli">https://zeit.co/docs/features/now-cli</a></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="Now-sh-使用："><a href="#Now-sh-使用：" class="headerlink" title="Now.sh - 使用："></a>Now.sh - 使用：</h2><p>要使用 Now.sh就必须要再 <a target="_blank" rel="noopener" href="https://zeit.co/">https://zeit.co</a> 注册一个账户，只需要输入你的邮箱就好了，然后在本地进行认证，认证过程中需要输入你注册时所用的邮箱，然后打开邮箱点击链接进行认证。</p>
+<p>示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  ~ now login
+<span class="token operator">></span> We sent an email to youremail@gmail.com. Please follow the steps provided
+  inside it and <span class="token function">make</span> sure the security code matches Silly Water Buffalo.
+✔ Email confirmed
+✔ Fetched your personal details
+<span class="token operator">></span> Ready<span class="token operator">!</span> Authentication token and personal details saved <span class="token keyword">in</span> <span class="token string">"~/.now"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>邮件内容：</p>
+<pre class="line-numbers language-none"><code class="language-none">Hi!
+
+Login attempt from Shenzhen, China
+
+Verify that the provided security code matches Confident African Civet
+before proceeding. 
+
+Then please follow this link to verify your email address.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="Now-sh-部署："><a href="#Now-sh-部署：" class="headerlink" title="Now.sh - 部署："></a>Now.sh - 部署：</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zeit.co/now">Now.sh</a> is <em>free</em> for open-source projects and static deployments. It supports <code>Dockerfile</code>, <code>package.json</code> and static sites out of the box. All builds are reproducible and executed in the cloud.</p>
+<p>译：Now.sh对于开源项目和静态部署是免费的。它支持Dockerfile，package.json和静态网站开箱即用。所有的构建都是可重现的，并在云中执行。 </p>
+</blockquote>
+<p>现在你可以使用<code>now</code>命令来部署任何 web应用程序，现在 Now.sh 支持三种类型的部署：</p>
+<ul>
+<li>Static - 静态网页应用</li>
+<li>Node.js - Node.js 应用</li>
+<li>Docker - Docker应用(适用于所有其他应用)</li>
+</ul>
+<h3 id="Static-部署："><a href="#Static-部署：" class="headerlink" title="Static 部署："></a>Static 部署：</h3><p>通过静态部署，可以将本地资源部署到 Now.sh 上，需要部署请访问应用程序目录并运行此命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  yourproject/ now<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果你的静态 web 项目中包含<code>index.html</code>文件，则项目可正常显示，否则只会显示文件和文件夹(用来做 ftp 服务器也不错)。</p>
+<blockquote>
+<p>For all static deployments, you will be charged only for the bandwidth. You do not pay for computing resources and storage.</p>
+<p>对于所有静态部署，您将仅为带宽收费。您不支付计算资源和存储空间。</p>
+</blockquote>
+<h3 id="Node-js-部署"><a href="#Node-js-部署" class="headerlink" title="Node.js 部署:"></a>Node.js 部署:</h3><p>如果您的应用程序目录中有一个package.json文件，那么Now.sh会认为有效的Node.js部署。这是一个简单的Node.js部署在微服务的帮助下。</p>
+<p>Node.js 应用必须要用以下两个文件才能被 Now.sh 识别。</p>
+<h4 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h4><p>示例代码：</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">date</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><p>示例代码：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"get-started-node"</span><span class="token punctuation">,</span>
+  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
+  <span class="token property">"dependencies"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"micro"</span><span class="token operator">:</span> <span class="token string">"latest"</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"micro"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后要部署此应用程序，请访问应用程序根目录并运行此命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  yourproject/ now<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h3 id="Docker-部署："><a href="#Docker-部署：" class="headerlink" title="Docker 部署："></a>Docker 部署：</h3><p>如果您的应用程序目录包含一个Docker文件，那么现在考虑一个有效的Docker部署。它将基于Dockerfile构建一个docker映像，并基于此启动容器。</p>
+<p>要部署一个简单的Go HTTP服务器，创建一个目录并添加这两个文件：</p>
+<h4 id="hello-go"><a href="#hello-go" class="headerlink" title="hello.go"></a>hello.go</h4><p>示例代码：</p>
+<pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"io"</span>
+    <span class="token string">"net/http"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    http<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        io<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"Hello world!"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">":8000"</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><p>示例代码：</p>
+<pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> golang:alpine</span>
+<span class="token instruction"><span class="token keyword">ADD</span> ../../.. /go/src/zeit/hello</span>
+<span class="token instruction"><span class="token keyword">RUN</span> go install zeit/hello</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"/go/bin/hello"</span>]</span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 8000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="部署总结："><a href="#部署总结：" class="headerlink" title="部署总结："></a>部署总结：</h3><p>项目在部署完成之后，我们会得到一个链接，可以通过这个链接来访问部署的项目。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  Index now
+<span class="token operator">></span> Deploying ~/WorkDir/Index under usrename
+<span class="token operator">></span> Warning<span class="token operator">!</span> Skipping <span class="token function">file</span> /Users/Uname/WorkDir/Index/img/background.jpg 
+<span class="token punctuation">(</span>size exceeded 1MB<span class="token punctuation">)</span>
+<span class="token operator">></span> Warning<span class="token operator">!</span> <span class="token number">1</span> of the files exceeded the limit <span class="token keyword">for</span> your plan.
+<span class="token operator">></span> Please run <span class="token variable"><span class="token variable">`</span>now upgrade<span class="token variable">`</span></span> to upgrade.
+<span class="token operator">></span> Ready<span class="token operator">!</span> https://index-xxxxxxxxx.now.sh <span class="token punctuation">(</span>copied to clipboard<span class="token punctuation">)</span> <span class="token punctuation">[</span>2s<span class="token punctuation">]</span>
+<span class="token operator">></span> You <span class="token punctuation">(</span>Username<span class="token punctuation">)</span> are on the OSS plan. Your code and logs will be made public.
+<span class="token operator">></span> NOTE: You can use <span class="token variable"><span class="token variable">`</span>now <span class="token parameter variable">--public</span><span class="token variable">`</span></span> to skip this prompt
+<span class="token operator">></span> Synced <span class="token number">3</span> files <span class="token punctuation">(</span><span class="token number">877</span>.42KB<span class="token punctuation">)</span> <span class="token punctuation">[</span>41s<span class="token punctuation">]</span>
+<span class="token operator">></span> Initializing…
+<span class="token operator">></span> Deployment complete<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>每次更新部署后， url 都会生成一个新的，但是老的 url 都还是可以用的。如果最终网站要产品化，可以很容易的绑定自己的域名。</p>
+<p>Reference： <a target="_blank" rel="noopener" href="https://zeit.co/docs/getting-started/deployment">https://zeit.co/docs/getting-started/deployment</a></p>
+<h2 id="Now-sh-域名："><a href="#Now-sh-域名：" class="headerlink" title="Now.sh - 域名："></a>Now.sh - 域名：</h2><p>当我们部署完应用程序的时，Now.sh 会为我们生成一个唯一部署URL，如果我们修改项目后进行多次部署，Now.sh 会生成多个 URL 为我们的项目，使用这些特定的 URL 可以访问不同版本的应用，但是这些URL 不容易记住，每次部署新版本都会更新地址，因此我们需要一个固定的域名。我们将使用<code>now alias</code>命令将域名映射到应用的其中一个部署URL。</p>
+<p>需要说明的是，自定义域仅适用于付费计划。如果您要为自己的应用使用自定义域，则需要升级您的帐户。具体价格请参考：<a target="_blank" rel="noopener" href="https://zeit.co/pricing">https://zeit.co/pricing</a></p>
+<p>使用<code>now alias</code>命令的四种不同的方法是： </p>
+<ul>
+<li>使用<code>now.sh</code>提供的域名 </li>
+<li>使用<code>now.sh</code>管理的自定义域名</li>
+<li>使用自定义域，由<code>now</code>管理的DNS </li>
+<li>使用带有CNAME的自定义域名</li>
+</ul>
+<h3 id="使用now-sh提供的域名"><a href="#使用now-sh提供的域名" class="headerlink" title="使用now.sh提供的域名"></a>使用now.sh提供的域名</h3><p>这种方法是使用域名的最简单方法。要立即使用now.sh 后缀获取域名，只需运行以下命令即可，示例代码 ：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now <span class="token builtin class-name">alias</span> https://my-web-app-avvuiuuwto.now.sh my-web-app<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在可以使用<a target="_blank" rel="noopener" href="https://my-web-app.now.sh来访问部署的项目./">https://my-web-app.now.sh来访问部署的项目。</a></p>
+<p>###使用now.sh管理的自定义域</p>
+<p>如果您想为自己的应用使用自定义域，最简单的方法是使用<code>now</code>为您的应用购买域名。 只需运行以下alias命令，示例代码：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now <span class="token builtin class-name">alias</span> https://my-web-app-avvuiuuwto.now.sh my-web-app.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在这里，我们正在尝试将my-web-app.com域名分配给上述部署URL。如果域名可用，您可以在不离开终端的情况下确认并购买。</p>
+<p>确认后，现在将处理您的所有技术细节，并允许您的用户使用<a target="_blank" rel="noopener" href="https://my-web-app.com访问您的应用程序./">https://my-web-app.com访问您的应用程序。</a></p>
+<blockquote>
+<p>在这个过程中，<code>now.sh</code>将为我们的域名设置一个域加密SSL证书。</p>
+</blockquote>
+<h3 id="使用自定义域，由Now管理的DNS"><a href="#使用自定义域，由Now管理的DNS" class="headerlink" title="使用自定义域，由Now管理的DNS"></a>使用自定义域，由<code>Now</code>管理的DNS</h3><p>如果您已经有域名，这是您最好的选择。使用此方法，现在将处理您的域名的所有DNS管理。</p>
+<p>首先，您需要将域名的域名服务器指向我们的全球DNS服务。这是怎么做到的:</p>
+<ul>
+<li>访问您的域名提供商，并找到可以添加自定义nameserver的地方。</li>
+<li>从此列表中选择两个或多个nameservers。 </li>
+<li>将now.sh 提供的nameserver设置为您的自定义域名的nameserver。</li>
+</ul>
+<blockquote>
+<p>这里呢需要将我们购买的域名的解析权交给 now 来做，本网站域名再 godaddy购买，然后将其解析权交给 Dnspod ，使用管理起来更方便，跟 now.sh 原理一致。</p>
+</blockquote>
+<p>例如，假设您的域名是my-custom-domain.com,设置name后，只需运行以下alias命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now <span class="token builtin class-name">alias</span> https://my-web-app-avvuiuuwto.now.sh my-custom-domain.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后，您可以使用<a target="_blank" rel="noopener" href="https://my-custom-domain.com访问您的应用程序./">https://my-custom-domain.com访问您的应用程序。</a> 您也可以使用my-custom-domain.com的子域，如下所示：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now <span class="token builtin class-name">alias</span> https://my-web-app-avvuiuuwto.now.sh ui.my-custom-domain.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p> 在这个过程中，<code>now.sh</code>将为我们的域名设置一个域加密SSL证书。</p>
+</blockquote>
+<p>Reference：<a target="_blank" rel="noopener" href="https://support.dnspod.cn/Kb/showarticle/?qtype=%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B&tsid=42">Godaddy注册的域名如何使用DNSPod？</a></p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://zeit.co/world#introduction">now.sh 提供的 Nameservers</a></p>
+<h3 id="使用带有CNAME的自定义域名"><a href="#使用带有CNAME的自定义域名" class="headerlink" title="使用带有CNAME的自定义域名"></a>使用带有CNAME的自定义域名</h3><p>如果您正在管理您的域名的DNS设置，您可以使用此选项。 例如，假设您有一个名为my-app.work的域名，并且您已经有一个DNS设置。要映射应用程序的一个部署URL的 ui.my-app.work 域名，请访问您的DNS提供程序，并为ui.my-app.work添加指向alias.zeit.co的CNAME记录。之后，运行以下命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now <span class="token builtin class-name">alias</span> https://my-web-app-avvuiuuwto.now.sh ui.my-app.work<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>现在您可以使用<a target="_blank" rel="noopener" href="https://ui.my-app.work访问您的应用程序./">https://ui.my-app.work访问您的应用程序。</a></p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://zeit.co/docs/getting-started/assign-a-domain-name">https://zeit.co/docs/getting-started/assign-a-domain-name</a></p>
+<h2 id="Now-sh-日志："><a href="#Now-sh-日志：" class="headerlink" title="Now.sh - 日志："></a>Now.sh - 日志：</h2><p>日志很重要，因为它可以让您看到应用程序中发生的情况，尤其是在发生异常时。now可以保存所有部署的日志，并允许您搜索它们，让我们来看看如何访问日志：</p>
+<h3 id="通过CLI："><a href="#通过CLI：" class="headerlink" title="通过CLI："></a>通过CLI：</h3><p>通过现在的CLI访问日志很简单，调用这个命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now logs <span class="token punctuation">[</span>deployment-url<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>您还可以使用应用的域名来搜索日志：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now logs my-web-app.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>有关<code>now</code>日志的更多信息，请运行help命令：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now logs <span class="token parameter variable">--help</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>这是一个预先查看 now的日志命令，让您检查最后10个HTTP GET请求:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ now logs <span class="token parameter variable">-a</span> <span class="token parameter variable">-q</span> <span class="token string">"GET"</span> <span class="token parameter variable">-n</span> <span class="token number">10</span> my-web-app.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h3 id="通过Dashboard："><a href="#通过Dashboard：" class="headerlink" title="通过Dashboard："></a>通过Dashboard：</h3><p>您还可以通过您的Web信息板访问和搜索日志，网址为<a target="_blank" rel="noopener" href="https://zeit.co/dashboard%E3%80%82">https://zeit.co/dashboard。</a> 单击信息中心内的任何部署URL，然后开始搜索日志。</p>
+<p>Reference：<a target="_blank" rel="noopener" href="https://zeit.co/docs/getting-started/logs">https://zeit.co/docs/getting-started/logs</a></p>
+<h2 id="Now-sh-注意事项："><a href="#Now-sh-注意事项：" class="headerlink" title="Now.sh - 注意事项："></a>Now.sh - 注意事项：</h2><p>使用 Now.sh来部署应用的优势：</p>
+<ul>
+<li>自带的 https  </li>
+<li>真正的一键部署，不用自己管理服务器，将 severless 进行到底</li>
+<li>不翻墙，访问速度很棒</li>
+</ul>
+<p>其他注意事项：</p>
+<ul>
+<li>为了节省资源，应用一段时间不用就会被 frozen （冻结），但是只要我们去敲链接去访问，就会自动 unfrozen ，只不过初次访问速度会受影响。</li>
+<li>在 Now.sh提供的免费服务中，您的代码将是公开的和开源的，如果介意可升级账户或放弃使用。</li>
+</ul>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://zeit.co/">ZEIT-官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zeit">ZEIT-Github</a></li>
+<li><a target="_blank" rel="noopener" href="https://twitter.com/zeithq">ZEIT-Twitter</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zeit/now-cli">Github Now-CLI</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/now">NpmJS Now</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zeit/micro">Asynchronous HTTP microservices</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2017/09/10/javascript/nowsh-note/">http://www.object.ws/2017/09/10/javascript/nowsh-note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Now-sh/">Now.sh</a><a class="post-meta__tags" href="/tags/Deployments/">Deployments</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2017/10/17/database/mongodb-quickstart/" title="『NoSQL - MongoDB』Introduction &amp; QuickStart"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">『NoSQL - MongoDB』Introduction &amp; QuickStart</div></div></a></div><div class="next-post pull-right"><a href="/2017/09/02/java/gradle-node/" title="『构建工具-Gradle』相关内容整理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">『构建工具-Gradle』相关内容整理</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Now.sh - 简介：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">Now.sh - 安装：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">基于客户端进行安装：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-npm-%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">基于 npm 进行安装：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-CLI"><span class="toc-number">4.</span> <span class="toc-text">Now.sh - CLI:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">Now.sh - 使用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E9%83%A8%E7%BD%B2%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">Now.sh - 部署：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Static-%E9%83%A8%E7%BD%B2%EF%BC%9A"><span class="toc-number">6.1.</span> <span class="toc-text">Static 部署：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-%E9%83%A8%E7%BD%B2"><span class="toc-number">6.2.</span> <span class="toc-text">Node.js 部署:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#index-js"><span class="toc-number">6.2.1.</span> <span class="toc-text">index.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#package-json"><span class="toc-number">6.2.2.</span> <span class="toc-text">package.json</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-%E9%83%A8%E7%BD%B2%EF%BC%9A"><span class="toc-number">6.3.</span> <span class="toc-text">Docker 部署：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hello-go"><span class="toc-number">6.3.1.</span> <span class="toc-text">hello.go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dockerfile"><span class="toc-number">6.3.2.</span> <span class="toc-text">Dockerfile</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">6.4.</span> <span class="toc-text">部署总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E5%9F%9F%E5%90%8D%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">Now.sh - 域名：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8now-sh%E6%8F%90%E4%BE%9B%E7%9A%84%E5%9F%9F%E5%90%8D"><span class="toc-number">7.1.</span> <span class="toc-text">使用now.sh提供的域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%EF%BC%8C%E7%94%B1Now%E7%AE%A1%E7%90%86%E7%9A%84DNS"><span class="toc-number">7.2.</span> <span class="toc-text">使用自定义域，由Now管理的DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89CNAME%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="toc-number">7.3.</span> <span class="toc-text">使用带有CNAME的自定义域名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E6%97%A5%E5%BF%97%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">Now.sh - 日志：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87CLI%EF%BC%9A"><span class="toc-number">8.1.</span> <span class="toc-text">通过CLI：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87Dashboard%EF%BC%9A"><span class="toc-number">8.2.</span> <span class="toc-text">通过Dashboard：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Now-sh-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">9.</span> <span class="toc-text">Now.sh - 注意事项：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-number">10.</span> <span class="toc-text">参考资料：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

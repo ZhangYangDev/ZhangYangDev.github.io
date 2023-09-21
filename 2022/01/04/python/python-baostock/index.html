@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用baostock(证券宝)获取金融数据 | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="证券宝是一个免费、开源的证券数据平台，提供了一些证券历史行情数据、上市公司财务数据等。本文提供了相关接口的数据获取方式和几种导出方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用baostock(证券宝)获取金融数据">
+<meta property="og:url" content="http://www.object.ws/2022/01/04/python/python-baostock/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="证券宝是一个免费、开源的证券数据平台，提供了一些证券历史行情数据、上市公司财务数据等。本文提供了相关接口的数据获取方式和几种导出方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-01-04T12:03:32.000Z">
+<meta property="article:modified_time" content="2022-01-12T12:03:32.000Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2022/01/04/python/python-baostock/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用baostock(证券宝)获取金融数据',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-12 20:03:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">使用baostock(证券宝)获取金融数据</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-04T12:03:32.000Z" title="发表于 2022-01-04 20:03:32">2022-01-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-12T12:03:32.000Z" title="更新于 2022-01-12 20:03:32">2022-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python/">Python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用baostock(证券宝)获取金融数据"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="产品介绍"><a href="#产品介绍" class="headerlink" title="产品介绍"></a>产品介绍</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/"><strong>证券宝</strong></a>是一个免费、开源的证券数据平台，提供大量准确、完整的证券历史行情数据、上市公司财务数据等。</p>
+<p>通过python API获取证券数据信12息，返回的数据格式：Pandas DataFrame类型，支持通过自定义的数据存储功能，将数据全部保存到本地后进行分析。目前只支持<strong>Python3.5</strong>及以上(暂不支持Python 2.x版本)。 </p>
+<h2 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h2><h3 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h3><pre class="line-numbers language-shel" data-language="shel"><code class="language-shel">pip install baostock<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h3 id="登入和登出"><a href="#登入和登出" class="headerlink" title="登入和登出"></a>登入和登出</h3><p>代码示例:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> baostock <span class="token keyword">as</span> bs
+
+<span class="token comment">#### 登陆系统 ####</span>
+login <span class="token operator">=</span> bs<span class="token punctuation">.</span>login<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 显示登陆返回信息</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond error_code:'</span><span class="token operator">+</span>login<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond  error_msg:'</span><span class="token operator">+</span>login<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>
+
+<span class="token comment">#### 登出系统 ####</span>
+logout <span class="token operator">=</span> bs<span class="token punctuation">.</span>logout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 显示登出返回信息</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'logout respond error_code:'</span><span class="token operator">+</span>logout<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'logout respond error_msg:'</span><span class="token operator">+</span>logout<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>以获取沪深300成分股为例，具体实现代码如下:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> baostock <span class="token keyword">as</span> bs
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">from</span> sqlalchemy <span class="token keyword">import</span> create_engine
+
+<span class="token comment"># 登陆系统</span>
+lg <span class="token operator">=</span> bs<span class="token punctuation">.</span>login<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 显示登陆返回信息</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond error_code:'</span> <span class="token operator">+</span> lg<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond  error_msg:'</span> <span class="token operator">+</span> lg<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>
+
+<span class="token comment"># 获取沪深300成分股</span>
+rs <span class="token operator">=</span> bs<span class="token punctuation">.</span>query_hs300_stocks<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'query_hs300 error_code:'</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'query_hs300  error_msg:'</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>
+
+<span class="token comment"># 打印结果集</span>
+hs300_stocks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span>rs<span class="token punctuation">.</span>error_code <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> rs<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 获取一条记录，将记录合并在一起</span>
+    hs300_stocks<span class="token punctuation">.</span>append<span class="token punctuation">(</span>rs<span class="token punctuation">.</span>get_row_data<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+result <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>hs300_stocks<span class="token punctuation">,</span> columns<span class="token operator">=</span>rs<span class="token punctuation">.</span>fields<span class="token punctuation">)</span>
+
+
+<span class="token comment"># 结果集输出到csv文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_csv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_csv<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.csv"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"gbk"</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># 结果集输出到Excel文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_xlsx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_excel<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.xlsx"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"gbk"</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># 结果集输出到xlsx文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_json<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.json"</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># 结果集导出到Markdown文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_md</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_markdown<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.md"</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># 结果集导入到MySql数据库</span>
+<span class="token keyword">def</span> <span class="token function">export_to_msql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    connection <span class="token operator">=</span> create_engine<span class="token punctuation">(</span><span class="token string">'mysql+pymysql://root:root@localhost:3306/data'</span><span class="token punctuation">)</span>
+    con <span class="token operator">=</span> connection<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token triple-quoted-string string">'''
+        if_exists 参数用于当目标表已经存在时的处理方式默认是 fail，即目标表存在就失败，另外两个选项是 replace 表示替代原表，即删除再创建，append 选项仅添加数据。使用 append 可以达到要求。
+    '''</span>
+    result<span class="token punctuation">.</span>to_sql<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"stock"</span><span class="token punctuation">,</span> con<span class="token operator">=</span>con<span class="token punctuation">,</span> if_exists<span class="token operator">=</span><span class="token string">'append'</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    export_to_csv<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    export_to_xlsx<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    export_to_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    export_to_msql<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    export_to_md<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># 登出系统</span>
+    bs<span class="token punctuation">.</span>logout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="导出为Excel"><a href="#导出为Excel" class="headerlink" title="导出为Excel"></a>导出为Excel</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结果集输出到Excel文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_xlsx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_excel<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.xlsx"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"gbk"</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="导出为CSV"><a href="#导出为CSV" class="headerlink" title="导出为CSV"></a>导出为CSV</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结果集输出到csv文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_csv</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_csv<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.csv"</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"gbk"</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="导出为JSON"><a href="#导出为JSON" class="headerlink" title="导出为JSON"></a>导出为JSON</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结果集输出到xlsx文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_json<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.json"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="导出为Markdown"><a href="#导出为Markdown" class="headerlink" title="导出为Markdown"></a>导出为Markdown</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结果集导出到Markdown文件</span>
+<span class="token keyword">def</span> <span class="token function">export_to_md</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result<span class="token punctuation">.</span>to_markdown<span class="token punctuation">(</span><span class="token string">"E:/hs300_stocks.md"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="导入MySQL数据库中"><a href="#导入MySQL数据库中" class="headerlink" title="导入MySQL数据库中"></a>导入MySQL数据库中</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 结果集导入到MySql数据库</span>
+<span class="token keyword">def</span> <span class="token function">export_to_msql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    connection <span class="token operator">=</span> create_engine<span class="token punctuation">(</span><span class="token string">'mysql+pymysql://root:root@localhost:3306/data'</span><span class="token punctuation">)</span>
+    con <span class="token operator">=</span> connection<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token triple-quoted-string string">'''
+        if_exists 参数用于当目标表已经存在时的处理方式默认是 fail，即目标表存在就失败，另外两个选项是 replace 表示替代原表，即删除再创建，append 选项仅添加数据。使用 append 可以达到要求。
+    '''</span>
+    result<span class="token punctuation">.</span>to_sql<span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"stock"</span><span class="token punctuation">,</span> con<span class="token operator">=</span>con<span class="token punctuation">,</span> if_exists<span class="token operator">=</span><span class="token string">'append'</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="操作案例"><a href="#操作案例" class="headerlink" title="操作案例"></a>操作案例</h2><p>获取沪深300成分股基本资料,代码如下：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> baostock <span class="token keyword">as</span> bs
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token comment"># 登陆系统</span>
+lg <span class="token operator">=</span> bs<span class="token punctuation">.</span>login<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment"># 显示登陆返回信息</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond error_code:'</span><span class="token operator">+</span>lg<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'login respond  error_msg:'</span><span class="token operator">+</span>lg<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>
+
+<span class="token triple-quoted-string string">'''
+返回数据说明 query_hs300_stocks
+参数名称	参数描述
+updateDate	更新日期
+code	证券代码
+code_name	证券名称
+'''</span>
+<span class="token comment"># 获取沪深300成分股的基本资料</span>
+hs_data <span class="token operator">=</span> bs<span class="token punctuation">.</span>query_hs300_stocks<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'query_hs300 error_code:'</span><span class="token operator">+</span>hs_data<span class="token punctuation">.</span>error_code<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'query_hs300  error_msg:'</span><span class="token operator">+</span>hs_data<span class="token punctuation">.</span>error_msg<span class="token punctuation">)</span>  
+
+data_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span>hs_data<span class="token punctuation">.</span>error_code <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> hs_data<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">'''
+    返回数据说明 query_stock_basic
+    参数名称	参数描述
+    code	证券代码
+    code_name	证券名称
+    ipoDate	上市日期
+    outDate	退市日期
+    type	证券类型，其中1：股票，2：指数,3：其它
+    status	上市状态，其中1：上市，0：退市
+    '''</span>
+    <span class="token comment"># 获取证券基本资料</span>
+    rs <span class="token operator">=</span> bs<span class="token punctuation">.</span>query_stock_basic<span class="token punctuation">(</span>code<span class="token operator">=</span>hs_data<span class="token punctuation">.</span>get_row_data<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    data_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>rs<span class="token punctuation">.</span>get_row_data<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment"># print(rs.get_data())</span>
+
+result <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>data_list<span class="token punctuation">,</span> columns<span class="token operator">=</span>rs<span class="token punctuation">.</span>fields<span class="token punctuation">)</span>
+<span class="token comment"># 结果集输出到csv文件</span>
+result<span class="token punctuation">.</span>to_excel<span class="token punctuation">(</span><span class="token string">"E:\hstock_basic.xlsx"</span><span class="token punctuation">,</span>index<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 登出系统</span>
+bs<span class="token punctuation">.</span>logout<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2022/01/04/python/python-baostock/">http://www.object.ws/2022/01/04/python/python-baostock/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Python/">Python</a><a class="post-meta__tags" href="/tags/API/">API</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用Screw快速生成数据库文档</div></div></a></div><div class="next-post pull-right"><a href="/2021/09/25/tools/git-push-more-platform/" title="将一个本地项目同时更新到Github和Gitee上"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">将一个本地项目同时更新到Github和Gitee上</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">如何在Oracle数据库中使用递归查询</div></div></a></div><div><a href="/2020/04/08/linux/linux-python-upgrade/" title="Linux 升级 Python 至 3.x"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-08</div><div class="title">Linux 升级 Python 至 3.x</div></div></a></div><div><a href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-06</div><div class="title">Streamlit的基本使用</div></div></a></div><div><a href="/2019/01/24/python/python-pip-conf/" title="Python pip配置国内清华大学Tuna镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Python pip配置国内清华大学Tuna镜像</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">产品介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">安装使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">软件安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%85%A5%E5%92%8C%E7%99%BB%E5%87%BA"><span class="toc-number">2.2.</span> <span class="toc-text">登入和登出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><span class="toc-number">3.</span> <span class="toc-text">数据获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%B8%BAExcel"><span class="toc-number">3.1.</span> <span class="toc-text">导出为Excel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%B8%BACSV"><span class="toc-number">3.2.</span> <span class="toc-text">导出为CSV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%B8%BAJSON"><span class="toc-number">3.3.</span> <span class="toc-text">导出为JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%B8%BAMarkdown"><span class="toc-number">3.4.</span> <span class="toc-text">导出为Markdown</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD"><span class="toc-number">3.5.</span> <span class="toc-text">导入MySQL数据库中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">操作案例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

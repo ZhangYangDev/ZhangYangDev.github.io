@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Docker - Swarm、SwarmKit、Swarm Mode QuickStart | Yang</title><meta name="author" content="Yang"><meta name="copyright" content="Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Docker Swarm简介：Docker Swarm是Docker的本地集群。它将Docker主机池变成单个虚拟Docker主机。由于Docker Swarm提供标准的Docker API，所有已经与Docker守护进程通信的工具都可以使用Swarm以透明地扩展到多个主机。 Docker - Swarm:2014年底，Docker公司着手设计了一组容器的解决方案：Machine、Swarm、Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker - Swarm、SwarmKit、Swarm Mode QuickStart">
+<meta property="og:url" content="http://www.object.ws/2018/05/30/docker/docker-swarm/index.html">
+<meta property="og:site_name" content="Yang">
+<meta property="og:description" content="Docker Swarm简介：Docker Swarm是Docker的本地集群。它将Docker主机池变成单个虚拟Docker主机。由于Docker Swarm提供标准的Docker API，所有已经与Docker守护进程通信的工具都可以使用Swarm以透明地扩展到多个主机。 Docker - Swarm:2014年底，Docker公司着手设计了一组容器的解决方案：Machine、Swarm、Co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2018-05-30T06:09:15.000Z">
+<meta property="article:modified_time" content="2023-08-03T06:43:17.503Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Swarm">
+<meta property="article:tag" content="Vagrant">
+<meta property="article:tag" content="Swarmkit">
+<meta property="article:tag" content="Swarm Mode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.object.ws/2018/05/30/docker/docker-swarm/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker - Swarm、SwarmKit、Swarm Mode QuickStart',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-03 14:43:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yang"><span class="site-name">Yang</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Docker - Swarm、SwarmKit、Swarm Mode QuickStart</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-05-30T06:09:15.000Z" title="发表于 2018-05-30 14:09:15">2018-05-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-03T06:43:17.503Z" title="更新于 2023-08-03 14:43:17">2023-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker/">Docker</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Docker - Swarm、SwarmKit、Swarm Mode QuickStart"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="Docker-Swarm简介："><a href="#Docker-Swarm简介：" class="headerlink" title="Docker Swarm简介："></a>Docker Swarm简介：</h2><p>Docker Swarm是Docker的本地集群。它将Docker主机池变成单个虚拟Docker主机。由于Docker Swarm提供标准的Docker API，所有已经与Docker守护进程通信的工具都可以使用Swarm以透明地扩展到多个主机。</p>
+<h3 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker - Swarm:"></a>Docker - Swarm:</h3><p>2014年底，Docker公司着手设计了一组容器的解决方案：<em>Machine</em>、<em>Swarm</em>、<em>Compose</em>。在这个方案中，<em>Machine</em>是用于主流虚拟机和云平台快速搭建和创建 <em>Docker</em>环境的工具，支持在创建的节点上自动部署<em>Swarm</em>。当时的Swarm是一款整合跨节点网络的集群式容器运维管理服务，它利用 <em>Docker</em>守护进程的 <em>API</em> ，将多节点的计算资源进行汇总，并将目标设置为<em>Swarm</em>服务的 <em>IP</em> 和端口，使得可以像操作单个节点的<em>Docker</em> 服务一样来操作整个容器集群。这种方式有先天性的局限性，比如在单节点 <em>Docker</em>中并没有为服务高可用而设计的副本集和负载均衡等概念，也不存在服务网络管理和跨节点数据存储的问题。</p>
+<h3 id="Docker-SwarmKit"><a href="#Docker-SwarmKit" class="headerlink" title="Docker - SwarmKit:"></a>Docker - SwarmKit:</h3><p>2016年2月，<em>Docker</em>公司启动了 <em>SwarmKit</em>项目，这个项目与 <em>Swarm</em> 相似，<em>SwarmKit</em> 从一开始就重新设计了一套独立的API和模型体系，并且采用了独立的客户端命令行工具: <code>swarmctl</code>，同时，<em>Swarmkit</em>将过去 <em>Swarm</em>所依赖的外部集群一致性存储组件 <em>Etcd</em> 的核心部分内置到了软件中，这样的结果是让使用者失去了极大的选择自由，却大大简化了集群的部署过程。</p>
+<p>真正使得 <em>SwarmKit</em>项目为大家所熟知的事件是 <em>Docker1.12</em>版本开始提供一个一键创建容器集群的命令<code>docker swarm</code>，在这个后来被称之为 <em>Swarm Mode</em>的功能背后，正是 <em>SwarmKit</em>的功劳，<em>Docker</em>将<em>SwarmKit</em>的核心模块内嵌在了 <em>Docker</em>后台的服务中。</p>
+<h4 id="SwarmKit的优点："><a href="#SwarmKit的优点：" class="headerlink" title="SwarmKit的优点："></a>SwarmKit的优点：</h4><p><em>SwarmKit</em>是一个用于协调任何规模分布式系统的工具包。它包括用于节点发现的基元，基于木筏的共识，任务调度等等。</p>
+<p>其主要好处是：</p>
+<ul>
+<li><strong>分布式</strong>：<em>SwarmKit</em>使用Raft一致性算法来协调并且不依赖单个故障点来执行决策。</li>
+<li><strong>安全</strong>：节点通信和<em>Swarm</em>中的成员身份是安全的。<em>SwarmKit</em>使用相互TLS进行节点<em>身份验证</em>，<em>角色授权</em>和<em>传输加密</em>，自动执行证书颁发和轮换。</li>
+<li><strong>简单</strong>：<em>SwarmKit</em>操作简单，并将基础设施依赖性降到最低。它不需要外部数据库来操作。</li>
+</ul>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/docker/swarmkit">https://github.com/docker/swarmkit</a></p>
+<h3 id="Docker-Swarm-Mode"><a href="#Docker-Swarm-Mode" class="headerlink" title="Docker - Swarm Mode:"></a>Docker - Swarm Mode:</h3><p><em>Swarm Mode</em>并非是一种特别的运行模式，而是 <em>Docker</em> 中的一组与集群相关的功能的统称。<em>Swarm Mode</em>所创建的集群 ，本质上就是 <em>SwarmKit</em>的集群，二者在代码上实现是同样的事物。相比于 <em>Swarm Mode</em>这个名称，<em>SwarmKit</em>一词更具有识别性，因此社区中有时候会用  <em>SwarmKit</em>集群来指代 <em>Swarm Mode</em>所创建的集群，以便于与过去的经典 <em>Swarm</em>集群划清界限。</p>
+<p>如果您使用的是1.12.0之前的Docker版本，则可以使用独立群集，但我们建议您进行更新。</p>
+<h4 id="功能亮点："><a href="#功能亮点：" class="headerlink" title="功能亮点："></a>功能亮点：</h4><ul>
+<li>与Docker Engine集成的集群管理：使用Docker Engine CLI创建一群Docker引擎，您可以在其中部署应用程序服务。您不需要额外的编排软件来创建或管理群。</li>
+<li>分散式设计：Docker Engine在部署时不需要处理节点角色之间的差异，而是在运行时处理任何专业化。您可以使用Docker Engine部署这两种节点，管理员和工作人员。这意味着您可以从单个磁盘映像构建整个群集。</li>
+<li>声明式服务模型：Docker Engine使用声明式方法让您在应用程序堆栈中定义各种服务的所需状态。例如，您可能会描述一个由带有消息队列服务和数据库后端的Web前端服务组成的应用程序。</li>
+<li>缩放：对于每个服务，您可以声明要运行的任务数量。当您向上或向下缩放时，swarm管理器会通过添加或删除任务来自动调整以保持所需的状态。</li>
+<li>期望的状态协调：swarm manager节点持续监视集群状态，并协调实际状态与表达期望状态之间的任何差异。例如，如果您设置了一个服务来运行容器的10个副本以及承载其中两个副本崩溃的工作计算机，则该管理器会创建两个新副本来替换发生崩溃的副本。 swarm manager将新副本分配给正在运行且可用的工作人员。</li>
+<li>多主机联网：您可以为您的服务指定覆盖网络。 swarm管理器在初始化或更新应用程序时自动为覆盖网络上的容器分配地址。</li>
+<li>服务发现：Swarm管理器节点为swarm中的每个服务分配一个唯一的DNS名称并负载平衡正在运行的容器。您可以通过群集中嵌入的DNS服务器查询群集中运行的每个容器。</li>
+<li>负载平衡：您可以将服务的端口暴露给外部负载平衡器。在群集内部，您可以指定如何在节点之间分发服务容器。</li>
+<li>默认情况下为安全：群中的每个节点都强制进行TLS相互认证和加密，以保护其自身与所有其他节点之间的通信。您可以选择使用自定义根证书或来自自定义根CA的证书。</li>
+<li>滚动更新：在推出时，您可以逐步将服务更新应用于节点。 swarm管理器允许您控制服务部署到不同节点集之间的延迟。如果出现任何问题，您可以将任务回滚到以前版本的服务。</li>
+</ul>
+<h3 id="关系对比图："><a href="#关系对比图：" class="headerlink" title="关系对比图："></a>关系对比图：</h3><p><img src="https://upload-images.jianshu.io/upload_images/9824247-7a023446f4a51358.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/693" alt="对比图"></p>
+<h2 id="Docker-Swarm使用："><a href="#Docker-Swarm使用：" class="headerlink" title="Docker Swarm使用："></a>Docker Swarm使用：</h2><h3 id="Swarm-Mode-CLI"><a href="#Swarm-Mode-CLI" class="headerlink" title="Swarm Mode CLI:"></a>Swarm Mode CLI:</h3><p><em>Swarm Mode</em> 命令一览:</p>
+<ul>
+<li>swarm init ：初始化一个群</li>
+<li>swarm join ：以 <em>node</em> 或 <em>manager</em> 的身份加入到集群中</li>
+<li>service create ：创建一个新的服务</li>
+<li>service inspect ：显示一项或多项服务的详细信息</li>
+<li>service ls ：列出服务</li>
+<li>service rm ：删除一项或多项服务</li>
+<li>service scale ：扩展一个或多个复制服务</li>
+<li>service ps ：列出一项或多项服务的任务</li>
+<li>service update ：更新服务</li>
+</ul>
+<h3 id="创建一个三节点的Swarm集群："><a href="#创建一个三节点的Swarm集群：" class="headerlink" title="创建一个三节点的Swarm集群："></a>创建一个三节点的Swarm集群：</h3><h4 id="Vagrantfile"><a href="#Vagrantfile" class="headerlink" title="Vagrantfile:"></a>Vagrantfile:</h4><p>用于构建集群的 <em>Vagrantfile</em>：</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token comment"># -*- mode: ruby -*-</span>
+<span class="token comment"># vi: set ft=ruby :</span>
+
+Vagrant<span class="token punctuation">.</span>require_version <span class="token string-literal"><span class="token string">">= 1.6.0"</span></span>
+
+boxes <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token symbol">:name</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"swarm-manager"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:eth1</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"192.168.10.11"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:mem</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1024"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:cpu</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1"</span></span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token symbol">:name</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"swarm-worker1"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:eth1</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"192.168.10.12"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:mem</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1024"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:cpu</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1"</span></span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token symbol">:name</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"swarm-worker2"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:eth1</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"192.168.10.13"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:mem</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1024"</span></span><span class="token punctuation">,</span>
+        <span class="token symbol">:cpu</span> <span class="token operator">=></span> <span class="token string-literal"><span class="token string">"1"</span></span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span>
+
+Vagrant<span class="token punctuation">.</span>configure<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">do</span> <span class="token operator">|</span>config<span class="token operator">|</span>
+
+  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>box <span class="token operator">=</span> <span class="token string-literal"><span class="token string">"centos/7"</span></span>
+
+  boxes<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>opts<span class="token operator">|</span>
+      config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>define opts<span class="token punctuation">[</span><span class="token symbol">:name</span><span class="token punctuation">]</span> <span class="token keyword">do</span> <span class="token operator">|</span>config<span class="token operator">|</span>
+        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>hostname <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:name</span><span class="token punctuation">]</span>
+        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provider <span class="token string-literal"><span class="token string">"vmware_fusion"</span></span> <span class="token keyword">do</span> <span class="token operator">|</span>v<span class="token operator">|</span>
+          v<span class="token punctuation">.</span>vmx<span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"memsize"</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:mem</span><span class="token punctuation">]</span>
+          v<span class="token punctuation">.</span>vmx<span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"numvcpus"</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> opts<span class="token punctuation">[</span><span class="token symbol">:cpu</span><span class="token punctuation">]</span>
+        <span class="token keyword">end</span>
+
+        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provider <span class="token string-literal"><span class="token string">"virtualbox"</span></span> <span class="token keyword">do</span> <span class="token operator">|</span>v<span class="token operator">|</span>
+          v<span class="token punctuation">.</span>customize <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"modifyvm"</span></span><span class="token punctuation">,</span> <span class="token symbol">:id</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"--memory"</span></span><span class="token punctuation">,</span> opts<span class="token punctuation">[</span><span class="token symbol">:mem</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+          v<span class="token punctuation">.</span>customize <span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"modifyvm"</span></span><span class="token punctuation">,</span> <span class="token symbol">:id</span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"--cpus"</span></span><span class="token punctuation">,</span> opts<span class="token punctuation">[</span><span class="token symbol">:cpu</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token keyword">end</span>
+
+        config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>network <span class="token symbol">:private_network</span><span class="token punctuation">,</span> <span class="token symbol">ip</span><span class="token operator">:</span> opts<span class="token punctuation">[</span><span class="token symbol">:eth1</span><span class="token punctuation">]</span>
+      <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>synced_folder <span class="token string-literal"><span class="token string">"./share"</span></span><span class="token punctuation">,</span> <span class="token string-literal"><span class="token string">"/home/vagrant/share"</span></span>
+  config<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>provision <span class="token string-literal"><span class="token string">"shell"</span></span><span class="token punctuation">,</span> <span class="token symbol">privileged</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token symbol">path</span><span class="token operator">:</span> <span class="token string-literal"><span class="token string">"./setup.sh"</span></span>
+
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>构建集群时所运行的脚本:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#/bin/sh</span>
+
+<span class="token comment"># install some tools</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token function">git</span> <span class="token function">vim</span> gcc glibc-static telnet bridge-utils
+
+<span class="token comment"># install docker</span>
+<span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> get.docker.com <span class="token parameter variable">-o</span> get-docker.sh
+<span class="token function">sh</span> get-docker.sh
+
+<span class="token comment"># start docker service</span>
+<span class="token function">sudo</span> <span class="token function">groupadd</span> <span class="token function">docker</span>
+<span class="token function">sudo</span> gpasswd <span class="token parameter variable">-a</span> vagrant <span class="token function">docker</span>
+<span class="token function">sudo</span> systemctl start <span class="token function">docker</span>
+
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> get-docker.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h4 id="检查环境："><a href="#检查环境：" class="headerlink" title="检查环境："></a>检查环境：</h4><p>Vagrant构建完成之后，分别登陆到虚拟机中：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">vagrant <span class="token function">ssh</span> swarm-manager
+vagrant <span class="token function">ssh</span> swarm-worker1
+vagrant <span class="token function">ssh</span> swarm-worker2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>然后检查一下各个主机之间的网络是否能够正常通信，Docker环境是否正常，与宿主机的文件共享是否可用等等。</p>
+<h4 id="构建集群："><a href="#构建集群：" class="headerlink" title="构建集群："></a>构建集群：</h4><h5 id="在Manager节点上初始化集群："><a href="#在Manager节点上初始化集群：" class="headerlink" title="在Manager节点上初始化集群："></a>在Manager节点上初始化集群：</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  swarm vagrant <span class="token function">ssh</span> swarm-manager
+<span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> swarm init --advertise-addr<span class="token operator">=</span><span class="token number">192.168</span>.10.11
+Swarm initialized: current <span class="token function">node</span> <span class="token punctuation">(</span>z79giyqd1mkutnlshuucoqwn0<span class="token punctuation">)</span> is now a manager.
+
+To <span class="token function">add</span> a worker to this swarm, run the following command:
+
+    <span class="token function">docker</span> swarm <span class="token function">join</span> <span class="token parameter variable">--token</span> SWMTKN-1-0asyz8unumzj8qbardoxo4wkh03wizp3stapr9kux9yiiufvnu-7daydi586pedk0unlkowcwr02 <span class="token number">192.168</span>.10.11:2377
+
+To <span class="token function">add</span> a manager to this swarm, run <span class="token string">'docker swarm join-token manager'</span> and follow the instructions.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="将Worker1节点加入集群："><a href="#将Worker1节点加入集群：" class="headerlink" title="将Worker1节点加入集群："></a>将Worker1节点加入集群：</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  swarm vagrant <span class="token function">ssh</span> swarm-worker1
+<span class="token punctuation">[</span>vagrant@swarm-worker1 ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> swarm <span class="token function">join</span> <span class="token parameter variable">--token</span> SWMTKN-1-0asyz8unumzj8qbardoxo4wkh03wizp3stapr9kux9yiiufvnu-7daydi586pedk0unlkowcwr02 <span class="token number">192.168</span>.10.11:2377
+This <span class="token function">node</span> joined a swarm as a worker.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h5 id="将Worker2节点加入集群："><a href="#将Worker2节点加入集群：" class="headerlink" title="将Worker2节点加入集群："></a>将Worker2节点加入集群：</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  swarm vagrant <span class="token function">ssh</span> swarm-worker2
+<span class="token punctuation">[</span>vagrant@swarm-worker2 ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> swarm <span class="token function">join</span> <span class="token parameter variable">--token</span> SWMTKN-1-0asyz8unumzj8qbardoxo4wkh03wizp3stapr9kux9yiiufvnu-7daydi586pedk0unlkowcwr02 <span class="token number">192.168</span>.10.11:2377
+This <span class="token function">node</span> joined a swarm as a worker.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="在Manager中查看集群信息："><a href="#在Manager中查看集群信息：" class="headerlink" title="在Manager中查看集群信息："></a>在Manager中查看集群信息：</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">node</span> <span class="token function">ls</span>
+ID                            <span class="token environment constant">HOSTNAME</span>            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+z79giyqd1mkutnlshuucoqwn0 *   swarm-manager       Ready               Active              Leader              <span class="token number">18.05</span>.0-ce
+w9gz1cmu756ydzlas0u2uhkpm     swarm-worker1       Ready               Active                                  <span class="token number">18.05</span>.0-ce
+ajeyxpm0mn058vgn741n3hd4w     swarm-worker2       Ready               Active                                  <span class="token number">18.05</span>.0-ce<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出现在的集群中有一个 <em>Manager</em>节点和两个 <em>Worker</em>节点。</p>
+<h2 id="Docker-Service实践"><a href="#Docker-Service实践" class="headerlink" title="Docker Service实践:"></a>Docker Service实践:</h2><p>Docker Service是一种声明式的、可扩展的、负载均衡的应用。Docker Service是面向用户的应用，而Docker Swarm是面向IT的节点集群。</p>
+<p>Docker Service的运行往往是在Docker Swarm的基础之上的。</p>
+<h3 id="Docker-Service-CLI"><a href="#Docker-Service-CLI" class="headerlink" title="Docker Service CLI:"></a>Docker Service CLI:</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker service create</td>
+<td>创建一个新的服务</td>
+</tr>
+<tr>
+<td>docker service inspect</td>
+<td>显示一个或多个服务的详细信息</td>
+</tr>
+<tr>
+<td>docker service logs</td>
+<td>获取服务或任务的日志</td>
+</tr>
+<tr>
+<td>docker service ls</td>
+<td>列出服务信息</td>
+</tr>
+<tr>
+<td>docker service ps</td>
+<td>列出一个或多个服务的任务</td>
+</tr>
+<tr>
+<td>docker service rm</td>
+<td>删除一个或多个服务</td>
+</tr>
+<tr>
+<td>docker service rollback</td>
+<td>回滚原服务的配置</td>
+</tr>
+<tr>
+<td>docker service scale</td>
+<td>扩展服务</td>
+</tr>
+<tr>
+<td>docker service update</td>
+<td>更新服务</td>
+</tr>
+</tbody></table>
+<h3 id="Service的创建与扩展："><a href="#Service的创建与扩展：" class="headerlink" title="Service的创建与扩展："></a>Service的创建与扩展：</h3><h4 id="创建一个服务："><a href="#创建一个服务：" class="headerlink" title="创建一个服务："></a>创建一个服务：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> create  <span class="token parameter variable">--name</span> bbox busybox <span class="token function">sh</span> <span class="token parameter variable">-c</span> <span class="token string">"while true;do sleep 3600;done"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="查看创建的服务："><a href="#查看创建的服务：" class="headerlink" title="查看创建的服务："></a>查看创建的服务：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ls</span>
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+5rtehf1xpr0y        bbox                replicated          <span class="token number">1</span>/1                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>replicated: 指服务可以进行水平扩展。</p>
+<h4 id="查看服务的任务信息："><a href="#查看服务的任务信息：" class="headerlink" title="查看服务的任务信息："></a>查看服务的任务信息：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ps</span> bbox
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+z5hdgkdnc90v        bbox.1              busybox:latest      swarm-manager       Running             Running <span class="token number">12</span> minutes ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="对服务进行扩展："><a href="#对服务进行扩展：" class="headerlink" title="对服务进行扩展："></a>对服务进行扩展：</h4><p>使用 <em>docker service scale</em>命令来对服务进行扩展：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> scale <span class="token assign-left variable">bbox</span><span class="token operator">=</span><span class="token number">5</span>
+bbox scaled to <span class="token number">5</span>
+overall progress: <span class="token number">5</span> out of <span class="token number">5</span> tasks
+<span class="token number">1</span>/5: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">></span><span class="token punctuation">]</span>
+<span class="token number">2</span>/5: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">></span><span class="token punctuation">]</span>
+<span class="token number">3</span>/5: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">></span><span class="token punctuation">]</span>
+<span class="token number">4</span>/5: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">></span><span class="token punctuation">]</span>
+<span class="token number">5</span>/5: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">></span><span class="token punctuation">]</span>
+verify: Service converged<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>扩展完成后，列出服务的详细信息：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ls</span>
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+5rtehf1xpr0y        bbox                replicated          <span class="token number">5</span>/5                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>会发现 <em>REPLICAS</em>由最开始的 <strong>1/1</strong>已经变成了 <strong>5/5</strong>，分子的 <strong>5</strong>指的是<em>Service</em>的状态是否已经<em>ready</em>，分母的 <strong>5</strong>指的是<em>Service</em>的<em>Scale</em>的数量。如果集群中的容器发生故障，<em>REPLICAS</em>也会发生变化。</p>
+<h4 id="容器在集群中的分布："><a href="#容器在集群中的分布：" class="headerlink" title="容器在集群中的分布："></a>容器在集群中的分布：</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ps</span> bbox
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+z5hdgkdnc90v        bbox.1              busybox:latest      swarm-manager       Running             Running <span class="token number">21</span> minutes ago
+yv6nvn6j5d6u        bbox.2              busybox:latest      swarm-worker1       Running             Running <span class="token number">4</span> minutes ago
+ls8smm681z4s        bbox.3              busybox:latest      swarm-worker2       Running             Running <span class="token number">4</span> minutes ago
+4a6l5ll5ympp        bbox.4              busybox:latest      swarm-worker2       Running             Running <span class="token number">4</span> minutes ago
+ir8mg63x9klx        bbox.5              busybox:latest      swarm-manager       Running             Running <span class="token number">4</span> minutes ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出五个容器是分别部署在集群中的三个节上的。</p>
+<h4 id="灾害与恢复："><a href="#灾害与恢复：" class="headerlink" title="灾害与恢复："></a>灾害与恢复：</h4><p>在运行过程中某个集群中的某个容器停掉了，那么<em>Swarm</em>会在另外一个节点中再次复制一个容器，以保证scale的数量。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ls</span>
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+5rtehf1xpr0y        bbox                replicated          <span class="token number">5</span>/5                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token namespace">[vagrant@swarm-manager ~]</span>$ docker service <span class="token function">ps</span> bbox
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS
+z5hdgkdnc90v        bbox<span class="token punctuation">.</span>1              busybox:latest      swarm-manager       Running             Running 43 minutes ago
+yv6nvn6j5d6u        bbox<span class="token punctuation">.</span>2              busybox:latest      swarm-worker1       Running             Running 26 minutes ago
+ls8smm681z4s        bbox<span class="token punctuation">.</span>3              busybox:latest      swarm-worker2       Running             Running 26 minutes ago
+4a6l5ll5ympp        bbox<span class="token punctuation">.</span>4              busybox:latest      swarm-worker2       Running             Running 26 minutes ago
+ir8mg63x9klx        bbox<span class="token punctuation">.</span>5              busybox:latest      swarm-manager       Running             Running 26 minutes ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入到<em>Worker1</em>中，删除掉这个容器：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">➜  swarm vagrant <span class="token function">ssh</span> swarm-worker1
+Last login: Sat Jun <span class="token number">23</span> <span class="token number">12</span>:27:06 <span class="token number">2018</span> from <span class="token number">10.0</span>.2.2
+<span class="token punctuation">[</span>vagrant@swarm-worker1 ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">ps</span>
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+17693f72e4f1        busybox:latest      <span class="token string">"sh -c 'while true;d…"</span>   <span class="token number">28</span> minutes ago      Up <span class="token number">28</span> minutes                           bbox.2.yv6nvn6j5d6u1z9dnqb1ij318
+<span class="token punctuation">[</span>vagrant@swarm-worker1 ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">rm</span> <span class="token parameter variable">-f</span> 17693f72e4f1
+17693f72e4f1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>删除完成后再次查看容器：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ls</span>
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+5rtehf1xpr0y        bbox                replicated          <span class="token number">4</span>/5                busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>会发现 <code>REPLICAS</code>中的数量已经发生了变化。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> serviceps bboxx
+ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE               ERROR                         PORTS
+z5hdgkdnc90v        bbox.1              busybox:latest      swarm-manager       Running             Running about an hour ago
+scdoihn28kig        bbox.2              busybox:latest      swarm-worker1       Running             Running <span class="token number">34</span> seconds ago
+yv6nvn6j5d6u         <span class="token punctuation">\</span>_ bbox.2          busybox:latest      swarm-worker1       Shutdown            Failed <span class="token number">40</span> seconds ago       <span class="token string">"task: non-zero exit (137)"</span>
+ls8smm681z4s        bbox.3              busybox:latest      swarm-worker2       Running             Running <span class="token number">29</span> minutes ago
+4a6l5ll5ympp        bbox.4              busybox:latest      swarm-worker2       Running             Running <span class="token number">29</span> minutes ago
+ir8mg63x9klx        bbox.5              busybox:latest      swarm-manager       Running             Running <span class="token number">30</span> minutes ago<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>可以看出 <em>worker1</em> 上有一个容器的状态为<code>shutdown</code>但是 又在 <em>worker1</em> 启动了一个容器，所以当前使用<em>scale</em>扩展的数量还是保持在5个。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>vagrant@swarm-manager ~<span class="token punctuation">]</span>$ <span class="token function">docker</span> <span class="token function">service</span> <span class="token function">ls</span>
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+5rtehf1xpr0y        bbox                replicated          <span class="token number">5</span>/5                 busybox:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/swarm/overview/">https://docs.docker.com/swarm/overview/</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">https://docs.docker.com/engine/swarm/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7eb93f1e9ed4">https://www.jianshu.com/p/7eb93f1e9ed4</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.object.ws">Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.object.ws/2018/05/30/docker/docker-swarm/">http://www.object.ws/2018/05/30/docker/docker-swarm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.object.ws" target="_blank">Yang</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Docker/">Docker</a><a class="post-meta__tags" href="/tags/CentOS/">CentOS</a><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Swarm/">Swarm</a><a class="post-meta__tags" href="/tags/Vagrant/">Vagrant</a><a class="post-meta__tags" href="/tags/Swarmkit/">Swarmkit</a><a class="post-meta__tags" href="/tags/Swarm-Mode/">Swarm Mode</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/09/14/docker/docker-dockerfile/" title="Docker - Dockerfile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Docker - Dockerfile</div></div></a></div><div class="next-post pull-right"><a href="/2018/05/23/docker/docker-compose/" title="Docker - Compose 服务编排"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker - Compose 服务编排</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2018/04/26/docker/docker-cntrimg/" title="Docker - Container &amp; Image"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-04-26</div><div class="title">Docker - Container &amp; Image</div></div></a></div><div><a href="/2018/05/15/docker/docker-data/" title="Docker - 持久化存储和数据共享"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-05-15</div><div class="title">Docker - 持久化存储和数据共享</div></div></a></div><div><a href="/2018/09/14/docker/docker-dockerfile/" title="Docker - Dockerfile"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">Docker - Dockerfile</div></div></a></div><div><a href="/2019/11/29/docker/docker-harbor/" title="Docker - 基于Harbor搭建Docker私有镜像仓库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-29</div><div class="title">Docker - 基于Harbor搭建Docker私有镜像仓库</div></div></a></div><div><a href="/2018/03/11/docker/docker-introduction/" title="Docker - Introduction &amp; QuickStart"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-11</div><div class="title">Docker - Introduction &amp; QuickStart</div></div></a></div><div><a href="/2019/06/11/docker/docker-maven-pro/" title="在项目中使用Docker Maven Plugin插件远程构建镜像"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-11</div><div class="title">在项目中使用Docker Maven Plugin插件远程构建镜像</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yang</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Swarm%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Docker Swarm简介：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Swarm"><span class="toc-number">1.1.</span> <span class="toc-text">Docker - Swarm:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-SwarmKit"><span class="toc-number">1.2.</span> <span class="toc-text">Docker - SwarmKit:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SwarmKit%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">SwarmKit的优点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Swarm-Mode"><span class="toc-number">1.3.</span> <span class="toc-text">Docker - Swarm Mode:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BA%AE%E7%82%B9%EF%BC%9A"><span class="toc-number">1.3.1.</span> <span class="toc-text">功能亮点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%AF%B9%E6%AF%94%E5%9B%BE%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">关系对比图：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Swarm%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Docker Swarm使用：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swarm-Mode-CLI"><span class="toc-number">2.1.</span> <span class="toc-text">Swarm Mode CLI:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%89%E8%8A%82%E7%82%B9%E7%9A%84Swarm%E9%9B%86%E7%BE%A4%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">创建一个三节点的Swarm集群：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vagrantfile"><span class="toc-number">2.2.1.</span> <span class="toc-text">Vagrantfile:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-number">2.2.2.</span> <span class="toc-text">检查环境：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%9B%86%E7%BE%A4%EF%BC%9A"><span class="toc-number">2.2.3.</span> <span class="toc-text">构建集群：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8Manager%E8%8A%82%E7%82%B9%E4%B8%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E9%9B%86%E7%BE%A4%EF%BC%9A"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">在Manager节点上初始化集群：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86Worker1%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5%E9%9B%86%E7%BE%A4%EF%BC%9A"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">将Worker1节点加入集群：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%86Worker2%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5%E9%9B%86%E7%BE%A4%EF%BC%9A"><span class="toc-number">2.2.3.3.</span> <span class="toc-text">将Worker2节点加入集群：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8Manager%E4%B8%AD%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-number">2.2.3.4.</span> <span class="toc-text">在Manager中查看集群信息：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Service%E5%AE%9E%E8%B7%B5"><span class="toc-number">3.</span> <span class="toc-text">Docker Service实践:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Service-CLI"><span class="toc-number">3.1.</span> <span class="toc-text">Docker Service CLI:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">Service的创建与扩展：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%EF%BC%9A"><span class="toc-number">3.2.1.</span> <span class="toc-text">创建一个服务：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%9B%E5%BB%BA%E7%9A%84%E6%9C%8D%E5%8A%A1%EF%BC%9A"><span class="toc-number">3.2.2.</span> <span class="toc-text">查看创建的服务：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E7%9A%84%E4%BB%BB%E5%8A%A1%E4%BF%A1%E6%81%AF%EF%BC%9A"><span class="toc-number">3.2.3.</span> <span class="toc-text">查看服务的任务信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%9C%8D%E5%8A%A1%E8%BF%9B%E8%A1%8C%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="toc-number">3.2.4.</span> <span class="toc-text">对服务进行扩展：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%9C%A8%E9%9B%86%E7%BE%A4%E4%B8%AD%E7%9A%84%E5%88%86%E5%B8%83%EF%BC%9A"><span class="toc-number">3.2.5.</span> <span class="toc-text">容器在集群中的分布：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%81%BE%E5%AE%B3%E4%B8%8E%E6%81%A2%E5%A4%8D%EF%BC%9A"><span class="toc-number">3.2.6.</span> <span class="toc-text">灾害与恢复：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">参考资料：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/08/07/java/java-jep-doc/" title="xx">xx</a><time datetime="2023-08-07T07:53:15.000Z" title="发表于 2023-08-07 15:53:15">2023-08-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/06/python/python-streamlit/" title="Streamlit的基本使用">Streamlit的基本使用</a><time datetime="2023-03-06T05:57:37.000Z" title="发表于 2023-03-06 13:57:37">2023-03-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/05/07/database/oreacle-query-recursive/" title="如何在Oracle数据库中使用递归查询">如何在Oracle数据库中使用递归查询</a><time datetime="2022-05-07T07:53:15.000Z" title="发表于 2022-05-07 15:53:15">2022-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/04/12/javascript/elementui-calendar/" title="在ElemenUI中使用日历组件el-calendar">在ElemenUI中使用日历组件el-calendar</a><time datetime="2022-04-12T13:53:45.000Z" title="发表于 2022-04-12 21:53:45">2022-04-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/03/20/java/java-db-doc/" title="使用Screw快速生成数据库文档">使用Screw快速生成数据库文档</a><time datetime="2022-03-20T14:59:13.000Z" title="发表于 2022-03-20 22:59:13">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
